@@ -1,0 +1,23 @@
+
+# Materials and Methods
+
+Feature generation for the proposed framework is critical. The performance of the selected
+machine learning strategy is limited by the input used for training. The image features
+described below were selected based on previous work in the literature and our own observations
+regarding tumor characteristics and what could possibly be encoded algorithmically.
+Observations regarding tumor intensity differences from normal tissue has been encoded in
+previously proposed research by calculating normalized neighborhood intensity statistics
+and intensity modeling (e.g., Bauer et al. 2011, 2012; Geremia et al. 2012; Zikic et al.
+2012). In these approaches both the features and classification algorithm are limited to
+voxelwise considerations.
+
+Our success in the MICCAI 2013 challenge was largely due to the inclusion of an extremely
+important set of features based on the common observation of bilateral asymmetrization
+caused by tumor presence. Additionally, several features were designed to encode spatial
+coherence even though the RF classification is performed on a voxelwise basis. For example,
+connected component geometry of the intensity modeling labels were used to discriminate
+observations of compact, isotropic objects (vs. highly anisotropic) typical of tumor
+presence and growth (Greenspan 1972). Table 1 provides a listing of image features used
+and the motivation for their inclusion.
+
+\input{featureImagesTable.tex}

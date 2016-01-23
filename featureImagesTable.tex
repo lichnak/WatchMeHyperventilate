@@ -1,0 +1,46 @@
+\begin{table}[!htb]
+  \centering
+  \begin{tabular*}{0.65\textwidth}{@{\extracolsep{\fill}} ll}
+    \multicolumn{1}{c}{\textbf{Feature type}} & \multicolumn{1}{c}{\textbf{Image source}} \\
+    \toprule
+    \midrule
+    \multicolumn{2}{c}{\textbf{Intensities}} \\
+    \midrule
+    normalized/preprocessed & FLAIR, T1, and T2 \\
+    \midrule
+    \multicolumn{2}{c}{\textbf{Symmetric template}} \\
+    \midrule
+    template difference & FLAIR, T1, and T2 \\
+    contralateral difference & FLAIR, T1, and T2 \\
+    location indices & FLAIR, T1, and T2 \\
+    \midrule
+    \multicolumn{2}{c}{\textbf{Segmentation probabilities}} \\
+    \midrule
+    $Pr$(cerebrospinal fluid) & T1 \\
+    $Pr$(gray matter) & T1 \\
+    $Pr$(white matter) & T1 \\
+    $Pr$(deep bray matter) & T1 \\
+    $Pr$(brain stem) & T1 \\
+    $Pr$(cerebellum) & T1 \\
+    \midrule
+    \multicolumn{2}{c}{\textbf{Distance maps}} \\
+    \midrule
+    cerebrospinal fluid & T1 brain segmentation \\
+    gray matter & T1 brain segmentation \\
+    deep gray matter & T1 brain segmentation \\
+    whole brain & T1 brain segmentation \\
+    \midrule
+    \multicolumn{2}{c}{\textbf{Neighborhood statistics}} \\
+    \midrule
+    mean & FLAIR, T1, and T2 \\
+    standard deviation & FLAIR, T1, and T2 \\
+    skewness & FLAIR, T1, and T2 \\
+    \midrule
+    \bottomrule
+  \end{tabular*}
+ \label{table:indices}
+ \caption{List of feature images used for Stage 1 of the proposed white matter
+          hyperintensity segmentation framework.}
+\end{table}
+
+
