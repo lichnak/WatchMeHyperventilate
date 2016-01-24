@@ -1,23 +1,47 @@
 
 # Materials and Methods
 
-Feature generation for the proposed framework is critical. The performance of the selected
-machine learning strategy is limited by the input used for training. The image features
-described below were selected based on previous work in the literature and our own observations
-regarding tumor characteristics and what could possibly be encoded algorithmically.
-Observations regarding tumor intensity differences from normal tissue has been encoded in
-previously proposed research by calculating normalized neighborhood intensity statistics
-and intensity modeling (e.g., Bauer et al. 2011, 2012; Geremia et al. 2012; Zikic et al.
-2012). In these approaches both the features and classification algorithm are limited to
-voxelwise considerations.
+## Imaging
 
-Our success in the MICCAI 2013 challenge was largely due to the inclusion of an extremely
-important set of features based on the common observation of bilateral asymmetrization
-caused by tumor presence. Additionally, several features were designed to encode spatial
-coherence even though the RF classification is performed on a voxelwise basis. For example,
-connected component geometry of the intensity modeling labels were used to discriminate
-observations of compact, isotropic objects (vs. highly anisotropic) typical of tumor
-presence and growth (Greenspan 1972). Table 1 provides a listing of image features used
-and the motivation for their inclusion.
+## Quantitative analysis
+
+Machine learning and pattern recognition techniques have proven extremely useful
+for various medical image analysis workflows (see, for example, the annual
+Workshop on Machine Learning in Medical Imaging held in conjunction with the Medical
+Image Computing and Computer-Aided Intervention international meeting [@mlmi2015]).
+Popular techniques such as support vector machines and neural networks have been applied
+successfully to clinically relevant imaging tasks such as segmentation
+(e.g., [@Bauer:2011aa]) and diagnostic prediction (e.g., [@Tong:2014aa;@Liu:2013aa]).
+
+Another versatile technique that has acheieved much success
+
+The random forest machine learning framework provides an excelllent fromework for medical
+image segmentation
+
+
+
+Supervised methodologies are uniquely characterized, in part, by the feature images that
+are used to identify the regions of interest.
+
+Intensity information alone is insufficient for removing false positives.  For example,
+as pointed out in [@Neema:2009aa], higher intensities can be found at the periventricular
+caps in normal subjects which often confounds automated lesion detection algorithms.
+
 
 \input{featureImagesTable.tex}
+
+![Representation of Stage 1 feature images for subject 01C1019.  Input for each
+subject consists of FLAIR, T1-, and T2-weighted images which are rigidly pre-aligned
+[@Avants:2014aa] to the
+space of the T1 image.  The three images are then preprocessed (N4 bias correction
+[@Tustison:2010ac] and denoising [@Manjon:2010aa]) followed by application of standard ANTs
+brain extraction and $n$-tissue segmentation protocols using the MMRR
+symmetric template corresponding and priors [@Tustison:2014ab] to the T1 image.  The
+feature images are then generated for voxelwise input to the RF model which results in
+the voting maps illustrated on the right which gives a probabilistic classification of
+tissue type.
+](Figures/featureImages.png)
+
+\clearpage
+
+# References
