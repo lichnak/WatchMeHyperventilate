@@ -5,6 +5,79 @@
 
 ## Quantitative analysis
 
+<!--
+
+* Importance of machine learning in medical image analysis
+    * give examples
+    * (tools) support vector machines
+    * (tools) neural networks
+    * (apps)
+    * Random forests
+        * MS lesion detection (Geremeria 2011)
+        * Brain tumor segmentation (BRATS 2012 and BRATS 2013)
+        * Tustison 2015 (importance of feature images)
+        * Pustina 2016
+
+* Overview of protocol
+    * Preprocess all images
+        * Denoise
+        * N4 bias correction
+    * Create Stage 1 feature images
+    * Use those as input to the first stage RF model to get RF voting maps
+        * CSF
+        * GM
+        * WM
+        * Deep GM
+        * Brain stem
+        * Cerebellum
+        * WMHs
+    * Use RF voting maps as priors for antsAtroposN4.sh to perform Bayesian-based
+      segmentation with an additional Markov random field prior to promote spatial
+      smoothness of the labels.
+    * Use Stage 1 feature images + RF voting maps + antsAtroposN4.sh posteriors as
+      Stage 2 feature images.
+    * Remove isolated voxels as final refinement.
+
+
+* Creation of feature images (all contained within ANTs)
+    * Benefits of open source
+    * best registration (for template building)
+    * Preprocessing
+        * Denoising
+        * N4 bias correction
+    * Types of feature images and motivation for their use (Stage 1)
+        * Normalized intensities and neighborhood statistics image
+        * Symmetric template --- the brain exhibits a shape and intensity bilateral
+          symmetry under normal conditions.  WMHs can "break" this symmetry.
+        * Probabilistic segmentations, distance maps and symmetric template indices ---
+          help remove false positives
+          caused by partial voluming at the gray/white matter interface and the location
+          indices since, for example, higher intensities can be found at the periventricular
+          caps in normal subjects [@Neema:2009aa] which often confounds automated lesion
+          detection algorithms.
+    * Types of feature images and motivation for their use (Stage 2)
+        * All previously images (for the reasons stated above)
+        * ``antsAtroposN4.sh`` with a large prior weight (w=0.5) on all three modalities
+          to classify voxels based on intensity (use MRF to smooth out remaining noise
+          in labeling).
+
+* Public avail
+
+* Leave one out evaluation strategy overview
+    * Create stage 1 feature images for all subjects
+    * For each of the 24 subjects, take out a subject and create a Stage 1 random forest
+      model from the remaining feature images + manually labeled truth data.
+    * For each of the remaining 23 subjects, send them through the Stage 1 RF model.
+    * The above step permits the creation of the Stage 2 feature images
+    * Create the Stage 2 RF model from the 23 sets of Stage 2 feature images.
+    * Send the leave-one-out subject through the two RF models (as described above).
+    * Compare with ground truth.
+
+* (Save for Discusion) Difficulties of WMH evaluation (outlined in greater detail here [@MIAreview].
+    *
+-->
+
+
 Machine learning and pattern recognition techniques have proven extremely useful
 for various medical image analysis workflows (see, for example, the annual
 Workshop on Machine Learning in Medical Imaging held in conjunction with the Medical
@@ -13,7 +86,8 @@ Popular techniques such as support vector machines and neural networks have been
 successfully to clinically relevant imaging tasks such as segmentation
 (e.g., [@Bauer:2011aa]) and diagnostic prediction (e.g., [@Tong:2014aa;@Liu:2013aa]).
 
-Another versatile technique that has acheieved much success
+Another popular machine learning technique that has acheieved much success is the
+random forest
 
 The random forest machine learning framework provides an excelllent fromework for medical
 image segmentation
@@ -41,6 +115,28 @@ feature images are then generated for voxelwise input to the RF model which resu
 the voting maps illustrated on the right which gives a probabilistic classification of
 tissue type.
 ](Figures/featureImages.png)
+
+![Average \texttt{MeanDecreaseAccuracy} plots generated from the creation of all 24 random
+forest models for both Stage 1 and Stage 2 during the leave-one-out evaluation.  These plots
+are useful in providing a quantitative assessment of the predictive importance of each feature.
+The error bars provide the 95^{th} percentile (i.e., $1.96 \times sigma$) and illustrate the
+stability of the feature importance across models.](Figures/averageLeaveOneOut.png)
+
+
+
+To calculate this quantity for a single feature from a single random forest model, the
+decrease in prediction accuracy produced by omitting the specified feature is calculated
+during the out-of-bag phase of model creation.
+
+During the out-of-bag error calculation stage of the random forest model creation, the
+decrease in prediction accuracy with the omission of a single feature or variable is
+tracked and averaged. Those features which have the greatest decrease in mean accuracy are
+considered to be the most discriminative. In this work, we do not use these measurements for
+feature pruning.
+
+
+
+
 
 \clearpage
 

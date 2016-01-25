@@ -1,5 +1,7 @@
 ---
 output:
+  word_document:
+    fig_caption: true
   pdf_document:
     fig_caption: true
     latex_engine: xelatex
