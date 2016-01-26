@@ -8,15 +8,16 @@
 <!--
 
 * Importance of machine learning in medical image analysis
-    * give examples
-    * (tools) support vector machines
-    * (tools) neural networks
-    * (apps)
-    * Random forests
-        * MS lesion detection (Geremeria 2011)
-        * Brain tumor segmentation (BRATS 2012 and BRATS 2013)
-        * Tustison 2015 (importance of feature images)
-        * Pustina 2016
+    x give examples
+    x (tools) support vector machines
+    x (tools) neural networks
+    x (apps)
+    x Random forests algorithms
+        x MS lesion detection (Geremeria 2011)
+        x Brain tumor segmentation (BRATS 2012 and BRATS 2013)
+        x Tustison 2015 (importance of feature images)
+        x Pustina 2016
+    x Random forests overview
 
 * Overview of protocol
     * Preprocess all images
@@ -77,50 +78,157 @@
     *
 -->
 
+### Random forests for machine learning
 
-Machine learning and pattern recognition techniques have proven extremely useful
+
+Machine learning and pattern recognition techniques have seen increased application
 for various medical image analysis workflows (see, for example, the annual
 Workshop on Machine Learning in Medical Imaging held in conjunction with the Medical
 Image Computing and Computer-Aided Intervention international meeting [@mlmi2015]).
 Popular techniques such as support vector machines and neural networks have been applied
-successfully to clinically relevant imaging tasks such as segmentation
+successfully to clinically relevant imaging tasks such as supervised image segmentation
 (e.g., [@Bauer:2011aa]) and diagnostic prediction (e.g., [@Tong:2014aa;@Liu:2013aa]).
+Facilitating the current employment of such techniques are the number of available imaging
+data sets [@Van-Horn:2014aa] and the public availability of data science packages such as
+SciPy [@scipy] and the R project for statistical computing [@R] and their associated add-on
+toolkits.
 
-Another popular machine learning technique that has acheieved much success is the
-random forest
+Random forests [@breiman2001] is a popular machine learning technique that has
+demonstrated significant utitility for supervised segmentation tasks (e.g.,
+normal human brain segmentation) and other computer vision applications
+(e.g., human gait detection [@viola2005]).
+In the context of neuropathology, random forest-based paradigms have been employed in the
+delineation of multiple sclerosis lesions [@geremia2011], stroke lesions [@Pustina:2016aa],
+and brain tumors [@geremia2012;@bauer2012;@zikic2012;@Tustison:2014aa].  Of note, these
+latter random forest approaches for brain tumor segmentation have performed well in recent
+international competitions.  In response to the lack of objective comparisons between
+segmentation algorithms, the Multimodal Brain Tumor Segmentation (BRATS) challenge was initiated in
+2012 [@Menze:2015aa] and has continued every year since under the auspices of the International Conference
+of Medical Image Computing and Computer Assisted Interventions (MICCAI).
 
-The random forest machine learning framework provides an excelllent fromework for medical
-image segmentation
+Random forests are conceptually simple [@breiman2001].  They consist of ensembles of decision trees
+that are built from training data.  Once constructed, data to be classified is "pushed"
+through each decision tree resulting in a single classification "vote" per tree.  These
+votes are then be used for regression or classification of the data.  Although decision
+trees had been extensively studied previously, the success of employing collections of
+such weak learners for boosting machine learning performance
+(e.g., AdaBoost [@schapire1990;@freund1997]) influenced the similarly sytled conglomeration
+of decision trees into "forests" with randomized node optimization [@ho1995;@amit1997].
+Finally, Breiman [@breiman2001] improved accuracy by random sampling of the training
+data (i.e., "bagging") resulting in the current random forest framework.
 
+Crucial to these supervised segmentation approaches are the creation and selection of
+"features" as input in conjunction with the ground-truth for model construction.  For the
+targeted application in this work (i.e., white matter hyperintensities),
+regression/classification are performed at the voxelwise level.  In other words, each voxel
+within the region of interest is sent through the ensemble of decision trees and receives
+a set of classification votes from each tree permitting a regression or classification
+solution.  Since this procedure is performed at the voxelwise level, intensity information
+alone is insufficient for good segmentation performance since it lacks spatial context.
+For example, as pointed out in [@Neema:2009aa], higher intensities can be found at the
+periventricular caps in normal subjects which often confounds automated lesion detection
+algorithms.  Other potential confounds include MR signal inhomogeneity and noise.  Therefore,
+even though machine learning and pattern recognition techniques are extremely powerful and
+have significant potential, just as crucial to outcome is the creative construction and
+deployment of salient feature images which we detail below.
 
-
-Supervised methodologies are uniquely characterized, in part, by the feature images that
-are used to identify the regions of interest.
-
-Intensity information alone is insufficient for removing false positives.  For example,
-as pointed out in [@Neema:2009aa], higher intensities can be found at the periventricular
-caps in normal subjects which often confounds automated lesion detection algorithms.
-
+### Feature images for WMH segmentation
 
 \input{featureImagesTable.tex}
 
-![Representation of Stage 1 feature images for subject 01C1019.  Input for each
-subject consists of FLAIR, T1-, and T2-weighted images which are rigidly pre-aligned
-[@Avants:2014aa] to the
-space of the T1 image.  The three images are then preprocessed (N4 bias correction
-[@Tustison:2010ac] and denoising [@Manjon:2010aa]) followed by application of standard ANTs
-brain extraction and $n$-tissue segmentation protocols using the MMRR
-symmetric template corresponding and priors [@Tustison:2014ab] to the T1 image.  The
-feature images are then generated for voxelwise input to the RF model which results in
+Supervised methodologies are uniquely characterized, in part, by the feature images that
+are used to identify the regions of interest.  In Table 1, we provide a list and basic
+categorization of the feature images used for the initial (i.e., Stage 1---more on the use
+of multiple random forest stages below) segmentation of the white matter hyperintensities.
+In addition Figure 1 provides a representation of a set of feature images for a single
+subject analyzed in this work.
+
+![Representation of Stage 1 feature images for subject 01C1019.  The
+FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
+[@Avants:2014aa] to the space of the T1 image.  The three images are then preprocessed
+(N4 bias correction [@Tustison:2010ac] and adaptive denoising [@Manjon:2010aa]) followed by
+application of standard ANTs brain extraction and $n$-tissue segmentation protocols using
+the MMRR symmetric template corresponding and priors [@Tustison:2014ab] to the T1 image.
+The feature images are then generated for voxelwise input to the RF model which results in
 the voting maps illustrated on the right which gives a probabilistic classification of
-tissue type.
-](Figures/featureImages.png)
+tissue type.  Not shown are the probability and voting images for the brain stem and
+cerebellum.](Figures/featureImages.png)
+
+As mentioned previously, input for each subject comprises FLAIR, T1-, and T2-weighted
+acquisitions.  The FLAIR and T2 images are rigidly registered to the T1 image using
+the open-source Advanced Normalization Tools (ANTs) [@Avants:2014aa].  The aligned images
+are then preprocessed using the denoising algorithm of [@Manjon:2010aa] followed by
+N4 bias correction [@Tustison:2010ac] which are then normalized to the intensity
+range $[0,1]$.  Although we could have used the intensity standardization algorithm of
+[@nyul2000], we found that a simple linear rescaling produced better results.
+
+The T1 image is then processed via the ANTs brain
+extraction and tissue segmentation protocols described in [@Tustison:2014ab] in order to
+produce a mask for the brain parenchyma and provide probabilistic estimates of the
+cerebrospinal fluid (csf), gray matter, white matter, deep gray matter, brain stem, and
+cerebellum.  Segmentation is performed using the ANTs Atropos tool [@Avants:2011aa] and
+multi-model optimal symmetric shape/intensity templates [@Tustison:2014aa] created from the public
+MMRR data set  [@landman2011].
+
+To model the intensity information the first set of images simply includes the
+preprocessed and normalized intensity FLAIR, T1, and T2 images.  We also calculate a set
+of neighborhood statistics (mean, standard deviation, and skewness) feature images using
+a radius of one voxel. For each of the normalized
+images, we calculate the difference in intensities with the corresponding warped template
+component.  Previous success in the international brain tumor segmentation
+competition [@Menze:2015aa] was based on an important set of intensity features that were created
+from multi-modal templates mentioned previously [@Tustison:2014aa].  We employ the
+same strategy here.  For example, the template
+difference feature image for the FLAIR image, $S_{FLAIR}$ is calculated as:
+
+$$S_{FLAIR} - T_{FLAIR}\left(\phi_b^{-1}\right)$$
+
+where $\phi_b: S  \leftrightarrow \underset{b}{\leftrightsquigarrow} T$ is the transform
+which maps from the individual subject space to the
+template space and $T_{FLAIR}$ is the FLAIR template component.  Also,
+to take advantage of the bilateral symmetry of the normal brain (in terms of both shape
+and intensity), and the fact that the presence of WMH violates that assumption,
+we use the symmetric templates to compute the contralateral intensity
+differences as an additional intensity feature.  For the FLAIR component, this contralateral
+difference image is calculated from
+
+$$S_{FLAIR} - S_{FLAIR}\left(\phi_b^{-1}\left(\phi_R\left(\phi_b\right)\right)\right)$$
+
+where $\phi_R$ denotes a horizontal reflection perpendicular to the mid-sagittal plane of
+the symmetric template.
+
+The segmentation probability images described above are used as feature images to provide a
+spatial context for the random forest model prediction step.  Additional spatial contextual
+feature images include the distance maps [@maurer2003] based on the csf, gray matter, and
+deep gray matter images.  These latter images are intended to help distinguish white matter
+hyperintensities from false positives induced by the partial voluming at the gray/white
+matter interface.  A third set of images are based on the voxel location within the
+space of the template.  The T1 image of the subject is registered to the T1 template
+component using a B-spline variant [@Tustison:2013ac] of the well-known ANTs Symmetric
+Normalization (SyN) algorithm [@Avants:2011ab].  Since the inverse transform is also
+derived as part of the registration process, we then register the voxel index locations
+back to the space of the individual subject.  These index images are then warped back to
+the space of the individual subject.  Note that this is similar in motivation to the work
+of [@Anbeek:2004aa].  However, this previous work lacks the normalization to the standard
+coordinate system provided by the template to dramatically improve spatial specificity
+across all subjects.
+
+### Stacked/cascaded/concatenated random forests for improved segmentation performance
+
+It has been previously observed that
+
+### Code and data availability
+
+
+### Evaluation protocol
+
+# Results
 
 ![Average \texttt{MeanDecreaseAccuracy} plots generated from the creation of all 24 random
 forest models for both Stage 1 and Stage 2 during the leave-one-out evaluation.  These plots
 are useful in providing a quantitative assessment of the predictive importance of each feature.
-The error bars provide the 95^{th} percentile (i.e., $1.96 \times sigma$) and illustrate the
-stability of the feature importance across models.](Figures/averageLeaveOneOut.png)
+The error bars provide the $95^{th}$ percentile (i.e., $1.96 \times \sigma$) and illustrate the
+stability of the feature importance across the leave-one-out models.](Figures/averageLeaveOneOut.png)
 
 
 
