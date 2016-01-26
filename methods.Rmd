@@ -206,9 +206,8 @@ matter interface.  A third set of images are based on the voxel location within 
 space of the template.  The T1 image of the subject is registered to the T1 template
 component using a B-spline variant [@Tustison:2013ac] of the well-known ANTs Symmetric
 Normalization (SyN) algorithm [@Avants:2011ab].  Since the inverse transform is also
-derived as part of the registration process, we then register the voxel index locations
-back to the space of the individual subject.  These index images are then warped back to
-the space of the individual subject.  Note that this is similar in motivation to the work
+derived as part of the registration process, we can warp the voxel index locations
+back to the space of the individual subject.    Note that this is similar in motivation to the work
 of [@Anbeek:2004aa].  However, this previous work lacks the normalization to the standard
 coordinate system provided by the template to dramatically improve spatial specificity
 across all subjects.
