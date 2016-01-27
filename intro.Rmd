@@ -1,0 +1,52 @@
+# Introduction
+
+## White matter hyperintensities in TBI
+
+## Random forests for WMH segmentation
+
+
+Machine learning and pattern recognition techniques have seen increased application
+for various medical image analysis workflows (see, for example, the annual
+Workshop on Machine Learning in Medical Imaging held in conjunction with the Medical
+Image Computing and Computer-Aided Intervention international meeting [@mlmi2015]).
+Popular techniques such as support vector machines and neural networks have been applied
+successfully to clinically relevant imaging tasks such as supervised image segmentation
+(e.g., [@Bauer:2011aa]) and diagnostic prediction (e.g., [@Tong:2014aa;@Liu:2013aa]).
+Facilitating the current employment of such techniques are the number of available imaging
+data sets [@Van-Horn:2014aa] and the public availability of data science packages such as
+SciPy [@scipy] and the R project for statistical computing [@R] and their associated add-on
+toolkits.
+
+Random forests [@breiman2001] is a popular machine learning technique that has
+demonstrated significant utitility for supervised segmentation tasks (e.g.,
+normal human brain segmentation) and other computer vision applications
+(e.g., human gait detection [@viola2005]).
+In the context of neuropathology, random forest-based paradigms have been employed in the
+delineation of multiple sclerosis lesions [@geremia2011], stroke lesions [@Pustina:2016aa],
+and brain tumors [@geremia2012;@bauer2012;@zikic2012;@Tustison:2014aa].  Of note, these
+latter random forest approaches for brain tumor segmentation have performed well in recent
+international competitions.  In response to the lack of objective comparisons between
+segmentation algorithms, the Multimodal Brain Tumor Segmentation (BRATS) challenge was initiated in
+2012 [@Menze:2015aa] and has continued every year since under the auspices of the International Conference
+of Medical Image Computing and Computer Assisted Interventions (MICCAI).
+
+Random forests are conceptually simple [@breiman2001].  They consist of ensembles of decision trees
+that are built from training data.  Once constructed, data to be classified is "pushed"
+through each decision tree resulting in a single classification "vote" per tree.  These
+votes are then be used for regression or classification of the data.  Although decision
+trees had been extensively studied previously, the success of employing collections of
+such weak learners for boosting machine learning performance
+(e.g., AdaBoost [@schapire1990;@freund1997]) influenced the similarly sytled conglomeration
+of decision trees into "forests" with randomized node optimization [@ho1995;@amit1997].
+Finally, Breiman [@breiman2001] improved accuracy by random sampling of the training
+data (i.e., "bagging") resulting in the current random forest framework.
+
+In this work, we develop a concatenated random forest framework with a tailored feature image set
+for segmenting white matter hyperintensities in traumatic brain injury cohorts.  Additionally,
+the entire framework is provided as open source through the well-known open-source
+ANTs[^i1] and ANTsR[^i2] toolkits.  Further motivating the investigation of this work is
+the additional public availability of the TBI cohorts thus permitting full reproducibility
+of the results reported and discussed.
+
+[^i1]: https://github.com/stnava/ANTs
+[^i2]: https://github.com/stnava/ANTsR

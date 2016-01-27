@@ -6,7 +6,10 @@ stitchedFile <- "stitched.Rmd";
 
 formatFile <- "format.Rmd"
 
-rmdFiles <- c( formatFile, "methods.Rmd"
+rmdFiles <- c( formatFile,
+               "intro.Rmd",
+               "methods.Rmd",
+               "results.Rmd"
    )
 
 for( i in 1:length( rmdFiles ) )

@@ -1,0 +1,28 @@
+
+# Results
+
+![Average \texttt{MeanDecreaseAccuracy} plots generated from the creation of all 24 random
+forest models for both Stage 1 and Stage 2 during the leave-one-out evaluation.  These plots
+are useful in providing a quantitative assessment of the predictive importance of each feature.
+The error bars provide the $95^{th}$ percentile (i.e., $1.96 \times \sigma$) and illustrate the
+stability of the feature importance across the leave-one-out models.](Figures/averageLeaveOneOut.png)
+
+
+
+To calculate this quantity for a single feature from a single random forest model, the
+decrease in prediction accuracy produced by omitting the specified feature is calculated
+during the out-of-bag phase of model creation.
+
+During the out-of-bag error calculation stage of the random forest model creation, the
+decrease in prediction accuracy with the omission of a single feature or variable is
+tracked and averaged. Those features which have the greatest decrease in mean accuracy are
+considered to be the most discriminative. In this work, we do not use these measurements for
+feature pruning.
+
+
+
+
+
+\clearpage
+
+# References

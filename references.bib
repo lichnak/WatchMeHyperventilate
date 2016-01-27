@@ -2,12 +2,50 @@
 %% http://bibdesk.sourceforge.net/
 
 
-%% Created for Nick Tustison at 2016-01-26 13:01:31 -0800 
+%% Created for Nick Tustison at 2016-01-26 16:44:39 -0800 
 
 
 %% Saved with string encoding Unicode (UTF-8) 
 
 
+
+@article{Garcia-Lorenzo:2013aa,
+	Abstract = {Magnetic resonance (MR) imaging is often used to characterize and quantify multiple sclerosis (MS) lesions in the brain and spinal cord. The number and volume of lesions have been used to evaluate MS disease burden, to track the progression of the disease and to evaluate the effect of new pharmaceuticals in clinical trials. Accurate identification of MS lesions in MR images is extremely difficult due to variability in lesion location, size and shape in addition to anatomical variability between subjects. Since manual segmentation requires expert knowledge, is time consuming and is subject to intra- and inter-expert variability, many methods have been proposed to automatically segment lesions. The objective of this study was to carry out a systematic review of the literature to evaluate the state of the art in automated multiple sclerosis lesion segmentation. From 1240 hits found initially with PubMed and Google scholar, our selection criteria identified 80 papers that described an automatic lesion segmentation procedure applied to MS. Only 47 of these included quantitative validation with at least one realistic image. In this paper, we describe the complexity of lesion segmentation, classify the automatic MS lesion segmentation methods found, and review the validation methods applied in each of the papers reviewed. Although many segmentation solutions have been proposed, including some with promising results using MRI data obtained on small groups of patients, no single method is widely employed due to performance issues related to the high variability of MS lesion appearance and differences in image acquisition. The challenge remains to provide segmentation techniques that work in all cases regardless of the type of MS, duration of the disease, or MRI protocol, and this within a comprehensive, standardized validation framework. MS lesion segmentation remains an open problem.},
+	Author = {Garc{\'\i}a-Lorenzo, Daniel and Francis, Simon and Narayanan, Sridar and Arnold, Douglas L and Collins, D Louis},
+	Date-Added = {2016-01-27 00:44:11 +0000},
+	Date-Modified = {2016-01-27 00:44:11 +0000},
+	Doi = {10.1016/j.media.2012.09.004},
+	Journal = {Med Image Anal},
+	Journal-Full = {Medical image analysis},
+	Mesh = {Brain; Humans; Magnetic Resonance Imaging; Multiple Sclerosis},
+	Month = {Jan},
+	Number = {1},
+	Pages = {1-18},
+	Pmid = {23084503},
+	Pst = {ppublish},
+	Title = {Review of automatic segmentation methods of multiple sclerosis white matter lesions on conventional magnetic resonance imaging},
+	Volume = {17},
+	Year = {2013},
+	Bdsk-Url-1 = {http://dx.doi.org/10.1016/j.media.2012.09.004}}
+
+@article{Yushkevich:2006aa,
+	Abstract = {Active contour segmentation and its robust implementation using level set methods are well-established theoretical approaches that have been studied thoroughly in the image analysis literature. Despite the existence of these powerful segmentation methods, the needs of clinical research continue to be fulfilled, to a large extent, using slice-by-slice manual tracing. To bridge the gap between methodological advances and clinical routine, we developed an open source application called ITK-SNAP, which is intended to make level set segmentation easily accessible to a wide range of users, including those with little or no mathematical expertise. This paper describes the methods and software engineering philosophy behind this new tool and provides the results of validation experiments performed in the context of an ongoing child autism neuroimaging study. The validation establishes SNAP intrarater and interrater reliability and overlap error statistics for the caudate nucleus and finds that SNAP is a highly reliable and efficient alternative to manual tracing. Analogous results for lateral ventricle segmentation are provided.},
+	Author = {Yushkevich, Paul A and Piven, Joseph and Hazlett, Heather Cody and Smith, Rachel Gimpel and Ho, Sean and Gee, James C and Gerig, Guido},
+	Date-Added = {2016-01-27 00:28:22 +0000},
+	Date-Modified = {2016-01-27 00:28:22 +0000},
+	Doi = {10.1016/j.neuroimage.2006.01.015},
+	Journal = {Neuroimage},
+	Journal-Full = {NeuroImage},
+	Mesh = {Brain; Caudate Nucleus; Dominance, Cerebral; Humans; Image Processing, Computer-Assisted; Imaging, Three-Dimensional; Magnetic Resonance Imaging; Mathematical Computing; Software; Software Validation; User-Computer Interface},
+	Month = {Jul},
+	Number = {3},
+	Pages = {1116-28},
+	Pmid = {16545965},
+	Pst = {ppublish},
+	Title = {User-guided 3D active contour segmentation of anatomical structures: significantly improved efficiency and reliability},
+	Volume = {31},
+	Year = {2006},
+	Bdsk-Url-1 = {http://dx.doi.org/10.1016/j.neuroimage.2006.01.015}}
 
 @article{Anbeek:2004aa,
 	Abstract = {A new method has been developed for fully automated segmentation of white matter lesions (WMLs) in cranial MR imaging. The algorithm uses information from T1-weighted (T1-w), inversion recovery (IR), proton density-weighted (PD), T2-weighted (T2-w) and fluid attenuation inversion recovery (FLAIR) scans. It is based on the K-Nearest Neighbor (KNN) classification technique that builds a feature space from voxel intensities and spatial information. The technique generates images representing the probability per voxel being part of a WML. By application of thresholds on these probability maps, binary segmentations can be obtained. ROC curves show that the segmentations achieve both high sensitivity and specificity. A similarity index (SI), overlap fraction (OF) and extra fraction (EF) are calculated for additional quantitative analysis of the result. The SI is also used for determination of the optimal probability threshold for generation of the binary segmentation. Using probabilistic equivalents of the SI, OF and EF, the probability maps can be evaluated directly, providing a powerful tool for comparison of different classification results. This method for automated WML segmentation reaches an accuracy that is comparable to methods for multiple sclerosis (MS) lesion segmentation and is suitable for detection of WMLs in large and longitudinal population studies.},
