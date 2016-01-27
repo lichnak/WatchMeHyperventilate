@@ -208,13 +208,40 @@ As pointed out in a recent comprehensive multiple sclerosis lesion segmentation 
 is quite extensive, there were only four publicly available segmentation algorithms
 at the time of writing of which none are based on supervised learning.  As we did for
 our brain tumor segmentation algorithm [@Tustison:2014aa], all of the code described in
-this work is publicly available through the open-source ANTs/ANTsR toolkits.  In addition,
-similar to our previous offering [^1], we plan on creating
+this work is publicly available through the open-source ANTs/ANTsR toolkits.  Through
+ANTsR (an add-on toolkit which, in part, bridges ANTs and the R statistical project) we
+use the \texttt{randomForest} package [@liaw2002] using the default settings with
+2000 trees per model and 500 randomly selected samples per label per image.
+
+In addition, similar to our previous offering [^1], we plan on creating
 a self-encapsulated example to showcase the proposed methodology.  The fact that this
 the data will also be made available \textcolor{red}{through the FITBIR repository} along
 with the ground truth data.
 
 [^1]: https://github.com/ntustison/ANTsAndArboles
 
-### Evaluation protocol
+
+### Evaluation protocol overview
+
+In order to evaluate the protocol described, we perform a leave-one-out evaluation using
+the data acquired from the 24 subjects described above.  The Stage 1 feature images
+were created for all subjects.  The initial brain segmentation of each T1 image and the
+manual white matter hyperintensity tracings were combined to provide the truth labels
+for the training data.  The truth labels are the seven anatomical regions given above.
+
+The leave-one-out procedure is as follows:
+
+* Create Stage 1 feature images for all 24 subjects.
+* For each of the 24 subjects:
+    + sequester the current subject and corresponding feature images.
+    + construct the Stage 1 random forest model from the remaining 23 subjects.
+    + apply the Stage 1 random forest model to the feature images of the 23 training subjects.
+    + the previous step produces the Stage 1 voting maps for all seven labels.
+    + for each of the 23 subjects, perform a Bayesian-based segmentation with an MRF spatial
+      prior using the seven voting maps are used as additional tissue priors.
+    + construct the Stage 2 random forest model from all the Stage 1 feature images,
+      seven voting maps, and seven posterior probability maps from the previous step.
+    + send the sequestered subject through the random forest models for both stages.
+    + compare the final results with the manually-defined white matter hyperintensity
+      regions.
 
