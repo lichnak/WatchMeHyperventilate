@@ -185,7 +185,7 @@ of [@Anbeek:2004aa].  However, this previous work lacks the normalization to the
 coordinate system provided by the template to dramatically improve spatial specificity
 across all subjects.
 
-### Stacked/cascaded/concatenated random forests for improved segmentation performance
+### Stacked (concatenated) random forests for improved segmentation performance
 
 In previous brain tumor segmentation work [@Tustison:2014aa], it was demonstrated that a
 concatenated supervised approach, whereby the prediction output from the first random forest
