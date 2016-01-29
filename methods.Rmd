@@ -142,7 +142,13 @@ given above.  The white matter hyperintensities were manually identified by one 
 (J. R. S.) using the ITK-SNAP tool [@Yushkevich:2006aa].  Segmentation is performed using
 the ANTs Atropos tool [@Avants:2011aa] and
 multi-model optimal symmetric shape/intensity templates [@Tustison:2015aa] created from the public
-MMRR data set  [@landman2011].
+MMRR data set  [@landman2011] (cf Figure X).
+
+![Canonical views of the mutlivariate, bilaterally symmetric template constructed
+from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
+the components relevant for this work).  Template construction is detailed in
+[@Tustison:2015aa].  These images are important for certain intensity-based
+features.](Figures/MMRR.png)
 
 To model the intensity information the first set of images simply includes the
 preprocessed and normalized intensity FLAIR, T1, and T2 images.  We also calculate a set
