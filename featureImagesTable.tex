@@ -1,46 +1,51 @@
 \begin{table}[!htb]
   \centering
-  \begin{tabular*}{0.65\textwidth}{@{\extracolsep{\fill}} ll}
-    \multicolumn{1}{c}{\textbf{Feature type}} & \multicolumn{1}{c}{\textbf{Image source}} \\
+  \begin{tabular*}{0.85\textwidth}{@{\extracolsep{\fill}} lll}
+    \multicolumn{1}{c}{\textbf{Feature type}} & \multicolumn{1}{c}{\textbf{Image source}} & \multicolumn{1}{c}{\textbf{Name}} \\
     \toprule
     \midrule
-    \multicolumn{2}{c}{\textbf{Intensities}} \\
+    \multicolumn{3}{c}{\textbf{Intensities}} \\
     \midrule
-    normalized/preprocessed & FLAIR, T1, and T2 \\
+    normalized/preprocessed & FLAIR, T1, and T2 & \texttt{Preprocessed} \\
     \midrule
-    \multicolumn{2}{c}{\textbf{Symmetric template}} \\
+    \multicolumn{3}{c}{\textbf{Symmetric template}} \\
     \midrule
-    template difference & FLAIR, T1, and T2 \\
-    contralateral difference & FLAIR, T1, and T2 \\
-    location indices & FLAIR, T1, and T2 \\
+    template difference & FLAIR, T1, and T2 & \texttt{SymmetricTemplateDifference}\\
+    contralateral difference & FLAIR, T1, and T2 & \texttt{ContralateralDifference}\\
+    template location indices & FLAIR, T1, and T2 & \texttt{TemplateIndicesWarped}\\
     \midrule
-    \multicolumn{2}{c}{\textbf{Segmentation probabilities}} \\
+    \multicolumn{3}{c}{\textbf{Segmentation probabilities}} \\
     \midrule
-    $Pr$(cerebrospinal fluid) & T1 \\
-    $Pr$(gray matter) & T1 \\
-    $Pr$(white matter) & T1 \\
-    $Pr$(deep gray matter) & T1 \\
-    $Pr$(brain stem) & T1 \\
-    $Pr$(cerebellum) & T1 \\
+    $Pr$(cerebrospinal fluid) & T1 & \texttt{BrainSegmentationPosteriors1}\\
+    $Pr$(gray matter) & T1 & \texttt{BrainSegmentationPosteriors2}\\
+    $Pr$(white matter) & T1 & \texttt{BrainSegmentationPosteriors3}\\
+    $Pr$(deep gray matter) & T1 & \texttt{BrainSegmentationPosteriors4}\\
+    $Pr$(brain stem) & T1 & \texttt{BrainSegmentationPosteriors5}\\
+    $Pr$(cerebellum) & T1 & \texttt{BrainSegmentationPosteriors6}\\
     \midrule
-    \multicolumn{2}{c}{\textbf{Distance maps}} \\
+    \multicolumn{3}{c}{\textbf{Distance maps}} \\
     \midrule
-    cerebrospinal fluid & T1 brain segmentation \\
-    gray matter & T1 brain segmentation \\
-    deep gray matter & T1 brain segmentation \\
-    whole brain & T1 brain segmentation \\
+    cerebrospinal fluid & T1 brain segmentation & \texttt{NormalizedCsfDistance}\\
+    gray matter & T1 brain segmentation & \texttt{NormalizedGmDistance}\\
+    deep gray matter & T1 brain segmentation & \texttt{NormalizedDeepGmDistance}\\
+    whole brain & T1 brain segmentation & \texttt{NormalizedMaskDistance}\\
     \midrule
-    \multicolumn{2}{c}{\textbf{Neighborhood statistics}} \\
+    \multicolumn{3}{c}{\textbf{Neighborhood statistics}} \\
     \midrule
-    mean & FLAIR, T1, and T2 \\
-    standard deviation & FLAIR, T1, and T2 \\
-    skewness & FLAIR, T1, and T2 \\
+    mean & FLAIR, T1, and T2 & \texttt{NeighborhoodMean}\\
+    standard deviation & FLAIR, T1, and T2  & \texttt{NeighborhoodSigma}\\
+    skewness & FLAIR, T1, and T2  & \texttt{NeighborhoodSkewness}\\
     \midrule
     \bottomrule
   \end{tabular*}
  \label{table:indices}
  \caption{List of feature images used for Stage 1 of the proposed white matter
-          hyperintensity segmentation framework.}
+          hyperintensity segmentation framework.  These feature images encompass
+          salient location and intensity information used for voxelwise identification
+          of white matter hyperintensities in TBI.  The column on the right provides
+          the names used in the software developed for this methodology and
+          facilitates discussion of the results (cf Figure 2).
+          }
 \end{table}
 
 
