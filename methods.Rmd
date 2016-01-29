@@ -105,6 +105,7 @@ of multiple random forest stages below) segmentation of the white matter hyperin
 In addition Figure 1 provides a representation of a set of feature images for a single
 subject analyzed in this work.  Note that in this work we categorize the brain parenchyma
 with seven labels:
+
 * cerebrospinal fluid (label 1),
 * gray matter (label 2),
 * white matter (label 3),
@@ -140,7 +141,7 @@ cerebellum.  These provide the ground-truth labels for the first six tissue labe
 given above.  The white matter hyperintensities were manually identified by one of the authors
 (J. R. S.) using the ITK-SNAP tool [@Yushkevich:2006aa].  Segmentation is performed using
 the ANTs Atropos tool [@Avants:2011aa] and
-multi-model optimal symmetric shape/intensity templates [@Tustison:2014aa] created from the public
+multi-model optimal symmetric shape/intensity templates [@Tustison:2015aa] created from the public
 MMRR data set  [@landman2011].
 
 To model the intensity information the first set of images simply includes the
@@ -150,7 +151,7 @@ a radius of one voxel. For each of the normalized
 images, we calculate the difference in intensities with the corresponding warped template
 component.  Previous success in the international brain tumor segmentation
 competition [@Menze:2015aa] was based on an important set of intensity features that were created
-from multi-modal templates mentioned previously [@Tustison:2014aa].  We employ the
+from multi-modal templates mentioned previously [@Tustison:2015aa].  We employ the
 same strategy here.  For example, the template
 difference feature image for the FLAIR image, $S_{FLAIR}$ is calculated as:
 
@@ -187,7 +188,7 @@ across all subjects.
 
 ### Stacked (concatenated) random forests for improved segmentation performance
 
-In previous brain tumor segmentation work [@Tustison:2014aa], it was demonstrated that a
+In previous brain tumor segmentation work [@Tustison:2015aa], it was demonstrated that a
 concatenated supervised approach, whereby the prediction output from the first random forest
 model serves as partial input for a second random forest model, can significantly improve
 segmentation performance.  We do the same thing for the work described here.  The Stage 1
@@ -207,7 +208,7 @@ As pointed out in a recent comprehensive multiple sclerosis lesion segmentation 
 [@Garcia-Lorenzo:2013aa], although the number of algorithms reported in the literature
 is quite extensive, there were only four publicly available segmentation algorithms
 at the time of writing of which none are based on supervised learning.  As we did for
-our brain tumor segmentation algorithm [@Tustison:2014aa], all of the code described in
+our brain tumor segmentation algorithm [@Tustison:2015aa], all of the code described in
 this work is publicly available through the open-source ANTs/ANTsR toolkits.  Through
 ANTsR (an add-on toolkit which, in part, bridges ANTs and the R statistical project) we
 use the \texttt{randomForest} package [@liaw2002] using the default settings with

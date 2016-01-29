@@ -24,7 +24,7 @@ normal human brain segmentation) and other computer vision applications
 (e.g., human gait detection [@viola2005]).
 In the context of neuropathology, random forest-based paradigms have been employed in the
 delineation of multiple sclerosis lesions [@geremia2011], stroke lesions [@Pustina:2016aa],
-and brain tumors [@geremia2012;@bauer2012;@zikic2012;@Tustison:2014aa].  Of note, these
+and brain tumors [@geremia2012;@bauer2012;@zikic2012;@Tustison:2015aa].  Of note, these
 latter random forest approaches for brain tumor segmentation have performed well in recent
 international competitions.  In response to the lack of objective comparisons between
 segmentation algorithms, the Multimodal Brain Tumor Segmentation (BRATS) challenge was initiated in

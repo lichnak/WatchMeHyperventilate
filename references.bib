@@ -2,12 +2,63 @@
 %% http://bibdesk.sourceforge.net/
 
 
-%% Created for Nick Tustison at 2016-01-26 19:40:03 -0800 
+%% Created for Nick Tustison at 2016-01-28 18:51:42 -0800 
 
 
 %% Saved with string encoding Unicode (UTF-8) 
 
 
+
+@proceedings{styner2008,
+	Annote = {@inproceedings{Styner_Miccai_2008,
+	Author = {M. Styner and J. Lee and B. Chin and M.S. Chin and O. Commowick and H. Tran and S. Markovic-Plese and V. Jewells and S.K. Warfield},
+	Booktitle = {{MIDAS Journal, Special Issue on 2008 MICCAI Workshop - MS Lesion Segmentation}},
+	Month = sep,
+	Pages = {1-5},
+	Title = {{3D} Segmentation in the Clinic: A Grand Challenge {II: MS} Lesion Segmentation},
+	Year = {2008}
+}},
+	Date-Added = {2016-01-29 02:49:09 +0000},
+	Date-Modified = {2016-01-29 02:51:42 +0000},
+	Editor = {M. Styner and J. Lee and B. Chin and M.S. Chin and O. Commowick and H. Tran and S. Markovic-Plese and V. Jewells and S.K. Warfield},
+	Month = {September},
+	Publisher = {MIDAS J},
+	Title = {{Special Issue on 2008 MICCAI Workshop - MS Lesion Segmentation}},
+	Year = {2008}}
+
+@article{Grimaud:1996aa,
+	Abstract = {Several computer-assisted techniques for measuring multiple sclerosis lesion load on MR images have been developed to provide a quantitative and sensitive means for monitoring disease activity, particularly in the context of treatment trials. We have evaluated three techniques: manual outlining (similar to that of the North American interferon beta-1b trial), semiautomated lesion contouring (local lesion based threshold), and intensity-based thresholding for the whole brain. Contiguous, 5 mm-thick, axial, T2-weighted images of the brain were obtained on a 1.5T MR imager in eight patients with clinically definite multiple sclerosis. Analyses of the scans were performed twice, independently by three operators, using the three different techniques. The coefficient of variation of the measurement techniques was: (a) intrarater precision, 9.0 +/- 5.2 (mean +/- SD) (range 0.4-18.5) for the manual outlining, 2.5 +/- 2.1 (0.1-7.7) for the contour technique, and 7.5 +/- 6.9 (0.2-22.0) for the global threshold technique; (b) interrater precision, 11.0 +/- 5.8 (4.9-21.7) for the manual outlining, 4.5 +/- 1.6 (1.8-6.6) for the contour technique, and 11.4 +/- 4.9 (2.8-19.2) for the global threshold technique (0.0 = perfect precision). The absolute lesion loads measured were very similar using the manual outlining and the contour techniques but were significantly smaller using the global threshold technique. We conclude that the contour technique is a promising tool for use in treatment trials. Further studies are needed to assess sensitivity to changes in lesion load over time.},
+	Author = {Grimaud, J and Lai, M and Thorpe, J and Adeleine, P and Wang, L and Barker, G J and Plummer, D L and Tofts, P S and McDonald, W I and Miller, D H},
+	Date-Added = {2016-01-29 02:45:34 +0000},
+	Date-Modified = {2016-01-29 02:45:34 +0000},
+	Journal = {Magn Reson Imaging},
+	Journal-Full = {Magnetic resonance imaging},
+	Mesh = {Brain; Humans; Image Processing, Computer-Assisted; Magnetic Resonance Imaging; Multiple Sclerosis; Observer Variation; Reproducibility of Results},
+	Number = {5},
+	Pages = {495-505},
+	Pmid = {8843362},
+	Pst = {ppublish},
+	Title = {Quantification of MRI lesion load in multiple sclerosis: a comparison of three computer-assisted techniques},
+	Volume = {14},
+	Year = {1996}}
+
+@article{Tustison:2015aa,
+	Abstract = {Segmenting and quantifying gliomas from MRI is an important task for diagnosis, planning intervention, and for tracking tumor changes over time. However, this task is complicated by the lack of prior knowledge concerning tumor location, spatial extent, shape, possible displacement of normal tissue, and intensity signature. To accommodate such complications, we introduce a framework for supervised segmentation based on multiple modality intensity, geometry, and asymmetry feature sets. These features drive a supervised whole-brain and tumor segmentation approach based on random forest-derived probabilities. The asymmetry-related features (based on optimal symmetric multimodal templates) demonstrate excellent discriminative properties within this framework. We also gain performance by generating probability maps from random forest models and using these maps for a refining Markov random field regularized probabilistic segmentation. This strategy allows us to interface the supervised learning capabilities of the random forest model with regularized probabilistic segmentation using the recently developed ANTsR package--a comprehensive statistical and visualization interface between the popular Advanced Normalization Tools (ANTs) and the R statistical project. The reported algorithmic framework was the top-performing entry in the MICCAI 2013 Multimodal Brain Tumor Segmentation challenge. The challenge data were widely varying consisting of both high-grade and low-grade glioma tumor four-modality MRI from five different institutions. Average Dice overlap measures for the final algorithmic assessment were 0.87, 0.78, and 0.74 for "complete", "core", and "enhanced" tumor components, respectively.},
+	Author = {Tustison, Nicholas J and Shrinidhi, K L and Wintermark, Max and Durst, Christopher R and Kandel, Benjamin M and Gee, James C and Grossman, Murray C and Avants, Brian B},
+	Date-Added = {2016-01-29 00:10:40 +0000},
+	Date-Modified = {2016-01-29 00:10:40 +0000},
+	Doi = {10.1007/s12021-014-9245-2},
+	Journal = {Neuroinformatics},
+	Journal-Full = {Neuroinformatics},
+	Month = {Apr},
+	Number = {2},
+	Pages = {209-25},
+	Pmid = {25433513},
+	Pst = {ppublish},
+	Title = {Optimal Symmetric Multimodal Templates and Concatenated Random Forests for Supervised Brain Tumor Segmentation (Simplified) with ANTsR},
+	Volume = {13},
+	Year = {2015},
+	Bdsk-Url-1 = {http://dx.doi.org/10.1007/s12021-014-9245-2}}
 
 @article{liaw2002,
 	Author = {Andy Liaw and Matthew Wiener},
@@ -227,9 +278,9 @@ Our approach builds on the detection work of Viola and Jones. Novel contribution
 
 @inproceedings{bauer2012,
 	Author = {S. Bauer and T. Fejes and J. Slotboom and R. Wiest and L.-P. Nolte and M. Reyes},
-	Booktitle = {Proceedings of MICCAI-BRATS 2012},
+	Booktitle = {Proceedings of {MICCAI-BRATS} 2012},
 	Date-Added = {2016-01-26 15:22:33 +0000},
-	Date-Modified = {2016-01-26 15:22:33 +0000},
+	Date-Modified = {2016-01-29 00:19:03 +0000},
 	Month = {October},
 	Pages = {10--13},
 	Title = {Segmentation of Brain Tumor Images Based on Integrated Hierarchical Classification and Regularization},
@@ -296,9 +347,9 @@ Our approach builds on the detection work of Viola and Jones. Novel contribution
 
 @inproceedings{zikic2012,
 	Author = {D. Zikic and B. Glocker and E. Konukoglu and J. Shotton and A. Criminisi and D. H. Ye and C. Demiralp and O. M. Thomas and T. Das and R. Jena and S. J. Price},
-	Booktitle = {Proceedings of MICCAI-BRATS 2012},
+	Booktitle = {Proceedings of {MICCAI-BRATS} 2012},
 	Date-Added = {2016-01-26 05:49:43 +0000},
-	Date-Modified = {2016-01-26 05:49:43 +0000},
+	Date-Modified = {2016-01-29 01:06:08 +0000},
 	Month = {October},
 	Pages = {1--9},
 	Title = {Context-sensitive Classification Forests for Segmentation of Brain Tumor Tissues},
@@ -325,9 +376,9 @@ Our approach builds on the detection work of Viola and Jones. Novel contribution
 
 @inproceedings{geremia2012,
 	Author = {E. Geremia and B. H. Menze and N. Ayache},
-	Booktitle = {Proceedings of MICCAI-BRATS 2012},
+	Booktitle = {Proceedings of {MICCAI-BRATS} 2012},
 	Date-Added = {2016-01-26 05:48:03 +0000},
-	Date-Modified = {2016-01-26 05:48:03 +0000},
+	Date-Modified = {2016-01-29 00:18:09 +0000},
 	Month = {October},
 	Title = {Spatial Decision Forests for Glioma Segmentation in Multi-Channel {MR} Images},
 	Year = {2012}}
@@ -351,11 +402,6 @@ Our approach builds on the detection work of Viola and Jones. Novel contribution
 	Volume = {8},
 	Year = {2014},
 	Bdsk-Url-1 = {http://dx.doi.org/10.1007/s11682-013-9255-y}}
-
-@proceedings{Styner2008,
-	Date-Added = {2016-01-25 23:56:11 +0000},
-	Date-Modified = {2016-01-25 23:56:33 +0000},
-	Title = {3D Segmentation in the Clinic: A Grand Challenge II: MS Lesion Segmentation}}
 
 @article{Neema:2009aa,
 	Abstract = {BACKGROUND AND PURPOSE: Fluid attenuated inversion recovery (FLAIR) MR imaging of the brain has become a routine tool for assessing lesions in patients with suspected neurologic disorders. There is growing interest in 3T brain FLAIR MR imaging but little normative data are available. The purpose of this study was to evaluate the frequency and topography of cerebral hyperintensities seen with FLAIR MR imaging of the brain at 3T in a normal population and compare those findings to 1.5T.
@@ -597,21 +643,6 @@ CONCLUSION: The new noise-adaptive method was demonstrated to outperform the sta
 	Volume = {7},
 	Year = {2013},
 	Bdsk-Url-1 = {http://dx.doi.org/10.3389/fninf.2013.00039}}
-
-@article{Tustison:2014aa,
-	Abstract = {Segmenting and quantifying gliomas from MRI is an important task for diagnosis, planning intervention, and for tracking tumor changes over time. However, this task is complicated by the lack of prior knowledge concerning tumor location, spatial extent, shape, possible displacement of normal tissue, and intensity signature. To accommodate such complications, we introduce a framework for supervised segmentation based on multiple modality intensity, geometry, and asymmetry feature sets. These features drive a supervised whole-brain and tumor segmentation approach based on random forest-derived probabilities. The asymmetry-related features (based on optimal symmetric multimodal templates) demonstrate excellent discriminative properties within this framework. We also gain performance by generating probability maps from random forest models and using these maps for a refining Markov random field regularized probabilistic segmentation. This strategy allows us to interface the supervised learning capabilities of the random forest model with regularized probabilistic segmentation using the recently developed ANTsR package-a comprehensive statistical and visualization interface between the popular Advanced Normalization Tools (ANTs) and the R statistical project. The reported algorithmic framework was the top-performing entry in the MICCAI 2013 Multimodal Brain Tumor Segmentation challenge. The challenge data were widely varying consisting of both high-grade and low-grade glioma tumor four-modality MRI from five different institutions. Average Dice overlap measures for the final algorithmic assessment were 0.87, 0.78, and 0.74 for "complete", "core", and "enhanced" tumor components, respectively.},
-	Author = {Tustison, Nicholas J and Shrinidhi, K L and Wintermark, Max and Durst, Christopher R and Kandel, Benjamin M and Gee, James C and Grossman, Murray C and Avants, Brian B},
-	Date-Added = {2014-12-07 05:41:26 +0000},
-	Date-Modified = {2014-12-07 05:43:58 +0000},
-	Doi = {10.1007/s12021-014-9245-2},
-	Journal = {Neuroinformatics},
-	Journal-Full = {Neuroinformatics},
-	Month = {Nov},
-	Pmid = {25433513},
-	Pst = {aheadofprint},
-	Title = {Optimal Symmetric Multimodal Templates and Concatenated Random Forests for Supervised Brain Tumor Segmentation (Simplified) with {$ANTsR$}},
-	Year = {2014},
-	Bdsk-Url-1 = {http://dx.doi.org/10.1007/s12021-014-9245-2}}
 
 @article{Tustison:2010ac,
 	Abstract = {A variant of the popular nonparametric nonuniform intensity normalization (N3) algorithm is proposed for bias field correction. Given the superb performance of N3 and its public availability, it has been the subject of several evaluation studies. These studies have demonstrated the importance of certain parameters associated with the B-spline least-squares fitting. We propose the substitution of a recently developed fast and robust B-spline approximation routine and a modified hierarchical optimization scheme for improved bias field correction over the original N3 algorithm. Similar to the N3 algorithm, we also make the source code, testing, and technical documentation of our contribution, which we denote as "N4ITK," available to the public through the Insight Toolkit of the National Institutes of Health. Performance assessment is demonstrated using simulated data from the publicly available Brainweb database, hyperpolarized (3)He lung image data, and 9.4T postmortem hippocampus data.},
