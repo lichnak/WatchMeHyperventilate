@@ -81,12 +81,12 @@
 
 Crucial to these supervised segmentation approaches are the creation and selection of
 "features" as input in conjunction with the ground-truth for model construction.  For the
-targeted application in this work (i.e., white matter hyperintensities),
+targeted application in this work (i.e., WMHs),
 regression/classification are performed at the voxelwise level.  In other words, each voxel
 within the region of interest is sent through the ensemble of decision trees and receives
-a set of classification votes from each tree permitting a regression or classification
+a set of classification votes from each tree thus permitting a regression or classification
 solution.  Since this procedure is performed at the voxelwise level, intensity information
-alone is insufficient for good segmentation performance since it lacks spatial context.
+alone is insufficient for good segmentation performance due to the lack of spatial context.
 For example, as pointed out in [@Neema:2009aa], higher intensities can be found at the
 periventricular caps in normal subjects which often confounds automated lesion detection
 algorithms.  Other potential confounds include MR signal inhomogeneity and noise.  Therefore,
@@ -116,12 +116,12 @@ with seven labels:
 
 ![Representation of Stage 1 feature images for subject 01C1019.  The
 FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
-[@Avants:2014aa] to the space of the T1 image.  The three images are then preprocessed
+[@Avants:2014aa] to the space of the T1 image.  The three modality images are then preprocessed
 (N4 bias correction [@Tustison:2010ac] and adaptive denoising [@Manjon:2010aa]) followed by
 application of standard ANTs brain extraction and $n$-tissue segmentation protocols using
-the MMRR symmetric template corresponding and priors [@Tustison:2014ab] to the T1 image.
+the MMRR symmetric template and corresponding priors [@Tustison:2014ab] applied to the T1 image.
 The feature images are then generated for voxelwise input to the RF model which results in
-the voting maps illustrated on the right which gives a probabilistic classification of
+the voting maps illustrated on the right.  This gives a probabilistic classification of
 tissue type.  Not shown are the probability and voting images for the brain stem and
 cerebellum.](Figures/featureImages.png)
 
@@ -130,11 +130,17 @@ acquisitions.  The FLAIR and T2 images are rigidly registered to the T1 image us
 the open-source Advanced Normalization Tools (ANTs) [@Avants:2014aa].  The aligned images
 are then preprocessed using the denoising algorithm of [@Manjon:2010aa] followed by
 N4 bias correction [@Tustison:2010ac] which are then normalized to the intensity
-range $[0,1]$.  Although we could have used the intensity standardization algorithm of
-[@nyul2000], we found that a simple linear rescaling produced better results.
+range $[0,1]$.  Although we could have used an alternative intensity standardization
+algorithm (e.g., [@nyul2000]), we found that a simple linear rescaling produced better results.
+
+![Sample FLAIR acquisition image slices showing both manual (top) and random forest
+(RDF) segmentations (bottom) obtained during the leave-one-out evaluation.  Manual
+segmentations were performed by one of the authors and provided the ground
+truth WMH labels for training the random forest models.](Figures/montage.png)
 
 The T1 image is then processed via the ANTs brain
-extraction and tissue segmentation protocols described in [@Tustison:2014ab] in order to
+extraction and normal tissue segmentation (i.e., the pathology is discounted which is
+a fairly safe assumption for the T1 image) protocols described in [@Tustison:2014ab] in order to
 produce a mask for the brain parenchyma and provide probabilistic estimates of the
 cerebrospinal fluid (csf), gray matter, white matter, deep gray matter, brain stem, and
 cerebellum.  These provide the ground-truth labels for the first six tissue labels
@@ -142,16 +148,16 @@ given above.  The white matter hyperintensities were manually identified by one 
 (J. R. S.) using the ITK-SNAP tool [@Yushkevich:2006aa].  Segmentation is performed using
 the ANTs Atropos tool [@Avants:2011aa] and
 multi-model optimal symmetric shape/intensity templates [@Tustison:2015aa] created from the public
-MMRR data set  [@landman2011] (cf Figure X).
+MMRR data set  [@landman2011] (cf Figure 3).
 
 ![Canonical views of the mutlivariate, bilaterally symmetric template constructed
 from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
 the components relevant for this work).  Template construction is detailed in
-[@Tustison:2015aa].  These images are important for certain intensity-based
+[@Tustison:2015aa].  These images are important for specific intensity-based
 features.](Figures/MMRR.png)
 
 To model the intensity information the first set of images simply includes the
-preprocessed and normalized intensity FLAIR, T1, and T2 images.  We also calculate a set
+preprocessed and normalized intensity FLAIR, T1, and T2 image voxel values.  We also calculate a set
 of neighborhood statistics (mean, standard deviation, and skewness) feature images using
 a radius of one voxel. For each of the normalized
 images, we calculate the difference in intensities with the corresponding warped template
@@ -167,7 +173,7 @@ where $\phi_b: S  \leftrightarrow \underset{b}{\leftrightsquigarrow} T$ is the t
 which maps from the individual subject space to the
 template space and $T_{FLAIR}$ is the FLAIR template component.  Also,
 to take advantage of the bilateral symmetry of the normal brain (in terms of both shape
-and intensity), and the fact that the presence of WMH violates that assumption,
+and intensity), and the fact that the presence of WMHs violates that assumption,
 we use the symmetric templates to compute the contralateral intensity
 differences as an additional intensity feature.  For the FLAIR component, this contralateral
 difference image is calculated from
@@ -205,7 +211,7 @@ are used as input to the Stage 2 model.  In addition, we use the Stage 1 voting 
 tissue priors for a second application of the Atropos maximum aposteriori algorithm with an
 additional Markov Random Field spatial prior (MAP-MRF) [@Avants:2011aa].  However, for
 the second stage we use all three aligned preprocessed images for a multivariate
-analysis.  The resulting seven posterior probability images constitute a third additional
+segmentation.  The resulting seven posterior probability images constitute a third additional
 feature image set for Stage 2.
 
 ### Code and data availability
@@ -221,18 +227,19 @@ use the \texttt{randomForest} package [@liaw2002] using the default settings wit
 2000 trees per model and 500 randomly selected samples per label per image.
 
 In addition, similar to our previous offering [^1], we plan on creating
-a self-encapsulated example to showcase the proposed methodology.  The fact that this
-the data will also be made available \textcolor{red}{through the FITBIR repository} along
-with the ground truth data.
+a self-encapsulated example to showcase the proposed methodology.  The fact that
+the data will also be made available through the FITBIR repository along
+with the manual labelings will facilitate reproducibility on the part of the reader
+as well as any interest in extending the proposed framework to other data sets.
 
 [^1]: https://github.com/ntustison/ANTsAndArboles
 
 
 ### Evaluation protocol overview
 
-In order to evaluate the protocol described, we perform a leave-one-out evaluation using
-the data acquired from the 24 subjects described above.  The Stage 1 feature images
-were created for all subjects.  The initial brain segmentation of each T1 image and the
+In order to evaluate the protocol described, we performed a leave-one-out evaluation using
+the data acquired from the 24 subjects described above.  Initial processing included the creation
+of all Stage 1 feature images for all subjects.  The initial brain segmentation of each T1 image and the
 manual white matter hyperintensity tracings were combined to provide the truth labels
 for the training data.  The truth labels are the seven anatomical regions given above.
 
