@@ -1,27 +1,4 @@
 
-<!--
-
-* Evaluation
-    * Proper context
-        * We only have manual labelings from a single radiologist (
-        * TBI white matter hyperintensities are more difficult to segment than MS lesions
-            * individual lesions are smaller
-            * lesion load is typically smaller
-            * not prone to enhancement
-            * less distinct from surrounding tissue ?
-    * Despite the doubts regarding the efficacy of a typical segmentation validation,
-      our contribution is useful because
-         * the total segmentation framework is publicly available within the ANTs/ANTsR
-           framework
-         * although only a single site is analyzed, the feature images are site-agnostic
-              * we plan to apply the current RF models directly to the other site data
-              * we can then build the training database further by enlisting other experts
-         * Is this the first work exploring segmentation of white matter hyperintensities in TBI?
-         * The data (including manual tracings) will be made available as part of the FITBIR
-           effort.
-
--->
-
 # Results
 
 ## Ranking feature importance
@@ -104,7 +81,3 @@ and automated detection strategies.  Although some outliers are found after the 
 processing in a couple subjects, the number of outliers caused by false positives is
 significantly with the second stage processing.](Figures/llvAndDice.png)
 
-
-\clearpage
-
-# References
