@@ -8,6 +8,7 @@ output:
     keep_tex: yes
 header-includes:
    - \usepackage{booktabs}
+   - \usepackage{changes}
    - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
    - \linespread{1.5}
    - \usepackage[compact]{titlesec}
@@ -19,6 +20,13 @@ header-includes:
    - \titlespacing{\subsection}{2pt}{*0}{*0}
    - \titlespacing{\subsubsection}{2pt}{*0}{*0}
    - \setlength{\parskip}{3pt}
+   - \setremarkmarkup{(#2)}
+   - \definechangesauthor[name={Nick Tustison}, color=red]{nt}
+   - \definechangesauthor[name={James Stone}, color=magenta]{js}
+   - \definechangesauthor[name={Lisa Wilde}, color=cyan]{lw}
+   - \definechangesauthor[name={Andy Mayer}, color=green]{am}
+   - \definechangesauthor[name={Harvey Levin}, color=blue]{hl}
+   - \definechangesauthor[name={Brian Taylor}, color=purple]{bt}
 bibliography: references.bib
 csl: national-science-foundation-grant-proposals.csl
 fontsize: 11pt

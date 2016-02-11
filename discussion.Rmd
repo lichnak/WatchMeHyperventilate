@@ -47,4 +47,8 @@ The currently described tool is just one example of how “deep learning” algo
 
 \clearpage
 
+\listofchanges
+
+\clearpage
+
 # References
