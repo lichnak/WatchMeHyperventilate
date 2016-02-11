@@ -3,7 +3,7 @@
 
 ## Ranking feature importance
 
-After performing the leave-one-out evaluation described at the end of the previous section,
+After performing the leave-one-out evaluation\deleted[id=dt]{described at the end of the previous section},
 we calculated the \texttt{MeanDecreaseAccuracy} feature values for each of the 24 subjects $\times$
 2 models per subject $=48$ total models.  This measure (per feature, per model) is calculated
 during the out-of-bag phase of the random forest model construction and quantifies the decrease
@@ -98,11 +98,11 @@ right side of Figure 6 that the total lesion load volume illustrates a few subje
 severe outliers in terms of the number of false positives.  The second round helps to
 correct this issue.
 
-![Comparison with manual delineation of white matter hyperintensities.  On the left are the
-calculate Dice values over all white matter hyperintensities.  Note the improvement
+![\added[id=am]{Voxelwise} comparison with manual delineation of white matter hyperintensities.  On the left are the
+calculate\added[id=am]{d} Dice values over all white matter hyperintensities.  Note the improvement
 in the Dice metric from the employment of the Stage 2 component of the processing pipeline.
 (Right) Similar results can be seen by comparing the total lesion load volume between manual
 and automated detection strategies.  Although some outliers are found after the Stage 2
 processing in a couple subjects, the number of outliers caused by false positives is
-significantly with the second stage processing.](Figures/llvAndDice.png)
+\added[id=lw]{decreased} significantly with the second stage processing.](Figures/llvAndDice.png)
 

@@ -32,7 +32,7 @@ deployment of salient feature images which we detail below.
 Supervised methodologies are uniquely characterized, in part, by the feature images that
 are used to identify the regions of interest.  In Table 1, we provide a list and basic
 categorization of the feature images used for the initial (i.e., Stage 1---more on the use
-of multiple random forest stages below) segmentation of the white matter hyperintensities.
+of multiple random forest stages below) segmentation of the WMHs.
 In addition Figure 1 provides a representation of a set of feature images for a single
 subject analyzed in this work.  Note that in this work we categorize the brain parenchyma
 with seven labels:
@@ -63,7 +63,7 @@ the open-source Advanced Normalization Tools (ANTs) [@Avants:2014aa].  The align
 are then preprocessed using the denoising algorithm of [@Manjon:2010aa] followed by
 N4 bias correction [@Tustison:2010ac] which are then normalized to the intensity
 range $[0,1]$.  Although we could have used an alternative intensity standardization
-algorithm (e.g., [@nyul2000]), we found that a simple linear rescaling produced better results.
+algorithm (e.g., [@nyul2000]), we found that a simple linear rescaling produced better results similar \added[id=dt]{to previous work}[@Tustison:2015aa].
 
 ![Sample FLAIR acquisition image slices showing both manual (top) and random forest
 (RDF) segmentations (bottom) obtained during the leave-one-out evaluation.  Manual
@@ -78,9 +78,9 @@ cortical thickness pipeline described in [@Tustison:2014ab].
 brain has been extracted, we apply a Bayesian-based segmentation algorithm
 with a template-based prior probability strategy to segment the
 parenchymal tissue types.  The result is} a mask delineating the brain parenchyma and probabilistic estimates of the
-cerebrospinal fluid (csf), gray matter, white matter, deep gray matter, brain stem, and
+\replaced[id=dt]{CSF}{cerebrospinal fluid (csf)}, gray matter, white matter, deep gray matter, brain stem, and
 cerebellum.  These provide the expertly annotated labels for the first six tissue labels
-given above.  The white matter hyperintensities were manually identified by one of the authors
+given above.  The \replaced[id=dt]{WMHs}{white matter hyperintensities} were manually identified by one of the authors
 (J. R. S.) using the ITK-SNAP tool [@Yushkevich:2006aa].  Segmentation is performed using
 the ANTs Atropos tool [@Avants:2011aa] and
 multi-model optimal symmetric shape/intensity templates [@Tustison:2015aa] created from the public
@@ -95,11 +95,12 @@ features.](Figures/MMRR.png)
 To model the intensity information the first set of images simply includes the
 preprocessed and normalized intensity FLAIR, T1, and T2 image voxel values.  We also calculate a set
 of neighborhood statistics (mean, standard deviation, and skewness) feature images using
-a \added[id=am]{Manhattan} radius of one voxel. For each of the normalized
+a \added[id=am]{Manhattan} radius of one voxel \added[id=nt]{given the typical size
+of individual WMHs}. For each of the normalized
 images, we calculate the difference in intensities with the corresponding warped template
 component.  Previous success in the international brain tumor segmentation
 competition [@Menze:2015aa] was based on an important set of intensity features that were created
-from multi-modal templates mentioned previously [@Tustison:2015aa].  We employ the
+from multi-modal templates mentioned previously [@Tustison:2015aa] \added[id=nt]{and listed in Table 1}.  We employ the
 same strategy here.  For example, the template
 difference feature image for the FLAIR image, $S_{FLAIR}$ is calculated as:
 
@@ -108,7 +109,7 @@ $$S_{FLAIR} - T_{FLAIR}\left(\phi_b^{-1}\right)$$
 where $\phi_b: S  \leftrightarrow \underset{b}{\leftrightsquigarrow} T$ is the transform
 which maps from the individual subject space to the
 template space and $T_{FLAIR}$ is the FLAIR template component.  Also,
-to take advantage of the \added[id=hl,remark=NT:  we are using the "symmetry" of the brain in an analogous sense that if we know the left eye location and color then it is highly probabilistic that we can accurately predict the location and color of the right eye even though a particular face might not be exactly symmetric]{gross} bilateral symmetry of the normal brain (in terms of both shape and intensity), and the fact that \replaced[id=bt]{WMHs do not generally manifest symmetrically across hemispheres}{the presence of WMHs violates that assumption},
+to take advantage of the \added[id=hl,remark=NT:  we are using the gross bilateral symmetry of the brain in an analogous sense that if we know the left eye location and color then we can accurately predict the location and color of the right eye even though a particular face might not be exactly symmetric]{gross} bilateral symmetry of the normal brain (in terms of both shape and intensity), and the fact that \replaced[id=bt]{WMHs do not generally manifest symmetrically across hemispheres}{the presence of WMHs violates that assumption},
 we use the symmetric templates to compute the contralateral intensity
 differences as an additional intensity feature.  For the FLAIR component, this contralateral
 difference image is calculated from
@@ -128,8 +129,9 @@ space of the template.  The T1 image of the subject is registered to the T1 temp
 component using a B-spline variant [@Tustison:2013ac] of the well-known ANTs Symmetric
 Normalization (SyN) algorithm [@Avants:2011ab].  Since the inverse transform is also
 derived as part of the registration process, we can warp the voxel index locations
-back to the space of the individual subject.    Note that this is similar in motivation to the work
-of [@Anbeek:2004aa].  However, this previous work lacks the normalization to the standard
+back to the space of the individual subject \replaced[id=nt]{which motivates similar work by others}{
+Note that this is similar in motivation to the work
+of} [@Anbeek:2004aa].  However, this previous work lacks the normalization to the standard
 coordinate system provided by the template to dramatically improve spatial specificity
 across all subjects.
 
@@ -153,7 +155,7 @@ segmentation.  The resulting seven posterior probability images constitute a thi
 As pointed out in a recent comprehensive multiple sclerosis lesion segmentation review
 [@Garcia-Lorenzo:2013aa], although the number of algorithms reported in the literature
 is quite extensive, there were only four publicly available segmentation algorithms
-at the time of writing of which none are based on supervised learning.  As we did for
+at the time of writing \added[id=am]{this article}.  \replaced[id=dt]{In contrast to the current work,}{of which} none are based on supervised learning.  As we did for
 our brain tumor segmentation algorithm [@Tustison:2015aa], all of the code described in
 this work is publicly available through the open-source ANTs/ANTsR toolkits.  Through
 ANTsR (an add-on toolkit which, in part, bridges ANTs and the R statistical project) we
@@ -163,7 +165,7 @@ use the \texttt{randomForest} package [@liaw2002] using the default settings wit
 
 In addition, similar to our previous offering [^1], we plan on creating
 a self-encapsulated example to showcase the proposed methodology.  The fact that
-the data will also be made available through the FITBIR repository along
+the data will also be made available through the \replaced[id=lw]{Federal Interagency Traumatic Brain Injury Research (FITBIR)}{FITBIR} repository along
 with the manual labelings will facilitate reproducibility on the part of the reader
 as well as any interest in extending the proposed framework to other data sets.
 

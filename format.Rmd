@@ -8,7 +8,7 @@ output:
     keep_tex: yes
 header-includes:
    - \usepackage{booktabs}
-   - \usepackage{changes}
+   - \usepackage[deletedmarkup=xout]{changes}
    - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
    - \linespread{1.5}
    - \usepackage[compact]{titlesec}
@@ -27,6 +27,7 @@ header-includes:
    - \definechangesauthor[name={Andy Mayer}, color=green]{am}
    - \definechangesauthor[name={Harvey Levin}, color=blue]{hl}
    - \definechangesauthor[name={Brian Taylor}, color=purple]{bt}
+   - \definechangesauthor[name={David Tate}, color=orange]{dt}
 bibliography: references.bib
 csl: national-science-foundation-grant-proposals.csl
 fontsize: 11pt
