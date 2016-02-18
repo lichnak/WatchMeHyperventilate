@@ -29,7 +29,7 @@ header-includes:
    - \definechangesauthor[name={Brian Taylor}, color=purple]{bt}
    - \definechangesauthor[name={David Tate}, color=orange]{dt}
 bibliography: references.bib
-csl: national-science-foundation-grant-proposals.csl
+csl: council-of-science-editors.csl
 fontsize: 11pt
 mainfont: Georgia
 geometry: margin=1.0in

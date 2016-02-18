@@ -63,8 +63,9 @@ gray matter aids in the removal of false positives.  Inspection of the bottom of
 plots demonstrates the lack of discriminating features associated with the
 T1 image which is also well-known in the clinical literature.
 
-![\added[id=nt]{(a) FLAIR image slice illustrating WMHs which have been manually delineated
-in (b).  (c) Contralateral FLAIR difference image.}](Figures/FLAIRcontralaleteralWithLesions.png)
+![\added[id=nt]{(a) FLAIR image slice illustrating WMHs which have been manually delineated.
+The region around the WMHs is enlarged (b) in the original FLAIR and the
+(c) contralateral FLAIR difference image.}](Figures/FLAIRcontralaleteralWithLesionsAlternate.png)
 
 As described earlier, for Stage 2, we used the output random forest voting maps from Stage
 1 as both features themselves and as priors for input to a Bayesian-based segmentation with

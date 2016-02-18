@@ -1,0 +1,26 @@
+
+# Abstract
+
+White matter hyperintensities (WMHs) are foci of abnormal signal
+intensity in white matter regions seen with magnetic resonance imaging
+(MRI). WMHs are associated with normal aging and have shown prognostic
+value in neurological conditions such as traumatic brain injury (TBI).
+The impracticality of manually quantifying these lesions limits their
+clinical utility and motivates the utilization of machine learning
+techniques for automated segmentation workflows.  Herein, we develop a
+concatenated random forest framework with tailored features for
+segmenting WMHs in a TBI cohort. The framework is provided publicly
+through the Advanced Normalization Tools (ANTs)  and ANTsR toolkits.  MR
+(3D FLAIR, T2-, and T1-weighted) images from 24 service members and
+veterans scanned in the Chronic Effects of Neurotrauma Consortium’s
+(CENC) observational study were acquired. Manual annotations were
+employed for both training and evaluation using a leave-one-out
+strategy.  Lesion load and overlap evaluative comparisons are
+complimented by feature rankings which showcase the utility of the
+concatenated approach.  Our findings suggest supervised learning methods
+may be applied to quantify WMHs on routine brain imaging. Paired with
+correlative outcome data, supervised learning methods may allow for
+identification of imaging features predictive of diagnosis and prognosis
+in individual TBI patients.
+
+\clearpage

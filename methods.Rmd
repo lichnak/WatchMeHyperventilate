@@ -65,10 +65,10 @@ N4 bias correction [@Tustison:2010ac] which are then normalized to the intensity
 range $[0,1]$.  Although we could have used an alternative intensity standardization
 algorithm (e.g., [@nyul2000]), we found that a simple linear rescaling produced better results similar \added[id=dt]{to previous work}[@Tustison:2015aa].
 
-![Sample FLAIR acquisition image slices showing both manual (top) and random forest
-(RDF) segmentations (bottom) obtained during the leave-one-out evaluation.  Manual
+![Sample FLAIR acquisition image slices showing both manual and random forest
+segmentations for both stages obtained during the leave-one-out evaluation.  Manual
 segmentations were performed by one of the authors and provided the ground
-truth WMH labels for training the random forest models.](Figures/montage.png)
+truth WMH labels for training the random forest models.](Figures/sampleResults.png)
 
 The T1 image is then processed via the ANTs brain
 extraction and normal tissue segmentation (i.e., the pathology is discounted which is
@@ -161,7 +161,7 @@ this work is publicly available through the open-source ANTs/ANTsR toolkits.  Th
 ANTsR (an add-on toolkit which, in part, bridges ANTs and the R statistical project) we
 use the \texttt{randomForest} package [@liaw2002] using the default settings with
 2000 trees per model and 500 randomly selected samples per label per image.
-\added[id=bt]{Note that we saw little variation in performance when these parameters were changed which is consistent with our previous experience.}
+\added[id=bt]{Note that we saw little variation in performance when these parameters were changed (i.e. up to 1000 random samples and as little as 1000 trees) which is consistent with our previous experience.}
 
 In addition, similar to our previous offering [^1], we plan on creating
 a self-encapsulated example to showcase the proposed methodology.  The fact that
