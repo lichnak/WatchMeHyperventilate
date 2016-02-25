@@ -1,6 +1,6 @@
 
 # Discussion
-#
+
 <!-- Nick could you add some detail here on how this technique compares
 to other automated or semi automated approaches for WMH detection? -->
 
@@ -66,7 +66,7 @@ a visual rating scale. The studies analyzed by Debette & Markus were
 limited to the occurrence of one of the aforementioned conditions which
 they analyzed by hazard ratios.
 
-\replaced[id=dt]{The more}{A} recent meta-analysis by Kloppenborg et al.
+The more recent meta-analysis by Kloppenborg et al.
 [@Kloppenborg:2014aa] of 23 cross-sectional studies reporting MRI and
 concurrent neuropsychological results in patients with heterogeneous
 diagnoses but without previously diagnosed cognitive impairment, found
@@ -151,11 +151,4 @@ deep learning algorithms may be well positioned to help transform how
 neuroimaging is interpreted for the clinical management of patients with
 this disease process.
 
-
 \clearpage
-
-<!-- \listofchanges
-
-\clearpage -->
-
-# References

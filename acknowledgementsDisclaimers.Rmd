@@ -1,0 +1,35 @@
+
+## Acknowledgements
+
+The authors wish to acknowledge all other members of
+the CENC Neuroimaging Steering Committee and CENC leadership (Drs. David
+X. Cifu, Ramon Diaz-Arrastia, and Rick Williams) for their support. We
+also gratefully acknowledge the assistance of Tracy Nolen, Chris Siege
+and Kevin Wilson. We would also like to thank the study participants and
+their family members. This project was jointly supported by the
+Department of Defense (W81XWH-13-2-0095), the U.S. Department of
+Veterans Affairs (I01 CX001135 and I01 RX 002174), as well as USUHS
+Grant HU 0001-08-0001.
+
+
+## Declaration of Interest/Disclaimer
+
+The authors report no financial
+disclosures or conflicts of interest. The views expressed here are those
+of the authors and do not necessarily reflect the official policy of
+position of the Department of the Navy, Department of Defense, nor the
+U.S. Government. This work was prepared as a part of official duties;
+Title 17 USC §105 provides that Copyright protection under this title is
+not available for any work of the U.S. Government. Title 17 USC §101
+defines a US Government work as a work prepared by a military service
+member of employee of the US Government as part of that person’s
+official duties.
+
+
+\clearpage
+
+<!-- \listofchanges
+
+\clearpage -->
+
+# References
