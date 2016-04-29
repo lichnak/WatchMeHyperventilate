@@ -1,0 +1,33 @@
+
+##  ANTs beginnings:  image registration
+
+<BR><BR>
+
+![](./Figures/highresdiffeos.jpg)
+
+##  ANTs tools
+
+* MRI bias correction
+* image denoising
+* image and point set registration
+* $n$-tissue segmentation
+* template building
+* multi-atlas label fusion
+* brain extraction
+* cortical thickness estimation
+* ANTsR for statistics and visualization
+
+publicly available:  https://github.com/stnava/ANTs
+
+## Competitions
+
+![](./Figures/evalhistory.png)
+
+## Competition:  BRATS 2013
+
+![](./Figures/bratsData.png)
+
+*_only team out of 20 to make code publicly available._
+
+
+

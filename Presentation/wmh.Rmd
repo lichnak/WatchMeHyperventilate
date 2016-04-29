@@ -1,0 +1,22 @@
+
+## WMH segmentation
+
+![](./Figures/lesions.png)
+
+## Feature images
+
+$label \sim_{RF} feature_{1} + \ldots + feature_{n}$
+
+<BR><BR>
+
+![](../Figures/featureImages.png)
+
+## Feature importance
+
+![](../Figures/averageLeaveOneOut.png)
+
+## Sample results
+
+![](../Figures/sampleResults.png)
+
+
