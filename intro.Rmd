@@ -80,7 +80,7 @@ latter random forest approaches for brain tumor segmentation have performed well
 international competitions established in response to the lack of objective comparisons between segmentation algorithms (i.e.,  the Multimodal Brain Tumor Segmentation (BRATS) challenge was initiated in 2012 [@Menze:2015aa].
 
 Random forests are conceptually straightforward [@breiman2001].  They consist of ensembles of decision trees
-that are built from training data.  Once constructed, data to be classified is "pushed"
+that are built from training data.  Once \textcolor{blue}{the ensemble of decision trees is} constructed, data to be classified is "pushed"
 through each decision tree resulting in a single classification "vote" per tree.  These
 votes are then used for regression or classification of the data.  Although decision
 trees had been extensively studied, the success of employing collections of

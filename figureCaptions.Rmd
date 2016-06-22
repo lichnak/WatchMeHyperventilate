@@ -1,6 +1,15 @@
 
 # Figure Captions
 
+__Figure X:__ \textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
+input MRI for a single subject, using the multi-modal symmetric template, results in
+the generation of the feature images.  These feature images are used as input to the
+Stage 1 RF model producing the initial RF probability map estimates.  The Stage 1
+voting maps, the original feature images, and the Stage 2 RF model result in the
+final voting maps which includes the WMH probability estimate.  Note that the RF models
+are constructed once from a set of training data which are processed using the
+same feature-construction pipeline as the single-subject input MRI.}
+
 __Figure 1:__  Representation of Stage 1 feature images for subject 01C1019.  The
 FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
 [@Avants:2014aa] to the space of the T1 image.  The three modality images are then preprocessed

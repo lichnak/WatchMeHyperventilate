@@ -30,3 +30,15 @@ for( i in 1:length( rmdFiles ) )
 cat( '\n Pandoc rendering', stitchedFile, '\n' )
 render( stitchedFile, output_format = "all" )
 
+
+singleRmdFiles <- c(
+               "responseToReviewers.Rmd"
+   )
+
+for( i in 1:length( singleRmdFiles ) )
+  {
+  cat( '\n Pandoc rendering', singleRmdFiles[i], '\n' )
+  render( singleRmdFiles[i], output_format = "all" )
+  }
+
+

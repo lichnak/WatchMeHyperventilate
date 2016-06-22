@@ -172,7 +172,7 @@ latter random forest approaches for brain tumor segmentation have performed well
 international competitions established in response to the lack of objective comparisons between segmentation algorithms (i.e.,  the Multimodal Brain Tumor Segmentation (BRATS) challenge was initiated in 2012 [@Menze:2015aa].
 
 Random forests are conceptually straightforward [@breiman2001].  They consist of ensembles of decision trees
-that are built from training data.  Once constructed, data to be classified is "pushed"
+that are built from training data.  Once \textcolor{blue}{the ensemble of decision trees is} constructed, data to be classified is "pushed"
 through each decision tree resulting in a single classification "vote" per tree.  These
 votes are then used for regression or classification of the data.  Although decision
 trees had been extensively studied, the success of employing collections of
@@ -196,12 +196,34 @@ Further motivating this research is the availability of several large publicly a
 
 ## Imaging
 
-MR images utilized for this initial report were acquired from a single scanner involved in the Chronic Effects of Neurotrauma Consortium’s (CENC) observational study (see Walker et al., this issue). Briefly, participants were Operation Iraqi Freedom/Operation Enduring Freedom (OIF/OEF) era Service Members and Veterans between the ages of 18-60 years with prior combat exposure and deployment(s). The feature images consisted of 26 subjects aged 39.6 ± 8.1 years (range 28 – 58 years). Within this cohort, 24 (92%) were considered positive for TBI based upon the potential concussive events (PCE) interview process described in detail in Walker et al., this issue). Each of the participants that were selected from the larger cohort of participants in this study demonstrated at least one white matter hyperintensity (but as many as 20) on FLAIR imaging.
+MR images utilized for this initial report were acquired from a single scanner involved in the Chronic Effects of Neurotrauma Consortium’s (CENC) observational study (see Walker et al., this issue). Briefly, participants were Operation Iraqi Freedom/Operation Enduring Freedom (OIF/OEF) era Service Members and Veterans between the ages of 18-60 years with prior combat exposure and deployment(s). The feature images \textcolor{blue}{were derived from MR acquisitions of} 26 subjects aged 39.6 $\pm$ 8.1 years (range 28--58 years). Within this cohort, 24 (92%) were considered positive for TBI based upon the potential concussive events (PCE) interview process described in detail in Walker et al., this issue). Each of the participants that were selected from the larger cohort of participants in this study demonstrated at least one white matter hyperintensity (but as many as 20) on FLAIR imaging.
 
 
-Images were acquired on a Philips 3.0T Ingenia system with an 8-channel SENSE head coil (Philips Medical Systems, Best, Netherlands).  3D FLAIR sequences were acquired with a turbo spin echo inversion recovery sequence with the following parameters:  repetition time (TR) = 4800 ms, echo time (TE) = 325 ms, inversion time (TI) = 1650 ms; 170 sagittal slices with a 1.2 mm slice thickness, 256 x 256 acquisition matrix, and 256 x 256 mm FOV.  3D T1-weighted sequences were acquired with a fast field echo (FFE) sequence with the following parameters:  TR = 6.8 ms, TE = 3.2 ms, echo train length (ETL) = 240; Flip angle = 9°, 170 sagittal slices with a 1.2 mm slice thickness, 256x240 acquisition matrix, and 256 x 256 mm FOV.  In addition, 3D T2-weighted images were acquired with a turbo spin echo sequence with the following parameters:  TR = 2500 ms, TE = 245 ms, ET: = 133; 170 sagittal slices with a 1.2 mm slice thickness, 256 x 256 acquisition matrix, and 256 x 256 mm FOV.
+Images were acquired on a Philips 3.0T Ingenia system with an 8-channel SENSE head coil (Philips Medical Systems, Best, Netherlands).  3D FLAIR sequences were acquired with a turbo spin echo inversion recovery sequence with the following parameters:  repetition time (TR) = 4800 ms, echo time (TE) = 325 ms, inversion time (TI) = 1650 ms; 170 sagittal slices with a 1.2 mm slice thickness, 256 $\times$ 256 acquisition matrix, and 256 $\times$ 256 mm FOV.  3D T1-weighted sequences were acquired with a fast field echo (FFE) sequence with the following parameters:  TR = 6.8 ms, TE = 3.2 ms, echo train length (ETL) = 240; Flip angle = 9$^\circ$, 170 sagittal slices with a 1.2 mm slice thickness, 256x240 acquisition matrix, and 256 $\times$ 256 mm FOV.  In addition, 3D T2-weighted images were acquired with a turbo spin echo sequence with the following parameters:  TR = 2500 ms, TE = 245 ms, ET: = 133; 170 sagittal slices with a 1.2 mm slice thickness, 256 $\times$ 256 acquisition matrix, and 256 x 256 mm FOV.
 
 ## Quantitative analysis
+
+\textcolor{blue}{Figure X provides a graphical overview of the proposed workflow.  The major components
+include offline generation of symmetric multimodal templates, the creation of
+feature images from the training data which are then used to model the statistical
+prediction using a concatenated random forest framework.  Once these offline steps
+are performed, a new, unsegmented subject can then be processed using the proposed pipeline.}
+
+<!--
+
+![\textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
+input MRI for a single subject, using the multi-modal symmetric template, results in
+the generation of the feature images.  These feature images are used as input to the
+Stage 1 RF model producing the initial RF probability map estimates.  The Stage 1
+voting maps, the original feature images, and the Stage 2 RF model result in the
+final voting maps which includes the WMH probability estimate.  Note that the RF models
+are constructed once from a set of training data which are processed using the
+same feature-construction pipeline as the single-subject input MRI.}](Figures/wmhPipeline.png)
+
+-->
+
+### Feature images for WMH segmentation
+
 
 Crucial to these supervised segmentation approaches are the creation and selection of
 "features" as input in conjunction with
@@ -217,8 +239,6 @@ algorithms.  Other potential confounds include MR signal inhomogeneity and noise
 even though machine learning and pattern recognition techniques are extremely powerful and
 have significant potential, just as crucial to outcome is the creative construction and
 deployment of salient feature images which we detail below.
-
-### Feature images for WMH segmentation
 
 <!--
 
@@ -711,6 +731,15 @@ official duties.
 # References
 
 # Figure Captions
+
+__Figure X:__ \textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
+input MRI for a single subject, using the multi-modal symmetric template, results in
+the generation of the feature images.  These feature images are used as input to the
+Stage 1 RF model producing the initial RF probability map estimates.  The Stage 1
+voting maps, the original feature images, and the Stage 2 RF model result in the
+final voting maps which includes the WMH probability estimate.  Note that the RF models
+are constructed once from a set of training data which are processed using the
+same feature-construction pipeline as the single-subject input MRI.}
 
 __Figure 1:__  Representation of Stage 1 feature images for subject 01C1019.  The
 FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
