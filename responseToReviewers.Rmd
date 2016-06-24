@@ -78,7 +78,7 @@ stages. However, the manuscript itself, to my opinion, is not well
 focused and needs significant improvement. Below are my specific comments
 in support of this.
 
-> _\textcolor{blue}{We thank the reviewer for the general positive comments concerning our work.  We also
+> _\textcolor{blue}{We thank the reviewer for the generally positive assessment of our work.  We also
 > appreciate the detailed critique below to help us improve specific aspects of the
 > presentation.}_
 
@@ -97,9 +97,13 @@ support vector machines, or the existence of a python package called
 SciPy. Yet, it is unclear why these things have any importance, unless
 the authors make connections to their topic/method.
 
-> _\textcolor{blue}{Nick}_
+> _\textcolor{blue}{We reduced the introduction to limit the clinical motivation to a
+TBI context and removed mention of multiple sclerosis to remove any assumption of
+disease similarity (although the segmentation approaches can be similar).  We also
+removed the paragraph dealing with publicly available software for neuroimaging analysis.
+}_
 
-2. Second, the manuscript has no results. All the results section is focused
+2. Second, the manuscript has no results. All the results section is [sic] focused
 on talking about feature ranking, which by the way is explained in the
 Results section instead of the Methods section. The most important
 results (the prediction accuracy of automated segmentation), are not
@@ -118,53 +122,123 @@ manuscript, it is equally important to give some results in the abstract.
 The abstract must be self-sufficient in reporting all the major points of
 the paper.
 
-> _\textcolor{blue}{Nick}_
+> _\textcolor{red}{Nick}_
 
 3. Third, there is no information about the manual lesion tracing procedure.
 Were lesion drawn on FLAIR or were other modalities used as well? If
 FLAIR was used as reference it is not surprising that FLAIR emerges as
-one of the top predictive modalities. Descriptive statistics on the
-lesions are also necessary: how big were the lesions, how many lesions
-were found in each patient (the range 1-20 is not sufficiently
-informative), where were the lesions located? This information helps
-understand why, for example, brain stem or cerebellum labels were not
-that important for achieving good lesion predictions.
+one of the top predictive modalities.
 
-> _\textcolor{blue}{Nick}_
+> _\textcolor{blue}{We added the following to the Methods section:}_
+
+> \textcolor{blue}{The first author (J. R. S.) performed the manual WMH tracings for all 26  subjects.  J. R. S. is a radiologist certified by the American Board of Radiology, with a certificate of advanced qualification in vascular and interventional radiology, over 18 years of research experience in TBI, and 6 years of clinical imaging experience.  All multi-modal MR dicom image slices were converted to the nifti file format. Given the utility of the FLAIR sequence in detecting white matter lesions in TBI}  [@Marquez-de-la-Plata:2007aa]\textcolor{blue}{, all nifti image volumes for each subject were rigidly aligned to the FLAIR image of that subject using the ANTs software} [@Avants:2014aa] \textcolor{blue}{.  The normalized MRI volumes were then provided to J. R. S. who traced each lesion using the ITK-SNAP tool} [@Yushkevich:2006aa]
+> \textcolor{blue}{ which has multi-image overlay capabilities for visualizing all modalities in all three canonical views.}
+
+> Descriptive statistics on the lesions are also necessary: how big were the
+> lesions, how many lesions were found in each patient (the range 1-20 is not sufficiently
+> informative), where were the lesions located? This information helps
+> understand why, for example, brain stem or cerebellum labels were not
+> that important for achieving good lesion predictions.
+
+> _\textcolor{red}{Nick---Add a table for each patient and get all this
+information before doing the evaluation.}_
 
 4. Fourth, although the authors claim the method is available, I couldn't
 find any link for the public. Note, it would be equally important if the
 publication of the method online is associated with proper documentation
 on how a new (naive) user can apply it.
 
-> _\textcolor{blue}{Nick}_
+> _\textcolor{blue}{Our methodological publication history demonstrates that we are
+very supportive of open science and have released both code and data in conjunction
+with these publications in public forums, such as github.  However, permission to
+publicly release the data for this data has not yet been obtained and so we removed
+the mention of public availability.  However, when we do get permission, it will
+be posted to the github repository associated with this manuscript
+(https://github.com/ntustison/WatchMeHyperventilate) for future readers.
+}_
 
 Minor comments:
 
 5. In the abstract, the authors mention the creation of tailored features
 for segmenting WMHs. My understanding is that the method proposed by the
 authors has no tailoring (if we think of tailoring as custom cutting to
-WMH needs). There was no feature selection process all the features were
-included as predictors. A similar pitfall if found on pg. 6 ln 56, where
-the manuscript reads ``Crucial to these supervised segmentation approaches
-are the creation and selection of features as input in conjunction with
-expertly identified structures.'' What are the structures identified by
-the expert in this study?
+WMH needs).
+
+> _\textcolor{blue}{We removed the word ``tailor'' in its various forms in the
+manuscript to avoid the misreading described by the reviewer.}_
+
+> There was no feature selection process all the features were
+> included as predictors.
+
+> _\textcolor{blue}{Although feature selection is mentioned in the manuscript, nowhere
+do we mention or imply any type of computational feature selection.  There was
+a feature selection process in that we selected ones from the myriad feature images that
+one can possibly produce based on our targeted application, i.e. WMHs.}_
+
+> A similar pitfall if found on pg. 6 ln 56, where
+> the manuscript reads ``Crucial to these supervised segmentation approaches
+> are the creation and selection of features as input in conjunction with
+> expertly identified structures.'' What are the structures identified by
+> the expert in this study?
+
+> _\textcolor{blue}{For this particular application, white matter hyperintensities
+are the structure of interest.  We have re-emphasized this point by writing:
+}_
+
+> \textcolor{blue}{Crucial to these supervised segmentation approaches are the creation and selection of
+``features'' as input (i.e., feature images constructed from the training data)
+in conjunction with expertly identified structures of interest
+(i.e., WMHs) for model construction.}
 
 6. The methods section is very confusing. The section "Feature images for
 WMH segmentation" starts with no explanation of what is Stage 1. The
 logical flow would require template registration explained first, and all
 feature computation performed later, and finally RF stages can be
-explained with the available features. The pipeline also seem to be
-repetitive, the N4 correction is mentioned in ln. 26 and then again in
-ln. 43, which sounds like it was performed twice. Tissue segmentation is
-mentioned in ln. 39, then it is stated is a Bayesian method (ln 45), and
-then it is referred to as Atropos in the next page. It is unclear what is
-³the first set of images² in pg. 9, or if there is a second set. Also,
-mathematical formulas seem superfluous, particularly since it takes more
-space to explain the formula than to say in plain English that
-transformation matrices were applied to bring subject¹s images in
-template space.
+explained with the available features.
+
+> _\textcolor{red}{Here.}_
+
+> The pipeline also seem to be
+> repetitive, the N4 correction is mentioned in ln. 26 and then again in
+> ln. 43, which sounds like it was performed twice. Tissue segmentation is
+> mentioned in ln. 39, then it is stated is a Bayesian method (ln 45), and
+> then it is referred to as Atropos in the next page.
+
+> _\textcolor{blue}{The two mentions of N4 are due to the fact that they are associated
+with two distinct pipelines:  1) preparation of the images for extracting feature values
+and 2) brain extration and $n$-tissue segmentation.  We rewrote the section in question
+to avoid any confusing redundancy:}_
+
+> _\textcolor{blue}{The T1 image is then processed via the ANTs brain
+extraction and normal tissue segmentation pipelines}_ [@Tustison:2014ab]
+> _\textcolor{blue}{.  The result is a mask delineating the brain
+parenchyma and probabilistic estimates of the CSF, gray matter, white matter,
+deep gray matter, brain stem, and cerebellum}_ [@Avants:2011aa]
+> _\textcolor{blue}{.  These provide the expertly annotated labels for the
+first six tissue labels given above.  Tissue prior probability maps for segmentation
+are from multi-model optimal symmetric shape/intensity templates}_ [@Tustison:2015aa]
+> _\textcolor{blue}{created from the public MMRR data set}_  [@landman2011]
+> _\textcolor{blue}{(cf Figure 3).}_
+
+
+
+> It is unclear what is ``the first set of images'' in pg. 9, or if there is a second set.
+
+> _\textcolor{blue}{We clarified this confusion by changing the sentence in question from}_
+
+> \textcolor{blue}{To model the intensity information the first set of images simply includes the
+> preprocessed and normalized intensity FLAIR, T1, and T2 image voxel values.}
+
+> _\textcolor{blue}{to}_
+
+> \textcolor{blue}{Feature values include the preprocessed FLAIR, T1, and T2 image voxel intensities.}
+
+> Also, mathematical formulas seem superfluous, particularly since it takes more
+> space to explain the formula than to say in plain English that
+> transformation matrices were applied to bring subject's images in
+> template space.
+
+> _\textcolor{blue}{Done.  We removed the mathematical formulas.}_
 
 7. Random forests are explained in a way that can be understood only by
 readers who already know how they work; a new reader (especially a
@@ -172,12 +246,31 @@ clinician) would not be able to understand the method. For example, data
 pushed onto a tree is does not mean much, unless the reader knows what is
 an identification tree.
 
+> \textcolor{red}{We confess that we are also ignorant concerning the
+definition of an ``identification tree.''}
+
 8. The relationship between WMH and GOS-E is mentioned in pg. 2 but the
-reader is not informed what is GOS-E. A similar issue is met few lines
+reader is not informed what is GOS-E.
+A similar issue is met few lines
 after, where the ``outcome'' is mentioned, but there is no information what
 is referred to as outcome.
 
-> \textcolor{blue}{James}
+> _\textcolor{blue}{The sentence in question reads:}_
+
+> \textcolor{blue}{Further, volume of FLAIR lesions within the corpus
+callosum, brainstem, and thalamus in patients with severe TBI correlates
+with Glasgow Outcome-Extended (GOS-E) scores.} [@Moen:2014aa]
+
+> _\textcolor{blue}{Although the full phrase corresponding to the acronym
+in question is provided prior to the acronym in the text (along with an
+explanatory reference), we have added the following clarification:}_
+
+> \textcolor{blue}{Further, volume of FLAIR lesions within the corpus
+callosum, brainstem, and thalamus in patients with severe TBI correlates
+with Glasgow Outcome-Extended (GOS-E) scores} [@Moen:2014aa]
+> \textcolor{blue}{---a numeric groupwise assessment used to
+classify ``outcome'' in TBI patients where ``outcome'' refers to the
+spectrum of possible prognoses from death to disability to recovery.}
 
 9. In pg. 3 the authors propose that automated methods ``may allow for
 identification of correlative patterns between WMH number, volume,
@@ -187,19 +280,21 @@ before. Moreover, the authors do not report number, volume, or
 distribution of the lesions, to back up the utility of their method in
 this regard.
 
+> _\textcolor{red}{Here.}_
+
 10. In pg. 4 ln 43, reads that the data is ``constructed.'' I don't think this
 is the right verb.
 
 > _\textcolor{blue}{We agree that the sentence in question could be read this way.
 We have, therefore, clarified the sentence in question to read
-Once the ensemble of decision trees is constructed, data to be classified is ``pushed''
-through each decision tree resulting in a single classification ``vote'' per tree.}_
+``Once the ensemble of decision trees is constructed, data to be classified is ``pushed''
+through each decision tree resulting in a single classification ``vote'' per tree.``}_
 
 > A similar issue is in pg 5 ln 52 where it is stated that ``feature images
 > consisted of 26 subjects.'' It is not ethical to consider participants as feature
 > images.
 
-> _\textcolor{blue}{It was a grammatical mistake, not a question of
+> _\textcolor{blue}{This was a grammatical mistake, not a question of
 ethics.  It has been fixed: ``The feature images
 were derived from MR acquisitions of 26 subjects\ldots''}_
 
@@ -208,15 +303,39 @@ transform is also derived as part of the registration process, we can
 warp the voxel index locations back to the space of the individual
 subject which motivates similar work by others [43].''
 
+> _\textcolor{blue}{The sentences were rewritten as follows:}_
+
+> \textcolor{blue}{Similar feature images were used in}
+[@Anbeek:2004aa]
+> \textcolor{blue}{although, unlike the proposed framework, this previous work lacks
+> normalization to the standard
+> coordinate system provided by the template to dramatically improve spatial specificity
+> across all subjects.  To generate these images, the T1 image of each subject is
+> registered to the T1 template component using a B-spline variant} [@Tustison:2013ac]
+> \textcolor{blue}{of the well-known ANTs Symmetric Normalization (SyN) algorithm} [@Avants:2011ab].
+> \textcolor{blue}{Using the derived transforms, the template coordinate images are warped back to the space of the individual subject.}
+
+
+
 12. Why was Stage 1 segmentation based only on T1, while Stage 2 segmentation
 was based on multivariate segmentation using all three modalities?
 
+> _\textcolor{blue}{We added the following clarification:}_
 
+> \textcolor{blue}{In order to maximize the spatial information for the $n$-tissue segmentation
+process following the voxelwise RF classification of Stage 1, we use all three
+aligned preprocessed images for multivariate segmentation during the second stage.}
 
 13. Similar to the feature ranking method, which is explain in Results, Dice
-is also explained in Results. Also, it is unclear why finding which
-direction of space is informative for the segmentation process would be a
-``sanity check.''
+is also explained in Results.
+
+> _\textcolor{blue}{We removed the equation for the Dice metric and described the
+evaluation procedure in the Methods section.}_
+
+> Also, it is unclear why finding which direction of space is informative for the
+> segmentation process would be a ``sanity check.''
+
+> _\textcolor{blue}{We removed this section to avoid unnecessary confusion.}_
 
 14. The discussion starts with an ``intent to further refine the proposed
 paradigm,'' and proceeds by mentioning other work currently being
@@ -230,7 +349,7 @@ single expert was used to produce the manual labelings, our intent is to
 further refine the proposed paradigm by crowdsourcing with feedback from
 other experts who interact with both the data and methodology.''
 In our opinion, simply mentioning specific details regarding future work
-does not mean that the manuscript ``sounds like an incomplete effort''.
+does not mean that the manuscript ``sounds like an incomplete effort.''
 Rather, it is simply an admission, similar to much of what is reported
 in the literature, that our research program is ongoing.}_
 
@@ -275,3 +394,7 @@ voting maps, the original feature images, and the Stage 2 RF model result in the
 final voting maps which includes the WMH probability estimate.  Note that the RF models
 are constructed once from a set of training data which are processed using the
 same feature-construction pipeline as the single-subject input MRI.}](Figures/wmhPipeline.png)
+
+\clearpage
+
+## References

@@ -45,12 +45,14 @@ horizontal errors bars providing the $95^{th}$ percentile
 Note that the reader can cross reference Table 1 for identifying corresponding feature types
 and names.
 
+<!--
 One can also use these measurements as a type of sanity check.  For example, from the Stage
 1  plot, one can see that the _MeanDecreaseAccuracy_ values for the location indices in the
 anterior-posterior direction (i.e., _TemplateIndicesWarped1_) are greater than
 those for either the inferior-superior (i.e., _TemplateIndicesWarped2_) or the
 left-right (i.e., _TemplateIndicesWarped0_) directions in the space of the symmetric
 template.
+-->
 
 Additionally, it is interesting to note some of the other top performing features for Stage 1.
 The contralateral difference FLAIR image is  highly discriminative over the set of
@@ -90,11 +92,16 @@ In Figure 7 are the segmentation comparisons derived from manual segmentations o
 data.  Despite the large variability characteristic with manual labelings in related fields
 [@Grimaud:1996aa;@styner2008;@Garcia-Lorenzo:2013aa], such labelings are characteristic of
 current clinical practices and the methodology proposed herein is readily adapted to refinements
-in training data.  On the left of Figure 7 are the improvement in Dice values [@tustison2009],
+in training data.
+
+
+<!--
 i.e.,
 
 $$ Dice = 2 \frac{\sum_r|S_r \cap T_r|}{\sum_r|S_r| + |T_r] } $$
+-->
 
+On the left of Figure 7 are the improvement in Dice values [@tustison2009],
 over all white matter hyperintensities when comparing the segmentations between the two stages
 where the sum is taken over all individually labeled manual, $T_r$, and automated, $S_r$, lesions and $\cap$
 represents the intersection between the manual/automated lesion pair.  Performing

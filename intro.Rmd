@@ -47,16 +47,25 @@ NT:  As I mentioned to you previously, I think this is a great idea and I would 
 
 ## White matter hyperintensities in TBI
 
-White matter hyperintensities (WMHs) are foci of abnormally increased signal intensity seen within white matter regions within the cerebrum and brainstem on fluid attenuation inversion recovery (FLAIR) magnetic resonance imaging (MRI) sequences. These lesions are distinguished from prominent perivascular spaces seen on T2-weighted imaging by the lack of fluid suppression of signal on FLAIR sequences. WMHs in the periventricular and deep brain regions are associated with normal aging and neurological conditions including hypertension and stroke. WMHs are also a frequent finding following traumatic brain injury (TBI) and have been correlated with functional outcome and injury severity in both pediatric [@Bigler:2013aa;@Smitherman:2016aa] and adult
-[@Marquez-de-la-Plata:2007aa;@Moen:2014aa;@Ding:2008aa;@Pierallini:2000aa]. Further, the regional distribution and volume of WMHs have been shown to possess prognostic value in the TBI patient [@Pierallini:2000aa;@Weiss:2008aa;@Smitherman:2016aa;@Levin:1988aa]. Specifically, lesion volume in corpus callosum correlates with functional scores in the acute phase following injury, while lesion volume in frontal lobes correlates with scores at 1 year following injury [@Pierallini:2000aa]. Further, volume of FLAIR lesions within the corpus callosum, brainstem, and thalamus in patients with severe TBI correlates with Glasgow Outcome-Extended (GOS-E) scores [@Moen:2014aa]. Additionally,
-in patients who are comatose following severe TBI
-the regional distribution of FLAIR lesions within the pons, midbrain, hypothalamus, basal forebrain, parietal, temporal, occipital lobes, and insula along with the observation of grasping or chewing behavior are associated with poor outcome [@Weiss:2008aa].
+\textcolor{blue}{White matter hyperintensities (WMHs) are foci of abnormally increased signal intensity seen within white matter regions within the cerebrum and brainstem on fluid attenuation inversion recovery (FLAIR) magnetic resonance imaging (MRI) sequences.
+WMHs are a frequent finding following traumatic brain injury (TBI) and have been correlated with functional outcome and injury severity in both pediatric} [@Bigler:2013aa;@Smitherman:2016aa] \textcolor{blue}{and adult} [@Marquez-de-la-Plata:2007aa;@Moen:2014aa;@Ding:2008aa;@Pierallini:2000aa] \textcolor{blue}{populations.}
 
-Despite the above findings, outside of multiple sclerosis, WMHs are not routinely employed as a diagnostic measure in clinical practice. Their presence within asymptomatic patients or in association with a variety of conditions, such as stroke, dementia, neuroinflammatory conditions, and TBI challenge their utility in narrowing a radiological differential diagnosis. Further, performing a comprehensive manual counting of number and distribution of lesions in the clinical setting is simply not practical. Despite the limited inclusion of WMH observations in routine radiological reports, two large meta-analyses demonstrated an association between WMHs, cognitive function, increased risk of stroke, dementia, and death [@Debette:2010aa;@Kloppenborg:2014aa]. As such, the development of automated methods for the rapid identification and quantification of WMHs within individual patients may allow for identification of correlative patterns between WMH number, volume, distribution, and disease state. Further, the development of such lesion quantification approaches may allow for the practical inclusion of this type of information within routine radiological practice.
+\textcolor{blue}{Further research involving WMHs has shown that regional distribution and volume of WMHs have been shown to possess prognostic value in the TBI patient} [@Pierallini:2000aa;@Weiss:2008aa;@Smitherman:2016aa;@Levin:1988aa]\textcolor{blue}{. Specifically, lesion volume in corpus callosum correlates with functional scores in the acute phase following injury, while lesion volume in frontal lobes correlates with scores at 1 year following injury} [@Pierallini:2000aa]\textcolor{blue}{.
+Further, volume of FLAIR lesions within the corpus
+callosum, brainstem, and thalamus in patients with severe TBI correlates
+with Glasgow Outcome-Extended (GOS-E) scores---a numeric groupwise assessment used to
+classify ``outcome'' in TBI patients where ``outcome'' refers to the
+spectrum of possible prognoses from death to disability to recovery.} [@Moen:2014aa]\textcolor{blue}{. Additionally,
+in patients who are comatose following severe TBI
+the regional distribution of FLAIR lesions within the pons, midbrain, hypothalamus, basal forebrain, parietal, temporal, occipital lobes, and insula along with the observation of grasping or chewing behavior are associated with poor outcome} [@Weiss:2008aa].
+
+\textcolor{blue}{Despite the above findings which demonstrate that WMHs have potential prognostic value, they are not routinely employed as a diagnostic measure in clinical practice.  Performing a comprehensive manual counting of number and distribution of lesions in the clinical setting is simply not practical. As such, the development of automated methods for the rapid identification and quantification of WMHs within individual patients may allow for identification of correlative patterns between WMH number, volume, distribution, and disease state. Further, the development of such lesion quantification approaches may allow for the practical inclusion of this type of information within routine radiological practice.  In this work, we present an automated framework for quantification of WMHs in
+multi-modal MRI using the random forest machine learning technique.}
+
 
 ## Random forests for WMH segmentation
 
-
+<!--
 Machine learning and pattern recognition techniques have seen increased application
 for various medical image analysis workflows (see, for example, the annual
 Workshop on Machine Learning in Medical Imaging held in conjunction with the Medical
@@ -68,16 +77,20 @@ Facilitating the current employment of such techniques are the number of availab
 data sets [@Van-Horn:2014aa] and the public availability of data science packages such as
 SciPy [@scipy] and the R project for statistical computing [@R] and their associated
 extensions.
+-->
 
 The random forests framework [@breiman2001] is a popular machine learning technique that has demonstrated significant utility for supervised segmentation tasks (e.g.,
 normal human brain segmentation [@yi2009]) and other computer vision applications
-(e.g., human gait detection [@viola2005]).
-In the context of neuropathology, random forest-based paradigms have been employed in the
-delineation of multiple sclerosis lesions [@geremia2011], stroke lesions [@Pustina:2016aa],
-and brain tumors [@geremia2012;@bauer2012;@zikic2012;@Tustison:2015aa] for both
-single and multi-modal acquisition protocols.  Of note, these
+(e.g., [@viola2005]).
+\textcolor{blue}{Random forest-based paradigms have been successfully employed in the
+delineation of other neuropathologies} [@geremia2011;@Pustina:2016aa;@geremia2012;@bauer2012;@zikic2012;@Tustison:2015aa]
+\textcolor{blue}{for both single and multi-modal acquisition protocols.}
+
+<!--
+Of note, these
 latter random forest approaches for brain tumor segmentation have performed well in recent
 international competitions established in response to the lack of objective comparisons between segmentation algorithms (i.e.,  the Multimodal Brain Tumor Segmentation (BRATS) challenge was initiated in 2012 [@Menze:2015aa].
+-->
 
 Random forests are conceptually straightforward [@breiman2001].  They consist of ensembles of decision trees
 that are built from training data.  Once \textcolor{blue}{the ensemble of decision trees is} constructed, data to be classified is "pushed"
@@ -90,10 +103,10 @@ of decision trees into "forests" with randomized node optimization [@ho1995;@ami
 Finally, Breiman [@breiman2001] improved accuracy by random sampling of training
 data (i.e., "bagging") resulting in the current random forest technique applied here.
 
-In this work, we develop a concatenated random forest framework with a tailored contextual
+In this work, we develop a concatenated random forest framework with a
 feature image set (both spatial and intensity-based)
-for segmenting WMHs in a large TBI cohort.  Additionally,
-the entire framework is provided publicly through the well-known open-source
+for segmenting WMHs in a large TBI cohort.
+The entire framework is built on the well-known open-source
 Advanced Normalization Tools (ANTs)[^i1] and ANTsR[^i2] toolkits.
 Further motivating this research is the availability of several large publicly available  imaging data sets that permits testing reproducibility of this automated routine for WMH segmentation and quantification.
 

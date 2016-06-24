@@ -43,11 +43,15 @@ tend to be more difficult to segment than MS lesions as the former tend
 to be smaller with an overall smaller lesion load.  Also, enhancement
 protocols with the former tend to be less successful than with the
 latter.  As mentioned previously, the work in MS lesion segmentation is
-extensive with a handful of techniques being publicly available.  Our
+extensive with a handful of techniques being publicly available.
+
+<!--
+Our
 framework is also available as open-source as part of well-known
 neuroimaging tools which easily allows for additions/extensions but is
 also, as far as we know, the first random forest-based technique
 available for such application.
+-->
 
 Two major meta-analyses of WMHs have been published covering the periods
 prior to 2010 [@Debette:2010aa] and after [@Kloppenborg:2014aa]. The earlier meta-analysis

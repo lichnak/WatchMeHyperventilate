@@ -145,7 +145,7 @@ my opinion, is not well focused and needs significant improvement. Below
 are my specific comments in support of this.
 
 \begin{quote}
-\emph{\textcolor{blue}{We thank the reviewer for the general positive comments concerning our work.  We also
+\emph{\textcolor{blue}{We thank the reviewer for the generally positive assessment of our work.  We also
 appreciate the detailed critique below to help us improve specific aspects of the
 presentation.}}
 \end{quote}
@@ -172,7 +172,11 @@ Major comments:
 \end{enumerate}
 
 \begin{quote}
-\emph{\textcolor{blue}{Nick}}
+\emph{\textcolor{blue}{We reduced the introduction to limit the clinical motivation to a
+TBI context and removed mention of multiple sclerosis to remove any assumption of
+disease similarity (although the segmentation approaches can be similar).  We also
+removed the paragraph dealing with publicly available software for neuroimaging analysis.
+}}
 \end{quote}
 
 \begin{enumerate}
@@ -181,9 +185,9 @@ Major comments:
 \tightlist
 \item
   Second, the manuscript has no results. All the results section is
-  focused on talking about feature ranking, which by the way is
-  explained in the Results section instead of the Methods section. The
-  most important results (the prediction accuracy of automated
+  {[}sic{]} focused on talking about feature ranking, which by the way
+  is explained in the Results section instead of the Methods section.
+  The most important results (the prediction accuracy of automated
   segmentation), are not mentioned in the manuscript but are only
   plotted in Figure 7. My advice is to put the focus of the results
   section on accuracy, i.e., give precise dice values and perhaps add
@@ -202,7 +206,7 @@ Major comments:
 \end{enumerate}
 
 \begin{quote}
-\emph{\textcolor{blue}{Nick}}
+\emph{\textcolor{red}{Nick}}
 \end{quote}
 
 \begin{enumerate}
@@ -213,17 +217,30 @@ Major comments:
   Third, there is no information about the manual lesion tracing
   procedure. Were lesion drawn on FLAIR or were other modalities used as
   well? If FLAIR was used as reference it is not surprising that FLAIR
-  emerges as one of the top predictive modalities. Descriptive
-  statistics on the lesions are also necessary: how big were the
-  lesions, how many lesions were found in each patient (the range 1-20
-  is not sufficiently informative), where were the lesions located? This
-  information helps understand why, for example, brain stem or
-  cerebellum labels were not that important for achieving good lesion
-  predictions.
+  emerges as one of the top predictive modalities.
 \end{enumerate}
 
 \begin{quote}
-\emph{\textcolor{blue}{Nick}}
+\emph{\textcolor{blue}{We added the following to the Methods section:}}
+\end{quote}
+
+\begin{quote}
+\textcolor{blue}{The first author (J. R. S.) performed the manual WMH tracings for all 26  subjects.  J. R. S. is a radiologist certified by the American Board of Radiology, with a certificate of advanced qualification in vascular and interventional radiology, over 18 years of research experience in TBI, and 6 years of clinical imaging experience.  All multi-modal MR dicom image slices were converted to the nifti file format. Given the utility of the FLAIR sequence in detecting white matter lesions in TBI}\textsuperscript{1}\textcolor{blue}{, all nifti image volumes for each subject were rigidly aligned to the FLAIR image of that subject using the ANTs software}\textsuperscript{2}
+\textcolor{blue}{.  The normalized MRI volumes were then provided to J. R. S. who traced each lesion using the ITK-SNAP tool}\textsuperscript{3}
+\textcolor{blue}{ which has multi-image overlay capabilities for visualizing all modalities in all three canonical views.}
+\end{quote}
+
+\begin{quote}
+Descriptive statistics on the lesions are also necessary: how big were
+the lesions, how many lesions were found in each patient (the range 1-20
+is not sufficiently informative), where were the lesions located? This
+information helps understand why, for example, brain stem or cerebellum
+labels were not that important for achieving good lesion predictions.
+\end{quote}
+
+\begin{quote}
+\emph{\textcolor{red}{Nick---Add a table for each patient and get all this
+information before doing the evaluation.}}
 \end{quote}
 
 \begin{enumerate}
@@ -238,7 +255,14 @@ Major comments:
 \end{enumerate}
 
 \begin{quote}
-\emph{\textcolor{blue}{Nick}}
+\emph{\textcolor{blue}{Our methodological publication history demonstrates that we are
+very supportive of open science and have released both code and data in conjunction
+with these publications in public forums, such as github.  However, permission to
+publicly release the data for this data has not yet been obtained and so we removed
+the mention of public availability.  However, when we do get permission, it will
+be posted to the github repository associated with this manuscript
+(https://github.com/ntustison/WatchMeHyperventilate) for future readers.
+}}
 \end{quote}
 
 Minor comments:
@@ -246,37 +270,150 @@ Minor comments:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{4}
+\tightlist
 \item
   In the abstract, the authors mention the creation of tailored features
   for segmenting WMHs. My understanding is that the method proposed by
   the authors has no tailoring (if we think of tailoring as custom
-  cutting to WMH needs). There was no feature selection process all the
-  features were included as predictors. A similar pitfall if found on
-  pg. 6 ln 56, where the manuscript reads ``Crucial to these supervised
-  segmentation approaches are the creation and selection of features as
-  input in conjunction with expertly identified structures.'' What are
-  the structures identified by the expert in this study?
+  cutting to WMH needs).
+\end{enumerate}
+
+\begin{quote}
+\emph{\textcolor{blue}{We removed the word ``tailor'' in its various forms in the
+manuscript to avoid the misreading described by the reviewer.}}
+\end{quote}
+
+\begin{quote}
+There was no feature selection process all the features were included as
+predictors.
+\end{quote}
+
+\begin{quote}
+\emph{\textcolor{blue}{Although feature selection is mentioned in the manuscript, nowhere
+do we mention or imply any type of computational feature selection.  There was
+a feature selection process in that we selected ones from the myriad feature images that
+one can possibly produce based on our targeted application, i.e. WMHs.}}
+\end{quote}
+
+\begin{quote}
+A similar pitfall if found on pg. 6 ln 56, where the manuscript reads
+``Crucial to these supervised segmentation approaches are the creation
+and selection of features as input in conjunction with expertly
+identified structures.'' What are the structures identified by the
+expert in this study?
+\end{quote}
+
+\begin{quote}
+\emph{\textcolor{blue}{For this particular application, white matter hyperintensities
+are the structure of interest.  We have re-emphasized this point by writing:
+}}
+\end{quote}
+
+\begin{quote}
+\textcolor{blue}{Crucial to these supervised segmentation approaches are the creation and selection of
+``features'' as input (i.e., feature images constructed from the training data)
+in conjunction with expertly identified structures of interest
+(i.e., WMHs) for model construction.}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
 \item
   The methods section is very confusing. The section ``Feature images
   for WMH segmentation'' starts with no explanation of what is Stage 1.
   The logical flow would require template registration explained first,
   and all feature computation performed later, and finally RF stages can
-  be explained with the available features. The pipeline also seem to be
-  repetitive, the N4 correction is mentioned in ln. 26 and then again in
-  ln. 43, which sounds like it was performed twice. Tissue segmentation
-  is mentioned in ln. 39, then it is stated is a Bayesian method (ln
-  45), and then it is referred to as Atropos in the next page. It is
-  unclear what is ³the first set of images² in pg. 9, or if there is a
-  second set. Also, mathematical formulas seem superfluous, particularly
-  since it takes more space to explain the formula than to say in plain
-  English that transformation matrices were applied to bring subject¹s
-  images in template space.
+  be explained with the available features.
+\end{enumerate}
+
+\begin{quote}
+\emph{\textcolor{red}{Here.}}
+\end{quote}
+
+\begin{quote}
+The pipeline also seem to be repetitive, the N4 correction is mentioned
+in ln. 26 and then again in ln. 43, which sounds like it was performed
+twice. Tissue segmentation is mentioned in ln. 39, then it is stated is
+a Bayesian method (ln 45), and then it is referred to as Atropos in the
+next page.
+\end{quote}
+
+\begin{quote}
+\emph{\textcolor{blue}{The two mentions of N4 are due to the fact that they are associated
+with two distinct pipelines:  1) preparation of the images for extracting feature values
+and 2) brain extration and $n$-tissue segmentation.  We rewrote the section in question
+to avoid any confusing redundancy:}}
+\end{quote}
+
+\begin{quote}
+\emph{\textcolor{blue}{The T1 image is then processed via the ANTs brain
+extraction and normal tissue segmentation pipelines}}\textsuperscript{4}
+\emph{\textcolor{blue}{.  The result is a mask delineating the brain
+parenchyma and probabilistic estimates of the CSF, gray matter, white matter,
+deep gray matter, brain stem, and cerebellum}}\textsuperscript{5}
+\emph{\textcolor{blue}{.  These provide the expertly annotated labels for the
+first six tissue labels given above.  Tissue prior probability maps for segmentation
+are from multi-model optimal symmetric shape/intensity templates}}\textsuperscript{6}
+\emph{\textcolor{blue}{created from the public MMRR data set}}\textsuperscript{7}
+\emph{\textcolor{blue}{(cf Figure 3).}}
+\end{quote}
+
+\begin{quote}
+It is unclear what is ``the first set of images'' in pg. 9, or if there
+is a second set.
+\end{quote}
+
+\begin{quote}
+\emph{\textcolor{blue}{We clarified this confusion by changing the sentence in question from}}
+\end{quote}
+
+\begin{quote}
+\textcolor{blue}{To model the intensity information the first set of images simply includes the
+preprocessed and normalized intensity FLAIR, T1, and T2 image voxel values.}
+\end{quote}
+
+\begin{quote}
+\emph{\textcolor{blue}{to}}
+\end{quote}
+
+\begin{quote}
+\textcolor{blue}{Feature values include the preprocessed FLAIR, T1, and T2 image voxel intensities.}
+\end{quote}
+
+\begin{quote}
+Also, mathematical formulas seem superfluous, particularly since it
+takes more space to explain the formula than to say in plain English
+that transformation matrices were applied to bring subject's images in
+template space.
+\end{quote}
+
+\begin{quote}
+\emph{\textcolor{blue}{Done.  We removed the mathematical formulas.}}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
 \item
   Random forests are explained in a way that can be understood only by
   readers who already know how they work; a new reader (especially a
   clinician) would not be able to understand the method. For example,
   data pushed onto a tree is does not mean much, unless the reader knows
   what is an identification tree.
+\end{enumerate}
+
+\begin{quote}
+\textcolor{red}{We confess that we are also ignorant concerning the
+definition of an ``identification tree.''}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{7}
+\tightlist
 \item
   The relationship between WMH and GOS-E is mentioned in pg. 2 but the
   reader is not informed what is GOS-E. A similar issue is met few lines
@@ -285,12 +422,34 @@ Minor comments:
 \end{enumerate}
 
 \begin{quote}
-\textcolor{blue}{James}
+\emph{\textcolor{blue}{The sentence in question reads:}}
+\end{quote}
+
+\begin{quote}
+\textcolor{blue}{Further, volume of FLAIR lesions within the corpus
+callosum, brainstem, and thalamus in patients with severe TBI correlates
+with Glasgow Outcome-Extended (GOS-E) scores.}\textsuperscript{8}
+\end{quote}
+
+\begin{quote}
+\emph{\textcolor{blue}{Although the full phrase corresponding to the acronym
+in question is provided prior to the acronym in the text (along with an
+explanatory reference), we have added the following clarification:}}
+\end{quote}
+
+\begin{quote}
+\textcolor{blue}{Further, volume of FLAIR lesions within the corpus
+callosum, brainstem, and thalamus in patients with severe TBI correlates
+with Glasgow Outcome-Extended (GOS-E) scores}\textsuperscript{8}
+\textcolor{blue}{---a numeric groupwise assessment used to
+classify ``outcome'' in TBI patients where ``outcome'' refers to the
+spectrum of possible prognoses from death to disability to recovery.}
 \end{quote}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{8}
+\tightlist
 \item
   In pg. 3 the authors propose that automated methods ``may allow for
   identification of correlative patterns between WMH number, volume,
@@ -299,6 +458,16 @@ Minor comments:
   lines before. Moreover, the authors do not report number, volume, or
   distribution of the lesions, to back up the utility of their method in
   this regard.
+\end{enumerate}
+
+\begin{quote}
+\emph{\textcolor{red}{Here.}}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{9}
+\tightlist
 \item
   In pg. 4 ln 43, reads that the data is ``constructed.'' I don't think
   this is the right verb.
@@ -307,8 +476,8 @@ Minor comments:
 \begin{quote}
 \emph{\textcolor{blue}{We agree that the sentence in question could be read this way.
 We have, therefore, clarified the sentence in question to read
-Once the ensemble of decision trees is constructed, data to be classified is ``pushed''
-through each decision tree resulting in a single classification ``vote'' per tree.}}
+``Once the ensemble of decision trees is constructed, data to be classified is ``pushed''
+through each decision tree resulting in a single classification ``vote'' per tree.``}}
 \end{quote}
 
 \begin{quote}
@@ -318,7 +487,7 @@ participants as feature images.
 \end{quote}
 
 \begin{quote}
-\emph{\textcolor{blue}{It was a grammatical mistake, not a question of
+\emph{\textcolor{blue}{This was a grammatical mistake, not a question of
 ethics.  It has been fixed: ``The feature images
 were derived from MR acquisitions of 26 subjects\ldots''}}
 \end{quote}
@@ -326,20 +495,76 @@ were derived from MR acquisitions of 26 subjects\ldots''}}
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{10}
+\tightlist
 \item
   It is unclear to me the meaning of the sentence: ``Since the inverse
   transform is also derived as part of the registration process, we can
   warp the voxel index locations back to the space of the individual
   subject which motivates similar work by others {[}43{]}.''
+\end{enumerate}
+
+\begin{quote}
+\emph{\textcolor{blue}{The sentences were rewritten as follows:}}
+\end{quote}
+
+\begin{quote}
+\textcolor{blue}{Similar feature images were used in}\textsuperscript{9}
+\textcolor{blue}{although, unlike the proposed framework, this previous work lacks
+normalization to the standard
+coordinate system provided by the template to dramatically improve spatial specificity
+across all subjects.  To generate these images, the T1 image of each subject is
+registered to the T1 template component using a B-spline variant}\textsuperscript{10}
+\textcolor{blue}{of the well-known ANTs Symmetric Normalization (SyN) algorithm}\textsuperscript{11}.
+\textcolor{blue}{Using the derived transforms, the template coordinate images are warped back to the space of the individual subject.}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{11}
+\tightlist
 \item
   Why was Stage 1 segmentation based only on T1, while Stage 2
   segmentation was based on multivariate segmentation using all three
   modalities?
+\end{enumerate}
+
+\begin{quote}
+\emph{\textcolor{blue}{We added the following clarification:}}
+\end{quote}
+
+\begin{quote}
+\textcolor{blue}{In order to maximize the spatial information for the $n$-tissue segmentation
+process following the voxelwise RF classification of Stage 1, we use all three
+aligned preprocessed images for multivariate segmentation during the second stage.}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{12}
+\tightlist
 \item
   Similar to the feature ranking method, which is explain in Results,
-  Dice is also explained in Results. Also, it is unclear why finding
-  which direction of space is informative for the segmentation process
-  would be a ``sanity check.''
+  Dice is also explained in Results.
+\end{enumerate}
+
+\begin{quote}
+\emph{\textcolor{blue}{We removed the equation for the Dice metric and described the
+evaluation procedure in the Methods section.}}
+\end{quote}
+
+\begin{quote}
+Also, it is unclear why finding which direction of space is informative
+for the segmentation process would be a ``sanity check.''
+\end{quote}
+
+\begin{quote}
+\emph{\textcolor{blue}{We removed this section to avoid unnecessary confusion.}}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{13}
+\tightlist
 \item
   The discussion starts with an ``intent to further refine the proposed
   paradigm,'' and proceeds by mentioning other work currently being
@@ -355,7 +580,7 @@ single expert was used to produce the manual labelings, our intent is to
 further refine the proposed paradigm by crowdsourcing with feedback from
 other experts who interact with both the data and methodology.''
 In our opinion, simply mentioning specific details regarding future work
-does not mean that the manuscript ``sounds like an incomplete effort''.
+does not mean that the manuscript ``sounds like an incomplete effort.''
 Rather, it is simply an admission, similar to much of what is reported
 in the literature, that our research program is ongoing.}}
 \end{quote}
@@ -431,6 +656,69 @@ are constructed once from a set of training data which are processed using the
 same feature-construction pipeline as the single-subject input MRI.}}
 \end{figure}
 
+\clearpage
+
+\subsection*{References}\label{references}
+\addcontentsline{toc}{subsection}{References}
+
 \hypertarget{refs}{}
+\hypertarget{ref-Marquez-de-la-Plata:2007aa}{}
+1. Marquez de la Plata C, Ardelean A, Koovakkattu D, Srinivasan P,
+Miller A, Phuong V, Harper C, Moore C, Whittemore A, Madden C, et al.
+Magnetic resonance imaging of diffuse axonal injury: Quantitative
+assessment of white matter lesion volume. J Neurotrauma.
+2007;24(4):591--8.
+
+\hypertarget{ref-Avants:2014aa}{}
+2. Avants BB, Tustison NJ, Stauffer M, Song G, Wu B, Gee JC. The Insight
+ToolKit image registration framework. Front Neuroinform. 2014;8:44.
+
+\hypertarget{ref-Yushkevich:2006aa}{}
+3. Yushkevich PA, Piven J, Hazlett HC, Smith RG, Ho S, Gee JC, Gerig G.
+User-guided 3D active contour segmentation of anatomical structures:
+Significantly improved efficiency and reliability. Neuroimage.
+2006;31(3):1116--28.
+
+\hypertarget{ref-Tustison:2014ab}{}
+4. Tustison NJ, Cook PA, Klein A, Song G, Das SR, Duda JT, Kandel BM,
+Strien N van, Stone JR, Gee JC, et al. Large-scale evaluation of aNTs
+and freeSurfer cortical thickness measurements. Neuroimage.
+2014;99:166--79.
+
+\hypertarget{ref-Avants:2011aa}{}
+5. Avants BB, Tustison NJ, Wu J, Cook PA, Gee JC. An open source
+multivariate framework for \(n\)-tissue segmentation with evaluation on
+public data. Neuroinformatics. 2011;9(4):381--400.
+
+\hypertarget{ref-Tustison:2015aa}{}
+6. Tustison NJ, Shrinidhi KL, Wintermark M, Durst CR, Kandel BM, Gee JC,
+Grossman MC, Avants BB. Optimal symmetric multimodal templates and
+concatenated random forests for supervised brain tumor segmentation
+(simplified) with aNTsR. Neuroinformatics. 2015;13(2):209--25.
+
+\hypertarget{ref-landman2011}{}
+7. Landman BA, Huang AJ, Gifford A, Vikram DS, Lim IAL, Farrell JAD,
+Bogovic JA, Hua J, Chen M, Jarso S, et al. Multi-parametric neuroimaging
+reproducibility: A 3-T resource study. Neuroimage. 2011;54(4):2854--66.
+
+\hypertarget{ref-Moen:2014aa}{}
+8. Moen KG, Brezova V, Skandsen T, Håberg AK, Folvik M, Vik A. Traumatic
+axonal injury: The prognostic value of lesion load in corpus callosum,
+brain stem, and thalamus in different magnetic resonance imaging
+sequences. J Neurotrauma. 2014;31(17):1486--96.
+
+\hypertarget{ref-Anbeek:2004aa}{}
+9. Anbeek P, Vincken KL, Osch MJP van, Bisschops RHC, Grond J van der.
+Probabilistic segmentation of white matter lesions in mR imaging.
+Neuroimage. 2004;21(3):1037--44.
+
+\hypertarget{ref-Tustison:2013ac}{}
+10. Tustison NJ, Avants BB. Explicit B-spline regularization in
+diffeomorphic image registration. Front Neuroinform. 2013;7:39.
+
+\hypertarget{ref-Avants:2011ab}{}
+11. Avants BB, Tustison NJ, Song G, Cook PA, Klein A, Gee JC. A
+reproducible evaluation of ANTs similarity metric performance in brain
+image registration. Neuroimage. 2011;54(3):2033--44.
 
 \end{document}

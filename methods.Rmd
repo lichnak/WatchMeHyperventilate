@@ -8,6 +8,19 @@ MR images utilized for this initial report were acquired from a single scanner i
 
 Images were acquired on a Philips 3.0T Ingenia system with an 8-channel SENSE head coil (Philips Medical Systems, Best, Netherlands).  3D FLAIR sequences were acquired with a turbo spin echo inversion recovery sequence with the following parameters:  repetition time (TR) = 4800 ms, echo time (TE) = 325 ms, inversion time (TI) = 1650 ms; 170 sagittal slices with a 1.2 mm slice thickness, 256 $\times$ 256 acquisition matrix, and 256 $\times$ 256 mm FOV.  3D T1-weighted sequences were acquired with a fast field echo (FFE) sequence with the following parameters:  TR = 6.8 ms, TE = 3.2 ms, echo train length (ETL) = 240; Flip angle = 9$^\circ$, 170 sagittal slices with a 1.2 mm slice thickness, 256x240 acquisition matrix, and 256 $\times$ 256 mm FOV.  In addition, 3D T2-weighted images were acquired with a turbo spin echo sequence with the following parameters:  TR = 2500 ms, TE = 245 ms, ET: = 133; 170 sagittal slices with a 1.2 mm slice thickness, 256 $\times$ 256 acquisition matrix, and 256 x 256 mm FOV.
 
+\textcolor{blue}{The first author (J. R. S.) performed the manual WMH tracings for all 26
+subjects.  J. R. S. is a radiologist certified by the American Board of Radiology, with a certificate of advanced qualification in vascular and interventional radiology, over 18 years of research experience in TBI, and 6 years of clinical imaging experience.  All
+multi-modal MR dicom image slices were converted to the nifti file format} [^1].
+\textcolor{blue}{Given the
+utility of the FLAIR sequence in detecting white matter lesions in TBI}  [@Marquez-de-la-Plata:2007aa]\textcolor{blue}{, all nifti image volumes for each subject were rigidly aligned to the FLAIR image of that subject using the ANTs software} [@Avants:2014aa] \textcolor{blue}{.  The normalized MRI volumes were then provided to
+J. R. S. who traced each lesion using the ITK-SNAP tool} [@Yushkevich:2006aa]
+\textcolor{blue}{
+which has multi-image overlay capabilities for visualizing all modalities in all three
+canonical views.}
+
+[^1]: http://nifti.nimh.nih.gov/nifti-1
+
+
 ## Quantitative analysis
 
 \textcolor{blue}{Figure X provides a graphical overview of the proposed workflow.  The major components
@@ -32,9 +45,11 @@ same feature-construction pipeline as the single-subject input MRI.}](Figures/wm
 ### Feature images for WMH segmentation
 
 
+\textcolor{blue}{
 Crucial to these supervised segmentation approaches are the creation and selection of
-"features" as input in conjunction with
-expertly identified structures of interest for model construction.  For the targeted application in this work (i.e., WMHs),
+``features'' as input (i.e., feature images constructed from the training data)
+in conjunction with expertly identified structures of interest
+(i.e., WMHs) for model construction.}  For the targeted application in this work,
 tissue classification is performed at the voxelwise level.  In other words, each voxel
 within the region of interest is sent through the ensemble of decision trees and receives
 a set of classification votes from each tree thus permitting a regression or classification
@@ -73,7 +88,7 @@ with seven labels:
 
 ![Representation of Stage 1 feature images for subject 01C1019.  The
 FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
-[@Avants:2014aa] to the space of the T1 image.  The three modality images are then preprocessed
+[@Avants:2014aa] to the space of the FLAIR image.  The three modality images are then preprocessed
 (N4 bias correction [@Tustison:2010ac] and adaptive denoising [@Manjon:2010aa]) followed by
 application of standard ANTs brain extraction and $n$-tissue segmentation protocols using
 the MMRR symmetric template and corresponding priors [@Tustison:2014ab] applied to the T1 image.
@@ -85,7 +100,7 @@ cerebellum.](Figures/featureImages.png)
 -->
 
 As mentioned previously, input for each subject comprises FLAIR, T1-, and T2-weighted
-acquisitions.  The FLAIR and T2 images are rigidly registered to the T1 image using
+acquisitions.  The T1 and T2 images are rigidly registered to the FLAIR image using
 the open-source Advanced Normalization Tools (ANTs) [@Avants:2014aa].  The aligned images
 are then preprocessed using the denoising algorithm of [@Manjon:2010aa] followed by
 N4 bias correction [@Tustison:2010ac] which are then normalized to the intensity
@@ -103,38 +118,32 @@ truth WMH labels for training the random forest models.](Figures/sampleResults.p
 
 The T1 image is then processed via the ANTs brain
 extraction and normal tissue segmentation pipelines [@Tustison:2014ab].
-Any effect of pathology is minimal because WMHs are not commonly seen in T1-weighted MRI.  This protocol involves preprocessing using N4 bias correction followed by a template-based strategy for brain extraction.  Once the
-brain has been extracted, we apply a Bayesian-based segmentation algorithm
-with a template-based prior probability strategy to segment the
-parenchymal tissue types.  The result is a mask delineating the brain parenchyma and probabilistic estimates of the
+  The result is a mask delineating the brain parenchyma and probabilistic estimates of the
 CSF, gray matter, white matter, deep gray matter, brain stem, and
-cerebellum.  These provide the expertly annotated labels for the first six tissue labels
-given above.  The WMHs were manually identified by one of the authors
-(J. R. S.) using the ITK-SNAP tool [@Yushkevich:2006aa].  Segmentation is performed using
-the ANTs Atropos tool [@Avants:2011aa] and
-multi-model optimal symmetric shape/intensity templates [@Tustison:2015aa] created from the public
-MMRR data set  [@landman2011] (cf Figure 3).
+cerebellum [@Avants:2011aa].  These provide the expertly annotated labels for the
+first six tissue labels given above.  Tissue prior probability maps for segmentation
+are from multi-model optimal symmetric shape/intensity templates [@Tustison:2015aa] created from the public MMRR data set  [@landman2011] (cf Figure 3).
 
 <!--
-
 ![Canonical views of the mutlivariate, bilaterally symmetric template constructed
 from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
 the components relevant for this work).  Template construction is detailed in
 [@Tustison:2015aa].  These images are important for specific intensity-based
 features.](Figures/MMRR.png)
-
 -->
 
-To model the intensity information the first set of images simply includes the
-preprocessed and normalized intensity FLAIR, T1, and T2 image voxel values.  We also calculate a set
-of neighborhood statistics (mean, standard deviation, and skewness) feature images using
+Feature values include the preprocessed FLAIR, T1, and T2 image voxel intensities.
+We also calculate a set of neighborhood statistics (mean, standard deviation, and skewness) feature images using
 a Manhattan radius of one voxel given the typical size
-of individual WMHs. For each of the normalized
+of individual WMHs. For each of the preprocessed
 images, we calculate the difference in intensities with the corresponding warped template
 component.  Previous success in the international brain tumor segmentation
 competition [@Menze:2015aa] was based on an important set of intensity features that were created
 from multi-modal templates mentioned previously [@Tustison:2015aa] and listed in Table 1.  We employ the
-same strategy here.  For example, the template
+same strategy here.
+
+<!--
+For example, the template
 difference feature image for the FLAIR image, $S_{FLAIR}$ is calculated as:
 
 $$S_{FLAIR} - T_{FLAIR}\left(\phi_b^{-1}\right)$$
@@ -145,30 +154,40 @@ $$\phi_b: S  \leftrightarrow \underset{b}{\leftrightsquigarrow} T$$
 
 is the transform
 which maps from the individual subject space to the
-template space and $T_{FLAIR}$ is the FLAIR template component.  Also,
-to take advantage of the gross bilateral symmetry of the normal brain (in terms of both shape and intensity), and the fact that WMHs do not generally manifest symmetrically across hemispheres,
+template space and $T_{FLAIR}$ is the FLAIR template component.
+-->
+
+To take advantage of the gross bilateral symmetry of the normal brain (in terms of both shape and intensity), and the fact that WMHs do not generally manifest symmetrically across hemispheres,
 we use the symmetric templates to compute the contralateral intensity
-differences as an additional intensity feature.  For the FLAIR component, this contralateral
+differences as an additional intensity feature.
+
+<!--
+For the FLAIR component, this contralateral
 difference image is calculated from
 
 $$S_{FLAIR} - S_{FLAIR}\left(\phi_b^{-1}\left(\phi_R\left(\phi_b\right)\right)\right)$$
 
 where $\phi_R$ denotes a horizontal reflection perpendicular to the mid-sagittal plane of
 the symmetric template.
+-->
 
-The segmentation probability images described above are used as feature images to provide a
-spatial context for the random forest model prediction step.  Additional spatial contextual
+The segmentation probability images described above are used as feature images to
+provide a spatial context for the random forest model prediction step.  Additional spatial contextual
 feature images include the distance maps [@maurer2003] based on the csf, gray matter, and
 deep gray matter images.  These latter images are intended to help distinguish white matter
 hyperintensities from false positives induced by the partial voluming at the gray/white
 matter interface.  A third set of images are based on the voxel location within the
-space of the template.  The T1 image of the subject is registered to the T1 template
-component using a B-spline variant [@Tustison:2013ac] of the well-known ANTs Symmetric
-Normalization (SyN) algorithm [@Avants:2011ab].  Since the inverse transform is also
-derived as part of the registration process, we can warp the voxel index locations
-back to the space of the individual subject which motivates similar work by others [@Anbeek:2004aa].  However, this previous work lacks the normalization to the standard
+space of the template.
+\textcolor{blue}{Similar feature images were used in}
+[@Anbeek:2004aa]
+\textcolor{blue}{although, unlike the proposed framework, this previous work lacks
+normalization to the standard
 coordinate system provided by the template to dramatically improve spatial specificity
-across all subjects.
+across all subjects.  To generate these images, the T1 image of each subject is
+registered to the T1 template component using a B-spline variant} [@Tustison:2013ac]
+\textcolor{blue}{of the well-known ANTs Symmetric Normalization (SyN) algorithm} [@Avants:2011ab].
+\textcolor{blue}{Using the derived transforms, the template coordinate images are warped back to the space of the individual subject.}
+
 
 ### Stacked (concatenated) random forests for improved segmentation performance
 
@@ -180,14 +199,16 @@ feature images of the training data (as described previously) are used to constr
 Stage 1 model.  The training data Stage 1 features are then used to produce the voxelwise
 "voting maps" (i.e., the classification count of each decision tree for each tissue label) via the Stage 1 random forest model.  All the Stage 1 features plus the Stage 1 voting maps
 are used as input to the Stage 2 model.  In addition, we use the Stage 1 voting maps as
-tissue priors (i.e., probabilistic estimates of the tissue spatial locations) for a second application of the Atropos maximum aposteriori algorithm with an
-additional Markov Random Field spatial prior (MAP-MRF) [@Avants:2011aa].  However, for
-the second stage we use all three aligned preprocessed images for a multivariate
-segmentation.  The resulting seven posterior probability images constitute a third additional feature image set for Stage 2.
+tissue priors (i.e., probabilistic estimates of the tissue spatial locations) for a second application of the $6$-tissue segmentation algorithm with an
+additional Markov Random Field spatial prior (MAP-MRF) [@Avants:2011aa].
+\textcolor{blue}{In order to maximize the spatial information for the $n$-tissue segmentation process following the voxelwise RF classification of Stage 1, we use
+all three aligned preprocessed images for multivariate segmentation during the
+second stage.}
+The resulting seven posterior probability images constitute a third additional feature image set for Stage 2.
 
-### Code and data availability
+### Implementation
 
-As pointed out in a recent comprehensive multiple sclerosis lesion segmentation review
+As pointed out in a recent comprehensive lesion segmentation review
 [@Garcia-Lorenzo:2013aa], although the number of algorithms reported in the literature
 is quite extensive, there were only four publicly available segmentation algorithms
 at the time of writing this article.  In contrast to the current work, none are based on supervised learning.  As we did for
@@ -198,22 +219,21 @@ use the _randomForest_ package [@liaw2002] using the default settings with
 2000 trees per model and 500 randomly selected samples per label per image.
 Note that we saw little variation in performance when these parameters were changed (i.e. up to 1000 random samples and as little as 1000 trees) which is consistent with our previous experience.
 
-In addition, similar to our previous offering [^1], we plan on creating
-a self-encapsulated example to showcase the proposed methodology.  The fact that
+In addition, similar to our previous offering [^2], we plan on creating
+a self-encapsulated example to showcase the proposed methodology
+\textcolor{blue}{which will also be available on github.}[^3]  The fact that
 the data will also be made available through the Federal Interagency Traumatic Brain Injury Research (FITBIR) repository along
 with the manual labelings will facilitate reproducibility on the part of the reader
 as well as any interest in extending the proposed framework to other data sets.
 
-[^1]: https://github.com/ntustison/ANTsAndArboles
+[^2]: https://github.com/ntustison/ANTsAndArboles
 
+[^3]: https://github.com/ntustison/WatchMeHyperventilate
 
 ### Evaluation protocol overview
 
 In order to evaluate the protocol described, we performed a leave-one-out evaluation using
-the data acquired from the 24 subjects described above.  Initial processing included the creation
-of all Stage 1 feature images for all subjects.  The initial brain segmentation of each T1 image and the
-manual white matter hyperintensity tracings were combined to provide the truth labels
-for the training data.  The "truth" labels are the seven anatomical regions given above.
+the data acquired from the 24 subjects described above.  Initial processing included the creation of all Stage 1 feature images for all subjects.  The initial brain segmentation of each T1 image and the manual white matter hyperintensity tracings were combined to provide the truth labels for the training data.  The ``truth'' labels are the seven anatomical regions given above.
 
 The leave-one-out procedure is as follows:
 
@@ -223,7 +243,8 @@ The leave-one-out procedure is as follows:
     + construct the Stage 1 random forest model from the remaining 23 subjects.
     + apply the Stage 1 random forest model to the feature images of the 23 training subjects.
     + the previous step produces the Stage 1 voting maps for all seven labels.
-    + for each of the 23 subjects, perform a Bayesian-based segmentation with an MRF spatial
+    + for each of the 23 subjects, perform a Bayesian-based segmentation with an
+      MRF spatial
       prior using the seven voting maps as additional tissue priors.
     + construct the Stage 2 random forest model from all the Stage 1 feature images,
       seven voting maps, and seven posterior probability maps from the previous step.
