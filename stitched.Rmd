@@ -10,7 +10,7 @@ header-includes:
    - \usepackage{booktabs}
    - \usepackage[final]{changes}
    - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
-   - \linespread{2}
+   - \linespread{1.2}
    - \usepackage[compact]{titlesec}
    - \usepackage{enumitem}
    - \usepackage{tikz}
@@ -215,8 +215,14 @@ Further motivating this research is the availability of several large publicly a
 
 ## Imaging
 
-MR images utilized for this initial report were acquired from a single scanner involved in the Chronic Effects of Neurotrauma Consortium’s (CENC) observational study (see Walker et al., this issue). Briefly, participants were Operation Iraqi Freedom/Operation Enduring Freedom (OIF/OEF) era Service Members and Veterans between the ages of 18-60 years with prior combat exposure and deployment(s). The feature images \textcolor{blue}{were derived from MR acquisitions of} 26 subjects aged 39.6 $\pm$ 8.1 years (range 28--58 years). Within this cohort, 24 (92%) were considered positive for TBI based upon the potential concussive events (PCE) interview process described in detail in Walker et al., this issue). Each of the participants that were selected from the larger cohort of participants in this study demonstrated at least one white matter hyperintensity (but as many as 20) on FLAIR imaging.
+MR images utilized for this initial report were acquired from a single scanner involved in the Chronic Effects of Neurotrauma Consortium’s (CENC) observational study (see Walker et al., this issue). Briefly, participants were Operation Iraqi Freedom/Operation Enduring Freedom (OIF/OEF) era Service Members and Veterans between the ages of 18-60 years with prior combat exposure and deployment(s). The feature images \textcolor{blue}{were derived from MR acquisitions of} 26 subjects aged 39.6 $\pm$ 8.1 years (range 28--58 years). Within this cohort, 24 (92%) were considered positive for TBI based upon the potential concussive events (PCE) interview process described in detail in Walker et al., this issue). \textcolor{blue}{All lesions were isolated in the white matter of the cerebrum.  Table 1 provides a descriptive statistical summary of the variation in lesion
+load across the selected cohort.}
 
+<!--
+
+\input{trainingData.tex}
+
+-->
 
 Images were acquired on a Philips 3.0T Ingenia system with an 8-channel SENSE head coil (Philips Medical Systems, Best, Netherlands).  3D FLAIR sequences were acquired with a turbo spin echo inversion recovery sequence with the following parameters:  repetition time (TR) = 4800 ms, echo time (TE) = 325 ms, inversion time (TI) = 1650 ms; 170 sagittal slices with a 1.2 mm slice thickness, 256 $\times$ 256 acquisition matrix, and 256 $\times$ 256 mm FOV.  3D T1-weighted sequences were acquired with a fast field echo (FFE) sequence with the following parameters:  TR = 6.8 ms, TE = 3.2 ms, echo train length (ETL) = 240; Flip angle = 9$^\circ$, 170 sagittal slices with a 1.2 mm slice thickness, 256x240 acquisition matrix, and 256 $\times$ 256 mm FOV.  In addition, 3D T2-weighted images were acquired with a turbo spin echo sequence with the following parameters:  TR = 2500 ms, TE = 245 ms, ET: = 133; 170 sagittal slices with a 1.2 mm slice thickness, 256 $\times$ 256 acquisition matrix, and 256 x 256 mm FOV.
 
@@ -231,7 +237,6 @@ which has multi-image overlay capabilities for visualizing all modalities in all
 canonical views.}
 
 [^1]: http://nifti.nimh.nih.gov/nifti-1
-
 
 
 ## Quantitative analysis
@@ -305,7 +310,7 @@ deployment of salient feature images which we detail below.
 -->
 
 Supervised methodologies are uniquely characterized, in part, by the feature images that
-are used to identify the regions of interest.  In Table 1, we provide a list and basic
+are used to identify the regions of interest.  In Table 2, we provide a list and basic
 categorization of the feature images used for the initial (i.e., Stage 1---more on the use
 of multiple random forest stages below) segmentation of the WMHs.
 In addition Figure 3 provides a representation of a set of feature images for a single
@@ -368,7 +373,7 @@ of individual WMHs. For each of the preprocessed
 images, we calculate the difference in intensities with the corresponding warped template
 component.  Previous success in the international brain tumor segmentation
 competition [@Menze:2015aa] was based on an important set of intensity features that were created
-from multi-modal templates mentioned previously [@Tustison:2015aa] and listed in Table 1.  We employ the
+from multi-modal templates mentioned previously [@Tustison:2015aa] and listed in Table 2.  We employ the
 same strategy here.
 
 <!--

@@ -140,8 +140,17 @@ one of the top predictive modalities.
 > understand why, for example, brain stem or cerebellum labels were not
 > that important for achieving good lesion predictions.
 
-> _\textcolor{red}{Nick---Add a table for each patient and get all this
-information before doing the evaluation.}_
+> _\textcolor{blue}{We added the following sentence to the opening paragraph of the
+Imaging subsection of the Methods section:}_
+
+> \textcolor{blue}{All lesions were isolated in the white matter of the cerebrum.
+Table 1 provides a descriptive statistical summary of the variation in lesion load across the selected cohort.}
+
+> _\textcolor{blue}{as well as the corresponding table:}_
+
+\input{trainingData.tex}
+
+\clearpage
 
 4. Fourth, although the authors claim the method is available, I couldn't
 find any link for the public. Note, it would be equally important if the
