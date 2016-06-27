@@ -185,9 +185,9 @@ removed the paragraph dealing with publicly available software for neuroimaging 
 \tightlist
 \item
   Second, the manuscript has no results. All the results section is
-  {[}sic{]} focused on talking about feature ranking, which by the way
-  is explained in the Results section instead of the Methods section.
-  The most important results (the prediction accuracy of automated
+  focused on talking about feature ranking, which by the way is
+  explained in the Results section instead of the Methods section. The
+  most important results (the prediction accuracy of automated
   segmentation), are not mentioned in the manuscript but are only
   plotted in Figure 7. My advice is to put the focus of the results
   section on accuracy, i.e., give precise dice values and perhaps add
@@ -329,7 +329,32 @@ in conjunction with expertly identified structures of interest
 \end{enumerate}
 
 \begin{quote}
-\emph{\textcolor{red}{Here.}}
+\emph{\textcolor{blue}{We added Figure 1 which gives an overview of the basic workflow.
+  It can be seen below in response to item 2 of Reviewer 2.  We reference
+  this figure numerous times in the text as a visual explanatory aid.}}
+\emph{\textcolor{blue}{We also added a paragraph at the beginning of the "Quantitative analysis" subsection
+  which gives an overview of the methods section including an description of Stage 1 and Stage2.}}
+
+\textcolor{blue}{Figure 1 provides a graphical overview of the proposed workflow.  The major components
+include offline generation of symmetric multimodal templates, the creation of
+feature images from the training data which are then employed for statistical
+prediction using a concatenated random forest framework.  This framework involves
+the use of two random forest models where the outcome (i.e., the tissue
+probability estimates) of the first RF model application,
+which we denote as ``Stage1 '', is used as input (along with the original set of
+feature images) to a refinement RF model segmentation which we denote as ``Stage 2''.
+Once these offline steps
+are performed, a new, unsegmented subject can then be processed using the proposed pipeline.}
+
+\emph{\textcolor{blue}{We also added a subsection explaining the symmetric multimodal template.}}
+
+\textcolor{blue}{Following}\textsuperscript{4}
+\textcolor{blue}{and}\textsuperscript{5},
+\textcolor{blue}{optimally derived templates
+serve for both brain tissue segmentation (for the derivation of tissue prior probability maps) and generation of asymmetry feature images.
+For this work we use the multi-modal data available from the public MMRR data set}\textsuperscript{6}\textcolor{blue}{.  We used all 46 multi-modal acquisitions of that study to produce a multi-modal template according to the procedure described in}\textsuperscript{7}
+\textcolor{blue}{which
+results in a mean (in terms of both shape and intensity) multivariate template representing the entire cohort.  Mid-canonical slices of the FLAIR, T1, and T2 components are illustrated in Figure 2.}
 \end{quote}
 
 \begin{quote}
@@ -352,11 +377,11 @@ to avoid any confusing redundancy:}}
 extraction and normal tissue segmentation pipelines}}\textsuperscript{4}
 \emph{\textcolor{blue}{.  The result is a mask delineating the brain
 parenchyma and probabilistic estimates of the CSF, gray matter, white matter,
-deep gray matter, brain stem, and cerebellum}}\textsuperscript{5}
+deep gray matter, brain stem, and cerebellum}}\textsuperscript{8}
 \emph{\textcolor{blue}{.  These provide the expertly annotated labels for the
 first six tissue labels given above.  Tissue prior probability maps for segmentation
-are from multi-model optimal symmetric shape/intensity templates}}\textsuperscript{6}
-\emph{\textcolor{blue}{created from the public MMRR data set}}\textsuperscript{7}
+are from multi-model optimal symmetric shape/intensity templates}}\textsuperscript{5}
+\emph{\textcolor{blue}{created from the public MMRR data set}}\textsuperscript{6}
 \emph{\textcolor{blue}{(cf Figure 3).}}
 \end{quote}
 
@@ -406,8 +431,26 @@ template space.
 \end{enumerate}
 
 \begin{quote}
-\textcolor{red}{We confess that we are also ignorant concerning the
-definition of an ``identification tree.''}
+\emph{\textcolor{blue}{
+We revised the explanation of random forests as follows:}}
+\end{quote}
+
+\begin{quote}
+\textcolor{blue}{The basic component of
+the random forest paradigm is the ``decision tree'' often represented by a flowchart or
+graph where internal nodes represent ``tests'', or decisions, and the edges represent the outcome of those tests.  The final, or end, nodes represent the various classsifications produced by traversal through the decision tree.  For the proposed application, individual
+voxels (and their corresponding feature values) are introduced at the root of a particular
+decision tree and traverse the edges and internal nodes ultimately ending up at one of
+the classification nodes according to the tests at each internal node.  A single random
+forest model will consist of many such trees (often refered to as an ``ensemble'').}
+\textcolor{blue}{Although decision trees had been extensively studied, the success of employing collections of such weak learners for boosting machine learning performance
+(e.g., AdaBoost)}\textsuperscript{9,10}
+\textcolor{blue}{influenced the similarly sytled conglomeration of decision trees into ``forests'' with randomized node optimization}\textsuperscript{11,12}.
+\textcolor{blue}{Finally, Breiman}\textsuperscript{13}
+\textcolor{blue}{improved accuracy by random sampling of training data (i.e., ``bagging'') resulting
+in the current random forest technique applied here.}
+\textcolor{blue}{As voxels and their feature values are ``pushed'' through each decision tree in the forest,  votes for each label are accumulated and converted to probability values for all classification possiblilities at
+each voxel location.}
 \end{quote}
 
 \begin{enumerate}
@@ -428,7 +471,7 @@ definition of an ``identification tree.''}
 \begin{quote}
 \textcolor{blue}{Further, volume of FLAIR lesions within the corpus
 callosum, brainstem, and thalamus in patients with severe TBI correlates
-with Glasgow Outcome-Extended (GOS-E) scores.}\textsuperscript{8}
+with Glasgow Outcome-Extended (GOS-E) scores.}\textsuperscript{14}
 \end{quote}
 
 \begin{quote}
@@ -440,7 +483,7 @@ explanatory reference), we have added the following clarification:}}
 \begin{quote}
 \textcolor{blue}{Further, volume of FLAIR lesions within the corpus
 callosum, brainstem, and thalamus in patients with severe TBI correlates
-with Glasgow Outcome-Extended (GOS-E) scores}\textsuperscript{8}
+with Glasgow Outcome-Extended (GOS-E) scores}\textsuperscript{14}
 \textcolor{blue}{---a numeric groupwise assessment used to
 classify ``outcome'' in TBI patients where ``outcome'' refers to the
 spectrum of possible prognoses from death to disability to recovery.}
@@ -508,13 +551,13 @@ were derived from MR acquisitions of 26 subjects\ldots''}}
 \end{quote}
 
 \begin{quote}
-\textcolor{blue}{Similar feature images were used in}\textsuperscript{9}
+\textcolor{blue}{Similar feature images were used in}\textsuperscript{15}
 \textcolor{blue}{although, unlike the proposed framework, this previous work lacks
 normalization to the standard
 coordinate system provided by the template to dramatically improve spatial specificity
 across all subjects.  To generate these images, the T1 image of each subject is
-registered to the T1 template component using a B-spline variant}\textsuperscript{10}
-\textcolor{blue}{of the well-known ANTs Symmetric Normalization (SyN) algorithm}\textsuperscript{11}.
+registered to the T1 template component using a B-spline variant}\textsuperscript{16}
+\textcolor{blue}{of the well-known ANTs Symmetric Normalization (SyN) algorithm}\textsuperscript{17}.
 \textcolor{blue}{Using the derived transforms, the template coordinate images are warped back to the space of the individual subject.}
 \end{quote}
 
@@ -611,6 +654,10 @@ Interesting paper which offers those without a current background in
 state-of-the-art brain analysis tools. A good introduction to their
 capabilities.
 
+\begin{quote}
+\emph{\textcolor{blue}{We thank the reviewer for the positive comments regarding our work.}}
+\end{quote}
+
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
@@ -620,13 +667,14 @@ capabilities.
 \end{enumerate}
 
 \begin{quote}
-\emph{\textcolor{red}{Similar concerns were voiced by Reviewer 1.  We appreciate
+\emph{\textcolor{blue}{We appreciate
 the opportunity to clarify the precise nature of our contribution which is methodological
-(vs. clinical).  Given the saliency of WMHs as a potential biomarker for TBI
-(as established by previous research), we believe that the automatic identification
-of WMHs is of sufficient merit for publication.  However, our follow-up research plans
-concern the application of our work to a much larger and investigation into the clinical
-correlates of WMH load.}}
+(vs. clinical).  We have shortened the introduction to focus specifically on previous TBI
+clinical research involving WMHs and then pointing to the need for automated
+techniques to minimize the variability and time requirements of manual
+segmentation of WMHs.  This would allow for large-scale studies and potentially more accurate
+and reproducible quantitation.
+}}
 \end{quote}
 
 \begin{enumerate}
@@ -685,39 +733,65 @@ Strien N van, Stone JR, Gee JC, et al. Large-scale evaluation of aNTs
 and freeSurfer cortical thickness measurements. Neuroimage.
 2014;99:166--79.
 
-\hypertarget{ref-Avants:2011aa}{}
-5. Avants BB, Tustison NJ, Wu J, Cook PA, Gee JC. An open source
-multivariate framework for \(n\)-tissue segmentation with evaluation on
-public data. Neuroinformatics. 2011;9(4):381--400.
-
 \hypertarget{ref-Tustison:2015aa}{}
-6. Tustison NJ, Shrinidhi KL, Wintermark M, Durst CR, Kandel BM, Gee JC,
+5. Tustison NJ, Shrinidhi KL, Wintermark M, Durst CR, Kandel BM, Gee JC,
 Grossman MC, Avants BB. Optimal symmetric multimodal templates and
 concatenated random forests for supervised brain tumor segmentation
 (simplified) with aNTsR. Neuroinformatics. 2015;13(2):209--25.
 
 \hypertarget{ref-landman2011}{}
-7. Landman BA, Huang AJ, Gifford A, Vikram DS, Lim IAL, Farrell JAD,
+6. Landman BA, Huang AJ, Gifford A, Vikram DS, Lim IAL, Farrell JAD,
 Bogovic JA, Hua J, Chen M, Jarso S, et al. Multi-parametric neuroimaging
 reproducibility: A 3-T resource study. Neuroimage. 2011;54(4):2854--66.
 
+\hypertarget{ref-Avants:2010aa}{}
+7. Avants BB, Yushkevich P, Pluta J, Minkoff D, Korczykowski M, Detre J,
+Gee JC. The optimal template effect in hippocampus studies of diseased
+populations. Neuroimage. 2010;49(3):2457--66.
+
+\hypertarget{ref-Avants:2011aa}{}
+8. Avants BB, Tustison NJ, Wu J, Cook PA, Gee JC. An open source
+multivariate framework for \(n\)-tissue segmentation with evaluation on
+public data. Neuroinformatics. 2011;9(4):381--400.
+
+\hypertarget{ref-schapire1990}{}
+9. Schapire R. The strength of weak learnability. Machine Learning.
+1990;5:197--227.
+
+\hypertarget{ref-freund1997}{}
+10. Freund Y, Schapire R. A decision-theoretic generalization of on-line
+learning and an application to boosting. Journal of Computer and System
+Sciences. 1997;55:119--139.
+
+\hypertarget{ref-ho1995}{}
+11. Ho TK. Random decision forests. In: Document analysis and
+recognition, 1995., proceedings of the third international conference
+on. Vol. 1. 1995. pp. 278--282 vol.1.
+
+\hypertarget{ref-amit1997}{}
+12. Amit Y, Geman D. Shape quantization and recognition with randomized
+trees. Neural Computation. 1997;9:1545--1588.
+
+\hypertarget{ref-breiman2001}{}
+13. Breiman L. Random forests. In: Machine learning. 2001. pp. 5--32.
+
 \hypertarget{ref-Moen:2014aa}{}
-8. Moen KG, Brezova V, Skandsen T, Håberg AK, Folvik M, Vik A. Traumatic
-axonal injury: The prognostic value of lesion load in corpus callosum,
-brain stem, and thalamus in different magnetic resonance imaging
-sequences. J Neurotrauma. 2014;31(17):1486--96.
+14. Moen KG, Brezova V, Skandsen T, Håberg AK, Folvik M, Vik A.
+Traumatic axonal injury: The prognostic value of lesion load in corpus
+callosum, brain stem, and thalamus in different magnetic resonance
+imaging sequences. J Neurotrauma. 2014;31(17):1486--96.
 
 \hypertarget{ref-Anbeek:2004aa}{}
-9. Anbeek P, Vincken KL, Osch MJP van, Bisschops RHC, Grond J van der.
+15. Anbeek P, Vincken KL, Osch MJP van, Bisschops RHC, Grond J van der.
 Probabilistic segmentation of white matter lesions in mR imaging.
 Neuroimage. 2004;21(3):1037--44.
 
 \hypertarget{ref-Tustison:2013ac}{}
-10. Tustison NJ, Avants BB. Explicit B-spline regularization in
+16. Tustison NJ, Avants BB. Explicit B-spline regularization in
 diffeomorphic image registration. Front Neuroinform. 2013;7:39.
 
 \hypertarget{ref-Avants:2011ab}{}
-11. Avants BB, Tustison NJ, Song G, Cook PA, Klein A, Gee JC. A
+17. Avants BB, Tustison NJ, Song G, Cook PA, Klein A, Gee JC. A
 reproducible evaluation of ANTs similarity metric performance in brain
 image registration. Neuroimage. 2011;54(3):2033--44.
 

@@ -9,8 +9,8 @@ The impracticality of manually quantifying these lesions limits their
 clinical utility and motivates the utilization of machine learning
 techniques for automated segmentation workflows.  Herein, we develop a
 concatenated random forest framework with image features for
-segmenting WMHs in a TBI cohort. The framework is provided publicly
-through the Advanced Normalization Tools (ANTs)  and ANTsR toolkits.  MR
+segmenting WMHs in a TBI cohort. The framework is built upon the
+Advanced Normalization Tools (ANTs)  and ANTsR toolkits.  MR
 (3D FLAIR, T2-, and T1-weighted) images from 24 service members and
 veterans scanned in the Chronic Effects of Neurotrauma Consortium’s
 (CENC) observational study were acquired. Manual annotations were

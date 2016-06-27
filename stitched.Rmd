@@ -75,8 +75,8 @@ The impracticality of manually quantifying these lesions limits their
 clinical utility and motivates the utilization of machine learning
 techniques for automated segmentation workflows.  Herein, we develop a
 concatenated random forest framework with image features for
-segmenting WMHs in a TBI cohort. The framework is provided publicly
-through the Advanced Normalization Tools (ANTs)  and ANTsR toolkits.  MR
+segmenting WMHs in a TBI cohort. The framework is built upon the
+Advanced Normalization Tools (ANTs)  and ANTsR toolkits.  MR
 (3D FLAIR, T2-, and T1-weighted) images from 24 service members and
 veterans scanned in the Chronic Effects of Neurotrauma Consortium’s
 (CENC) observational study were acquired. Manual annotations were
@@ -184,16 +184,22 @@ latter random forest approaches for brain tumor segmentation have performed well
 international competitions established in response to the lack of objective comparisons between segmentation algorithms (i.e.,  the Multimodal Brain Tumor Segmentation (BRATS) challenge was initiated in 2012 [@Menze:2015aa].
 -->
 
-Random forests are conceptually straightforward [@breiman2001].  They consist of ensembles of decision trees
-that are built from training data.  Once \textcolor{blue}{the ensemble of decision trees is} constructed, data to be classified is "pushed"
-through each decision tree resulting in a single classification "vote" per tree.  These
-votes are then used for regression or classification of the data.  Although decision
-trees had been extensively studied, the success of employing collections of
-such weak learners for boosting machine learning performance
-(e.g., AdaBoost [@schapire1990;@freund1997]) influenced the similarly sytled conglomeration
-of decision trees into "forests" with randomized node optimization [@ho1995;@amit1997].
-Finally, Breiman [@breiman2001] improved accuracy by random sampling of training
-data (i.e., "bagging") resulting in the current random forest technique applied here.
+Random forests are conceptually straightforward [@breiman2001].
+\textcolor{blue}{The basic component of
+the random forest paradigm is the ``decision tree'' often represented by a flowchart or
+graph where internal nodes represent ``tests'', or decisions, and the edges represent the outcome of those tests.  The final, or end, nodes represent the various classsifications produced by traversal through the decision tree.  For the proposed application, individual
+voxels (and their corresponding feature values) are introduced at the root of a particular
+decision tree and traverse the edges and internal nodes ultimately ending up at one of
+the classification nodes according to the tests at each internal node.  A single random
+forest model will consist of many such trees (often refered to as an ``ensemble'').}
+\textcolor{blue}{Although decision trees had been extensively studied, the success of employing collections of such weak learners for boosting machine learning performance
+(e.g., AdaBoost)} [@schapire1990;@freund1997]
+\textcolor{blue}{influenced the similarly sytled conglomeration of decision trees into ``forests'' with randomized node optimization} [@ho1995;@amit1997].
+\textcolor{blue}{Finally, Breiman} [@breiman2001]
+\textcolor{blue}{improved accuracy by random sampling of training data (i.e., ``bagging'') resulting
+in the current random forest technique applied here.}
+\textcolor{blue}{As voxels and their feature values are ``pushed'' through each decision tree in the forest,  votes for each label are accumulated and converted to probability values for all classification possiblilities at
+each voxel location.}
 
 In this work, we develop a concatenated random forest framework with a
 feature image set (both spatial and intensity-based)
@@ -227,12 +233,18 @@ canonical views.}
 [^1]: http://nifti.nimh.nih.gov/nifti-1
 
 
+
 ## Quantitative analysis
 
-\textcolor{blue}{Figure X provides a graphical overview of the proposed workflow.  The major components
+\textcolor{blue}{Figure 1 provides a graphical overview of the proposed workflow.  The major components
 include offline generation of symmetric multimodal templates, the creation of
-feature images from the training data which are then used to model the statistical
-prediction using a concatenated random forest framework.  Once these offline steps
+feature images from the training data which are then employed for statistical
+prediction using a concatenated random forest framework.  This framework involves
+the use of two random forest models where the outcome (i.e., the tissue
+probability estimates) of the first RF model application,
+which we denote as ``Stage1 '', is used as input (along with the original set of
+feature images) to a refinement RF model segmentation which we denote as ``Stage 2''.
+Once these offline steps
 are performed, a new, unsegmented subject can then be processed using the proposed pipeline.}
 
 <!--
@@ -247,6 +259,24 @@ are constructed once from a set of training data which are processed using the
 same feature-construction pipeline as the single-subject input MRI.}](Figures/wmhPipeline.png)
 
 -->
+
+### Symmetric multi-modal templates
+
+\textcolor{blue}{Following} [@Tustison:2014ab] \textcolor{blue}{and} [@Tustison:2015aa], \textcolor{blue}{optimally derived templates
+serve for both brain tissue segmentation (for the derivation of tissue prior probability maps) and generation of asymmetry feature images.
+For this work we use the multi-modal data available from the public MMRR data set}
+[@landman2011]\textcolor{blue}{.  We used all 46 multi-modal acquisitions of that study to produce a multi-modal template according to the procedure described in} [@Avants:2010aa] \textcolor{blue}{which
+results in a mean (in terms of both shape and intensity) multivariate template representing the entire cohort.  Mid-canonical slices of the FLAIR, T1, and T2 components are illustrated in Figure 2.}
+
+<!--
+![Canonical views of the mutlivariate, bilaterally symmetric template constructed
+from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
+the components relevant for this work).  Template construction is detailed in
+[@Tustison:2015aa].  These images are important for specific asymmetry-based
+features.](Figures/MMRR.png)
+
+-->
+
 
 ### Feature images for WMH segmentation
 
@@ -278,7 +308,7 @@ Supervised methodologies are uniquely characterized, in part, by the feature ima
 are used to identify the regions of interest.  In Table 1, we provide a list and basic
 categorization of the feature images used for the initial (i.e., Stage 1---more on the use
 of multiple random forest stages below) segmentation of the WMHs.
-In addition Figure 1 provides a representation of a set of feature images for a single
+In addition Figure 3 provides a representation of a set of feature images for a single
 subject analyzed in this work.  Note that in this work we categorize the brain parenchyma
 with seven labels:
 
@@ -328,15 +358,8 @@ extraction and normal tissue segmentation pipelines [@Tustison:2014ab].
 CSF, gray matter, white matter, deep gray matter, brain stem, and
 cerebellum [@Avants:2011aa].  These provide the expertly annotated labels for the
 first six tissue labels given above.  Tissue prior probability maps for segmentation
-are from multi-model optimal symmetric shape/intensity templates [@Tustison:2015aa] created from the public MMRR data set  [@landman2011] (cf Figure 3).
+are from multi-model optimal symmetric shape/intensity templates [@Tustison:2015aa] created from the public MMRR data set  [@landman2011] (cf Figure 2).
 
-<!--
-![Canonical views of the mutlivariate, bilaterally symmetric template constructed
-from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
-the components relevant for this work).  Template construction is detailed in
-[@Tustison:2015aa].  These images are important for specific intensity-based
-features.](Figures/MMRR.png)
--->
 
 Feature values include the preprocessed FLAIR, T1, and T2 image voxel intensities.
 We also calculate a set of neighborhood statistics (mean, standard deviation, and skewness) feature images using
@@ -497,7 +520,7 @@ segmentation for a total of 45 images for the second stage.](Figures/averageLeav
 
 -->
 
-The resulting rankings for both Stages are given in Figures 4 and 5 where the values for the
+The resulting rankings for both Stages are given in Figures 5 and 6 where the values for the
 separate stages are averaged over the entire corresponding model set.  In addition, we
 track the variance for each feature over all models to illustrate the stability of
 the chosen features during the evaluation.  This latter information is illustrated as
@@ -516,7 +539,7 @@ template.
 
 Additionally, it is interesting to note some of the other top performing features for Stage 1.
 The contralateral difference FLAIR image is  highly discriminative over the set of
-evaluation random forest models (see Figure 6).  This accords with the known clinical relevance of
+evaluation random forest models (see Figure 7).  This accords with the known clinical relevance of
 FLAIR images for identifying white matter hyperintensities and the fact that such
 pathology does not typically manifest symmetrically in both hemispheres.  Interestingly, the
 posterior maps for the deep gray matter are extremely important for accurate white matter
@@ -535,7 +558,7 @@ The region around the WMHs is enlarged (b) in the original FLAIR and the
 
 As described earlier, for Stage 2, we used the output random forest voting maps from Stage
 1 as both features themselves and as priors for input to a Bayesian-based segmentation with
-an additional MRF spatial prior.  In Figure 5, the voting maps are labeled as
+an additional MRF spatial prior.  In Figure 6, the voting maps are labeled as
 "_RFStage1VotingMaps_" where the final numeral is associated with the brain
 parenchymal labeling given previously.  Similarly, the additional RF prior segmentation
 feature probability maps are labeled as "_RFBrainSegmentationPosteriors_".
@@ -548,7 +571,7 @@ alone it is intuitive that such features would be important.
 
 ## White matter hyperintensity segmentation evaluation
 
-In Figure 7 are the segmentation comparisons derived from manual segmentations of the same
+In Figure 8 are the segmentation comparisons derived from manual segmentations of the same
 data.  Despite the large variability characteristic with manual labelings in related fields
 [@Grimaud:1996aa;@styner2008;@Garcia-Lorenzo:2013aa], such labelings are characteristic of
 current clinical practices and the methodology proposed herein is readily adapted to refinements
@@ -561,12 +584,12 @@ i.e.,
 $$ Dice = 2 \frac{\sum_r|S_r \cap T_r|}{\sum_r|S_r| + |T_r] } $$
 -->
 
-On the left of Figure 7 are the improvement in Dice values [@tustison2009],
+On the left of Figure 8 are the improvement in Dice values [@tustison2009],
 over all white matter hyperintensities when comparing the segmentations between the two stages
 where the sum is taken over all individually labeled manual, $T_r$, and automated, $S_r$, lesions and $\cap$
 represents the intersection between the manual/automated lesion pair.  Performing
 the second round of supervised learning improves these Dice values.  One can also note from the
-right side of Figure 6 that the total lesion load volume illustrates a few subjects that are
+right side of Figure 7 that the total lesion load volume illustrates a few subjects that are
 severe outliers in terms of the number of false positives.  The second round helps to
 correct this issue.
 
@@ -777,7 +800,7 @@ official duties.
 
 # Figure Captions
 
-__Figure X:__ \textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
+__Figure 1:__ \textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
 input MRI for a single subject, using the multi-modal symmetric template, results in
 the generation of the feature images.  These feature images are used as input to the
 Stage 1 RF model producing the initial RF probability map estimates.  The Stage 1
@@ -786,7 +809,14 @@ final voting maps which includes the WMH probability estimate.  Note that the RF
 are constructed once from a set of training data which are processed using the
 same feature-construction pipeline as the single-subject input MRI.}
 
-__Figure 1:__  Representation of Stage 1 feature images for subject 01C1019.  The
+__Figure 2:__  Canonical views of the mutlivariate, bilaterally symmetric template constructed
+from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
+the components relevant for this work).  Template construction is detailed in
+[@Tustison:2015aa].  These images are important for asymmetry-based
+features.
+
+
+__Figure 3:__  Representation of Stage 1 feature images for subject 01C1019.  The
 FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
 [@Avants:2014aa] to the space of the T1 image.  The three modality images are then preprocessed
 (N4 bias correction [@Tustison:2010ac] and adaptive denoising [@Manjon:2010aa]) followed by
@@ -797,18 +827,12 @@ the voting maps illustrated on the right.  This gives a probabilistic classifica
 tissue type.  Not shown are the probability and voting images for the brain stem and
 cerebellum.
 
-__Figure 2:__  Sample FLAIR acquisition image slices showing both manual and random forest
+__Figure 4:__  Sample FLAIR acquisition image slices showing both manual and random forest
 segmentations for both stages obtained during the leave-one-out evaluation.  Manual
 segmentations were performed by one of the authors and provided the ground
 truth WMH labels for training the random forest models.
 
-__Figure 3:__  Canonical views of the mutlivariate, bilaterally symmetric template constructed
-from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
-the components relevant for this work).  Template construction is detailed in
-[@Tustison:2015aa].  These images are important for specific intensity-based
-features.
-
-__Figure 4:__ Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
+__Figure 5:__ Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
 forest models for Stage 1 during the leave-one-out evaluation.  These plots
 are useful in providing a quantitative assessment of the predictive importance of each feature.
 Features are ranked in descending order of importance.
@@ -817,7 +841,7 @@ and illustrate the
 stability of the feature importance across the leave-one-out models.
 At this initial stage only 31 feature images are used.
 
-__Figure 5:__  Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
+__Figure 6:__  Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
 forest models for Stage 2 during the leave-one-out evaluation.  These plots
 are useful in providing a quantitative assessment of the predictive importance of each feature.
 Features are ranked in descending order of importance.
@@ -828,11 +852,11 @@ We augment the 31 feature images from the first stage by adding an additional
 seven voting maps and 7 segmentation posteriors from application of the Bayesian-based
 segmentation for a total of 45 images for the second stage.
 
-__Figure 6:__ (a) FLAIR image slice illustrating WMHs which have been manually delineated.
+__Figure 7:__ (a) FLAIR image slice illustrating WMHs which have been manually delineated.
 The region around the WMHs is enlarged (b) in the original FLAIR and the
 (c) contralateral FLAIR difference image.
 
-__Figure 7:__ Voxelwise comparison with manual delineation of white matter hyperintensities.
+__Figure 8:__ Voxelwise comparison with manual delineation of white matter hyperintensities.
 On the left are the
 calculated Dice values over all white matter hyperintensities.  Note the improvement
 in the Dice metric from the employment of the Stage 2 component of the processing pipeline.

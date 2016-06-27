@@ -21,12 +21,18 @@ canonical views.}
 [^1]: http://nifti.nimh.nih.gov/nifti-1
 
 
+
 ## Quantitative analysis
 
-\textcolor{blue}{Figure X provides a graphical overview of the proposed workflow.  The major components
+\textcolor{blue}{Figure 1 provides a graphical overview of the proposed workflow.  The major components
 include offline generation of symmetric multimodal templates, the creation of
-feature images from the training data which are then used to model the statistical
-prediction using a concatenated random forest framework.  Once these offline steps
+feature images from the training data which are then employed for statistical
+prediction using a concatenated random forest framework.  This framework involves
+the use of two random forest models where the outcome (i.e., the tissue
+probability estimates) of the first RF model application,
+which we denote as ``Stage1 '', is used as input (along with the original set of
+feature images) to a refinement RF model segmentation which we denote as ``Stage 2''.
+Once these offline steps
 are performed, a new, unsegmented subject can then be processed using the proposed pipeline.}
 
 <!--
@@ -41,6 +47,24 @@ are constructed once from a set of training data which are processed using the
 same feature-construction pipeline as the single-subject input MRI.}](Figures/wmhPipeline.png)
 
 -->
+
+### Symmetric multi-modal templates
+
+\textcolor{blue}{Following} [@Tustison:2014ab] \textcolor{blue}{and} [@Tustison:2015aa], \textcolor{blue}{optimally derived templates
+serve for both brain tissue segmentation (for the derivation of tissue prior probability maps) and generation of asymmetry feature images.
+For this work we use the multi-modal data available from the public MMRR data set}
+[@landman2011]\textcolor{blue}{.  We used all 46 multi-modal acquisitions of that study to produce a multi-modal template according to the procedure described in} [@Avants:2010aa] \textcolor{blue}{which
+results in a mean (in terms of both shape and intensity) multivariate template representing the entire cohort.  Mid-canonical slices of the FLAIR, T1, and T2 components are illustrated in Figure 2.}
+
+<!--
+![Canonical views of the mutlivariate, bilaterally symmetric template constructed
+from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
+the components relevant for this work).  Template construction is detailed in
+[@Tustison:2015aa].  These images are important for specific asymmetry-based
+features.](Figures/MMRR.png)
+
+-->
+
 
 ### Feature images for WMH segmentation
 
@@ -72,7 +96,7 @@ Supervised methodologies are uniquely characterized, in part, by the feature ima
 are used to identify the regions of interest.  In Table 1, we provide a list and basic
 categorization of the feature images used for the initial (i.e., Stage 1---more on the use
 of multiple random forest stages below) segmentation of the WMHs.
-In addition Figure 1 provides a representation of a set of feature images for a single
+In addition Figure 3 provides a representation of a set of feature images for a single
 subject analyzed in this work.  Note that in this work we categorize the brain parenchyma
 with seven labels:
 
@@ -122,15 +146,8 @@ extraction and normal tissue segmentation pipelines [@Tustison:2014ab].
 CSF, gray matter, white matter, deep gray matter, brain stem, and
 cerebellum [@Avants:2011aa].  These provide the expertly annotated labels for the
 first six tissue labels given above.  Tissue prior probability maps for segmentation
-are from multi-model optimal symmetric shape/intensity templates [@Tustison:2015aa] created from the public MMRR data set  [@landman2011] (cf Figure 3).
+are from multi-model optimal symmetric shape/intensity templates [@Tustison:2015aa] created from the public MMRR data set  [@landman2011] (cf Figure 2).
 
-<!--
-![Canonical views of the mutlivariate, bilaterally symmetric template constructed
-from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
-the components relevant for this work).  Template construction is detailed in
-[@Tustison:2015aa].  These images are important for specific intensity-based
-features.](Figures/MMRR.png)
--->
 
 Feature values include the preprocessed FLAIR, T1, and T2 image voxel intensities.
 We also calculate a set of neighborhood statistics (mean, standard deviation, and skewness) feature images using

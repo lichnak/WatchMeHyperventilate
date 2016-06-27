@@ -103,7 +103,7 @@ disease similarity (although the segmentation approaches can be similar).  We al
 removed the paragraph dealing with publicly available software for neuroimaging analysis.
 }_
 
-2. Second, the manuscript has no results. All the results section is [sic] focused
+2. Second, the manuscript has no results. All the results section is focused
 on talking about feature ranking, which by the way is explained in the
 Results section instead of the Methods section. The most important
 results (the prediction accuracy of automated segmentation), are not
@@ -196,7 +196,33 @@ logical flow would require template registration explained first, and all
 feature computation performed later, and finally RF stages can be
 explained with the available features.
 
-> _\textcolor{red}{Here.}_
+> _\textcolor{blue}{We added Figure 1 which gives an overview of the basic workflow.
+>   It can be seen below in response to item 2 of Reviewer 2.  We reference
+>   this figure numerous times in the text as a visual explanatory aid.}_
+> _\textcolor{blue}{We also added a paragraph at the beginning of the "Quantitative analysis" subsection
+>   which gives an overview of the methods section including an description of Stage 1 and Stage2.}_
+>
+>   \textcolor{blue}{Figure 1 provides a graphical overview of the proposed workflow.  The major components
+include offline generation of symmetric multimodal templates, the creation of
+feature images from the training data which are then employed for statistical
+prediction using a concatenated random forest framework.  This framework involves
+the use of two random forest models where the outcome (i.e., the tissue
+probability estimates) of the first RF model application,
+which we denote as ``Stage1 '', is used as input (along with the original set of
+feature images) to a refinement RF model segmentation which we denote as ``Stage 2''.
+Once these offline steps
+are performed, a new, unsegmented subject can then be processed using the proposed pipeline.}
+>
+> _\textcolor{blue}{We also added a subsection explaining the symmetric multimodal template:}_
+>
+> \textcolor{blue}{Following} [@Tustison:2014ab] \textcolor{blue}{and} [@Tustison:2015aa], \textcolor{blue}{optimally derived templates
+> serve for both brain tissue segmentation (for the derivation of tissue prior probability maps) and generation of asymmetry feature images.
+> For this work we use the multi-modal data available from the public MMRR data set}
+> [@landman2011]\textcolor{blue}{.  We used all 46 multi-modal acquisitions of that study to produce a multi-modal template according to the procedure described in} [@Avants:2010aa] \textcolor{blue}{which
+> results in a mean (in terms of both shape and intensity) multivariate template representing the entire cohort.  Mid-canonical slices of the FLAIR, T1, and T2 components are illustrated in Figure 2.}
+>
+> _\textcolor{blue}{These changes complement the edits made in response to other review items.}_
+
 
 > The pipeline also seem to be
 > repetitive, the N4 correction is mentioned in ln. 26 and then again in
@@ -246,8 +272,24 @@ clinician) would not be able to understand the method. For example, data
 pushed onto a tree is does not mean much, unless the reader knows what is
 an identification tree.
 
-> \textcolor{red}{We confess that we are also ignorant concerning the
-definition of an ``identification tree.''}
+> _\textcolor{blue}{
+We revised the explanation of random forests as follows:}_
+
+> \textcolor{blue}{The basic component of
+the random forest paradigm is the ``decision tree'' often represented by a flowchart or
+graph where internal nodes represent ``tests'', or decisions, and the edges represent the outcome of those tests.  The final, or end, nodes represent the various classsifications produced by traversal through the decision tree.  For the proposed application, individual
+voxels (and their corresponding feature values) are introduced at the root of a particular
+decision tree and traverse the edges and internal nodes ultimately ending up at one of
+the classification nodes according to the tests at each internal node.  A single random
+forest model will consist of many such trees (often refered to as an ``ensemble'').}
+> \textcolor{blue}{Although decision trees had been extensively studied, the success of employing collections of such weak learners for boosting machine learning performance
+(e.g., AdaBoost)} [@schapire1990;@freund1997]
+>  \textcolor{blue}{influenced the similarly sytled conglomeration of decision trees into ``forests'' with randomized node optimization} [@ho1995;@amit1997].
+\textcolor{blue}{Finally, Breiman} [@breiman2001]
+\textcolor{blue}{improved accuracy by random sampling of training data (i.e., ``bagging'') resulting
+in the current random forest technique applied here.}
+> \textcolor{blue}{As voxels and their feature values are ``pushed'' through each decision tree in the forest,  votes for each label are accumulated and converted to probability values for all classification possiblilities at
+each voxel location.}
 
 8. The relationship between WMH and GOS-E is mentioned in pg. 2 but the
 reader is not informed what is GOS-E.
@@ -369,16 +411,19 @@ to discuss.}_
 Interesting paper which offers those without a current background in
 state-of-the-art brain analysis tools. A good introduction to their capabilities.
 
+> _\textcolor{blue}{We thank the reviewer for the positive comments regarding our work.}_
+
 1. However the authors do little to establish clinical utility of the
 algorithm.
 
-> _\textcolor{red}{Similar concerns were voiced by Reviewer 1.  We appreciate
+> _\textcolor{blue}{We appreciate
 > the opportunity to clarify the precise nature of our contribution which is methodological
-> (vs. clinical).  Given the saliency of WMHs as a potential biomarker for TBI
-> (as established by previous research), we believe that the automatic identification
-> of WMHs is of sufficient merit for publication.  However, our follow-up research plans
-> concern the application of our work to a much larger and investigation into the clinical
-> correlates of WMH load.}_
+> (vs. clinical).  We have shortened the introduction to focus specifically on previous TBI
+clinical research involving WMHs and then pointing to the need for automated
+techniques to minimize the variability and time requirements of manual
+segmentation of WMHs.  This would allow for large-scale studies and potentially more accurate
+and reproducible quantitation.
+}_
 
 2. A graphical description of the pipeline would help most
 readers to understand how this might get into the clinic.

@@ -1,7 +1,7 @@
 
 # Figure Captions
 
-__Figure X:__ \textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
+__Figure 1:__ \textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
 input MRI for a single subject, using the multi-modal symmetric template, results in
 the generation of the feature images.  These feature images are used as input to the
 Stage 1 RF model producing the initial RF probability map estimates.  The Stage 1
@@ -10,7 +10,14 @@ final voting maps which includes the WMH probability estimate.  Note that the RF
 are constructed once from a set of training data which are processed using the
 same feature-construction pipeline as the single-subject input MRI.}
 
-__Figure 1:__  Representation of Stage 1 feature images for subject 01C1019.  The
+__Figure 2:__  Canonical views of the mutlivariate, bilaterally symmetric template constructed
+from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
+the components relevant for this work).  Template construction is detailed in
+[@Tustison:2015aa].  These images are important for asymmetry-based
+features.
+
+
+__Figure 3:__  Representation of Stage 1 feature images for subject 01C1019.  The
 FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
 [@Avants:2014aa] to the space of the T1 image.  The three modality images are then preprocessed
 (N4 bias correction [@Tustison:2010ac] and adaptive denoising [@Manjon:2010aa]) followed by
@@ -21,18 +28,12 @@ the voting maps illustrated on the right.  This gives a probabilistic classifica
 tissue type.  Not shown are the probability and voting images for the brain stem and
 cerebellum.
 
-__Figure 2:__  Sample FLAIR acquisition image slices showing both manual and random forest
+__Figure 4:__  Sample FLAIR acquisition image slices showing both manual and random forest
 segmentations for both stages obtained during the leave-one-out evaluation.  Manual
 segmentations were performed by one of the authors and provided the ground
 truth WMH labels for training the random forest models.
 
-__Figure 3:__  Canonical views of the mutlivariate, bilaterally symmetric template constructed
-from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
-the components relevant for this work).  Template construction is detailed in
-[@Tustison:2015aa].  These images are important for specific intensity-based
-features.
-
-__Figure 4:__ Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
+__Figure 5:__ Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
 forest models for Stage 1 during the leave-one-out evaluation.  These plots
 are useful in providing a quantitative assessment of the predictive importance of each feature.
 Features are ranked in descending order of importance.
@@ -41,7 +42,7 @@ and illustrate the
 stability of the feature importance across the leave-one-out models.
 At this initial stage only 31 feature images are used.
 
-__Figure 5:__  Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
+__Figure 6:__  Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
 forest models for Stage 2 during the leave-one-out evaluation.  These plots
 are useful in providing a quantitative assessment of the predictive importance of each feature.
 Features are ranked in descending order of importance.
@@ -52,11 +53,11 @@ We augment the 31 feature images from the first stage by adding an additional
 seven voting maps and 7 segmentation posteriors from application of the Bayesian-based
 segmentation for a total of 45 images for the second stage.
 
-__Figure 6:__ (a) FLAIR image slice illustrating WMHs which have been manually delineated.
+__Figure 7:__ (a) FLAIR image slice illustrating WMHs which have been manually delineated.
 The region around the WMHs is enlarged (b) in the original FLAIR and the
 (c) contralateral FLAIR difference image.
 
-__Figure 7:__ Voxelwise comparison with manual delineation of white matter hyperintensities.
+__Figure 8:__ Voxelwise comparison with manual delineation of white matter hyperintensities.
 On the left are the
 calculated Dice values over all white matter hyperintensities.  Note the improvement
 in the Dice metric from the employment of the Stage 2 component of the processing pipeline.
