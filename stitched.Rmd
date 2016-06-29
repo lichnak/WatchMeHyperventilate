@@ -6,11 +6,14 @@ output:
     fig_caption: true
     latex_engine: xelatex
     keep_tex: yes
+  html_document:
+    toc: false
+
 header-includes:
    - \usepackage{booktabs}
    - \usepackage[final]{changes}
    - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
-   - \linespread{1.2}
+   - \linespread{2}
    - \usepackage[compact]{titlesec}
    - \usepackage{enumitem}
    - \usepackage{tikz}
@@ -151,7 +154,7 @@ spectrum of possible prognoses from death to disability to recovery.} [@Moen:201
 in patients who are comatose following severe TBI
 the regional distribution of FLAIR lesions within the pons, midbrain, hypothalamus, basal forebrain, parietal, temporal, occipital lobes, and insula along with the observation of grasping or chewing behavior are associated with poor outcome} [@Weiss:2008aa].
 
-\textcolor{blue}{Despite the above findings which demonstrate that WMHs have potential prognostic value, they are not routinely employed as a diagnostic measure in clinical practice.  Performing a comprehensive manual counting of number and distribution of lesions in the clinical setting is simply not practical. As such, the development of automated methods for the rapid identification and quantification of WMHs within individual patients may allow for identification of correlative patterns between WMH number, volume, distribution, and disease state. Further, the development of such lesion quantification approaches may allow for the practical inclusion of this type of information within routine radiological practice.  In this work, we present an automated framework for quantification of WMHs in
+\textcolor{blue}{Despite the above findings which demonstrate that WMHs have potential prognostic value, they are not routinely employed as a diagnostic measure in clinical practice.  Performing a comprehensive manual counting of number and distribution of lesions in the clinical setting is simply not practical. The development of such lesion quantification approaches may allow for the practical inclusion of this type of information within routine radiological practice.  In this work, we present an automated framework for quantification of WMHs in
 multi-modal MRI using the random forest machine learning technique.}
 
 
@@ -486,8 +489,84 @@ The leave-one-out procedure is as follows:
     + compare the final results with the manually-defined white matter hyperintensity
       regions.
 
+\textcolor{blue}{Several measures have been employed in the literature for evaluating
+automated white matter lesion segmentation involving such quantities as lesion load,
+voxel-based overlap measures (such as the Dice similarity coefficient), and lesion-based measures.}[@Garcia-Lorenzo:2013aa]\textcolor{blue}{.  For this work, due to the relatively small-size distribution}[^4] \textcolor{blue}{of the lesion load in our data cohort (see Table 1), we used
+four lesion-based measures:  sensitivity, positive predictive value (i.e., precision), $F_1$ score, and relative volume difference.  The first three quantities are based on the number of false positives ($TN$, false negatives ($FN$), and true positives ($TP$) in terms of identified lesions.  It should be noted that the number of true negatives is not readily
+incorporated into measures of accuracy as the quantity of ``true negatives'' (i.e., correctly identified normal brain tissue) would severely skew accuracy assessments. The $F_1$ score is an assessment of accuracy which takes into account both the sensitivity,}
+
+$$ sensitivity =  \frac{ TP }{TP + FN}, $$
+
+\textcolor{blue}{and the positive predictive value (PPV),}
+
+$$ PPV =  \frac{ TP }{TP + FP}, $$
+
+\textcolor{blue}{such that $F_1$ is given by}
+
+$$ F_1 =  \frac{ 2 \cdot TP }{ 2 \cdot TP + FP + FN}. $$
+
+\textcolor{blue}{The relative volume difference is calculated for each of the true positive lesions using
+the manual and predicted lesion volumes:}
+
+$$ Relative\,\,volume\,\,difference = \frac{V_{manual} - V_{predicted}}{V_{manual}}. $$
+
+\textcolor{blue}{To illustrate how the performance of our framework varies with lesion size, we calculated
+the above measures based on evenly split quantiles of the manual estimates of lesion volumes into 3 groups.  These three size ranges (in terms of the number of voxels) were:  $[3-12)$, $[12-28)$, and $[28-551]$.}
+
+
+[^4]: \textcolor{blue}{For comparison, the training data set of
+the MS Lesion Segmentation challenge
+associated with the international MICCAI 2008 conference has a mean lesion load of
+204 ($\pm$ 752) mm$^3$ per lesion and the resolution is almost twice what is used
+in this study (i.e., 0.5 $\times$ 0.5 $\times$ 0.5).}
 
 # Results
+
+
+## White matter hyperintensity segmentation evaluation
+
+\textcolor{blue}{In Figure 8 we provide the segmentation evaluations derived from the leave-one-out evaluation
+of the previously described TBI data.  These performance measures include sensitivity,
+positive predictive value, $F_1$ score, and relative volume difference.  The three lesion
+size ranges over which these measures are computed to illustrate the variation
+in performance with lesion size.  Smaller lesions ($< 12$ voxels) are more difficult
+to identify which is why the sensitivity is widely varied over the cohort vs. the largest
+set of voxels ($> 28$ voxels).   The first three measures are based on the identification of
+entire lesions.  The relative volume difference provides a direct assessment of how accurate
+the volumetric estimate is when comparing the manually identified lesions versus the
+automatically predicted lesions.}
+
+<!--
+
+In Figure 8 are the segmentation comparisons derived from manual segmentations of the same
+data.  Despite the large variability characteristic with manual labelings in related fields
+[@Grimaud:1996aa;@styner2008;@Garcia-Lorenzo:2013aa], such labelings are characteristic of
+current clinical practices and the methodology proposed herein is readily adapted to refinements
+in training data.
+
+On the left of Figure 8 are the improvement in Dice values [@tustison2009],
+over all white matter hyperintensities when comparing the segmentations between the two stages
+where the sum is taken over all individually labeled manual, $T_r$, and automated, $S_r$, lesions and $\cap$
+represents the intersection between the manual/automated lesion pair.  Performing
+the second round of supervised learning improves these Dice values.  One can also note from the
+right side of Figure 7 that the total lesion load volume illustrates a few subjects that are
+severe outliers in terms of the number of false positives.  The second round helps to
+correct this issue.
+
+-->
+
+
+<!--
+
+![Evaluation measures for the leave-one-out protocol of the described protocol in the Methods
+section:  (a) sensitivity, (b) positive predictive value, (c) $F_1$ score, and (d) relative
+volume difference.   The three quantile ranges include the following lesion volume ranges:
+$[3-12)$, $[12-28)$, and $[28-551]$ based on the manually-derived lesion volumes.  These
+measures are computed for both Stages.  Overall improvement is seen as the
+second Stage RF model is applied for all three quantile ranges.](Figures/evaluationResults.png)
+
+-->
+
 
 ## Ranking feature importance
 
@@ -574,42 +653,6 @@ important with the top 3 being the estimated locations of the 1) gray matter, 2)
 3) white matter hyperintensities.  Since these tissue type can be conflated based on intensity
 alone it is intuitive that such features would be important.
 
-## White matter hyperintensity segmentation evaluation
-
-In Figure 8 are the segmentation comparisons derived from manual segmentations of the same
-data.  Despite the large variability characteristic with manual labelings in related fields
-[@Grimaud:1996aa;@styner2008;@Garcia-Lorenzo:2013aa], such labelings are characteristic of
-current clinical practices and the methodology proposed herein is readily adapted to refinements
-in training data.
-
-
-<!--
-i.e.,
-
-$$ Dice = 2 \frac{\sum_r|S_r \cap T_r|}{\sum_r|S_r| + |T_r] } $$
--->
-
-On the left of Figure 8 are the improvement in Dice values [@tustison2009],
-over all white matter hyperintensities when comparing the segmentations between the two stages
-where the sum is taken over all individually labeled manual, $T_r$, and automated, $S_r$, lesions and $\cap$
-represents the intersection between the manual/automated lesion pair.  Performing
-the second round of supervised learning improves these Dice values.  One can also note from the
-right side of Figure 7 that the total lesion load volume illustrates a few subjects that are
-severe outliers in terms of the number of false positives.  The second round helps to
-correct this issue.
-
-<!--
-
-![Voxelwise comparison with manual delineation of white matter hyperintensities.  On the left are the
-calculated Dice values over all white matter hyperintensities.  Note the improvement
-in the Dice metric from the employment of the Stage 2 component of the processing pipeline.
-(Right) Similar results can be seen by comparing the total lesion load volume between manual
-and automated detection strategies.  Although some outliers are found after the Stage 2
-processing in a couple subjects, the number of outliers caused by false positives is
-decreased significantly with the second stage processing.](Figures/llvAndDice.png)
-
--->
-
 # Discussion
 
 <!-- Nick could you add some detail here on how this technique compares
@@ -665,49 +708,20 @@ available for such application.
 -->
 
 Two major meta-analyses of WMHs have been published covering the periods
-prior to 2010 [@Debette:2010aa] and after [@Kloppenborg:2014aa]. The earlier meta-analysis
-covered 53 longitudinal studies that included samples of high-risk
-populations, i.e., patients selected for a specific disease or condition
-such as hypertension, whereas other studies recruited samples of the
-general population. Longitudinal studies of samples representative of
-the general population are more relevant to the focus of the present
-paper. Debette & Markus [@Debette:2010aa] found that the presence of
+prior to [@Debette:2010aa] and after 2010 [@Kloppenborg:2014aa].
+Debette & Markus [@Debette:2010aa] found that the presence of
 WMHs was related to subsequent cognitive decline, a higher risk of
 developing dementia, stroke, and of mortality. Lesion volume at baseline
-was also predictive of cognitive decline. Limitations of this
-meta-analysis include heterogeneity in the method of measuring WMHs;
-some studies used automated volumetric measurement, whereas others used
-a visual rating scale. The studies analyzed by Debette & Markus were
-limited to the occurrence of one of the aforementioned conditions which
-they analyzed by hazard ratios.
-
-The more recent meta-analysis by Kloppenborg et al.
+was also predictive of cognitive decline. Kloppenborg et al.
 [@Kloppenborg:2014aa] of 23 cross-sectional studies reporting MRI and
 concurrent neuropsychological results in patients with heterogeneous
 diagnoses but without previously diagnosed cognitive impairment, found
 that WMHs were associated with cognitive deficit (effect size of -0.10,
-95% CI: -0.13 to -0.08) after controlling for age. These studies also
-differed in the metric used to measure the WMHs, including volume, % of
-total intracranial volume, and a visual rating score. The effect size
-for the association with cognitive deficit in these cross-sectional
-studies did not differ significantly across various cognitive domains or
-the method of measuring lesion volume.  Among eight longitudinal studies
-analyzed by Kloppenborg et al that included a follow-up MRI and also
-controlled for age, the effect size for the association of progression
-in WMHs and cognitive impairment was -0.16 (95% CI:-0.27 to -0.09). This
-association was stronger for attention and executive function than for
-memory and processing speed. Although baseline WMHs were predictive of
-cognitive deficit at follow-up in the seven studies which did not repeat
-MRI, the effect size was smaller [-0.10 (95% CI: 0.13 to -0.05) than in
-the longitudinal studies that calculated progression in WMHs. In
-summary, progression of WMHs seen on repeat MRI has a stronger relation
-to cognitive deficit than concurrent imaging findings. These
-meta-analyses support the rationale for repeating an MRI in patients
-younger than 50 years whose initial scan shows WMHs.
+95% CI: -0.13 to -0.08) after controlling for age.
 
-Despite the
-above-described associations between WMHs, cognitive decline, increased
-risk of developing dementia, and mortality, these lesions receive little
+
+Despite the potential clinical significance of WMHs
+these lesions receive little
 attention in current clinical workflows. When reported in a standard
 neuroradiologist interpretation, they are typically handled as
 incidental findings and are assigned little clinical significance. This
@@ -723,6 +737,8 @@ possess any true diagnostic or prognostic value in the setting of a
 specific disease process. The present communication describes a
 supervised statistical learning tool that is appropriate for the
 application to such large-scale datasets.
+
+<!--
 
 The currently described tool is just one example of how "supervised
 learning" algorithms might be applied to aid in the diagnosis of TBI and
@@ -765,6 +781,8 @@ In concert with any available high quality normative neuroimaging data,
 deep learning algorithms may be well positioned to help transform how
 neuroimaging is interpreted for the clinical management of patients with
 this disease process.
+
+-->
 
 \clearpage
 

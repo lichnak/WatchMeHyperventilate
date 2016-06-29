@@ -274,3 +274,33 @@ The leave-one-out procedure is as follows:
     + compare the final results with the manually-defined white matter hyperintensity
       regions.
 
+\textcolor{blue}{Several measures have been employed in the literature for evaluating
+automated white matter lesion segmentation involving such quantities as lesion load,
+voxel-based overlap measures (such as the Dice similarity coefficient), and lesion-based measures.}[@Garcia-Lorenzo:2013aa]\textcolor{blue}{.  For this work, due to the relatively small-size distribution}[^4] \textcolor{blue}{of the lesion load in our data cohort (see Table 1), we used
+four lesion-based measures:  sensitivity, positive predictive value (i.e., precision), $F_1$ score, and relative volume difference.  The first three quantities are based on the number of false positives ($TN$, false negatives ($FN$), and true positives ($TP$) in terms of identified lesions.  It should be noted that the number of true negatives is not readily
+incorporated into measures of accuracy as the quantity of ``true negatives'' (i.e., correctly identified normal brain tissue) would severely skew accuracy assessments. The $F_1$ score is an assessment of accuracy which takes into account both the sensitivity,}
+
+$$ sensitivity =  \frac{ TP }{TP + FN}, $$
+
+\textcolor{blue}{and the positive predictive value (PPV),}
+
+$$ PPV =  \frac{ TP }{TP + FP}, $$
+
+\textcolor{blue}{such that $F_1$ is given by}
+
+$$ F_1 =  \frac{ 2 \cdot TP }{ 2 \cdot TP + FP + FN}. $$
+
+\textcolor{blue}{The relative volume difference is calculated for each of the true positive lesions using
+the manual and predicted lesion volumes:}
+
+$$ Relative\,\,volume\,\,difference = \frac{V_{manual} - V_{predicted}}{V_{manual}}. $$
+
+\textcolor{blue}{To illustrate how the performance of our framework varies with lesion size, we calculated
+the above measures based on evenly split quantiles of the manual estimates of lesion volumes into 3 groups.  These three size ranges (in terms of the number of voxels) were:  $[3-12)$, $[12-28)$, and $[28-551]$.}
+
+
+[^4]: \textcolor{blue}{For comparison, the training data set of
+the MS Lesion Segmentation challenge
+associated with the international MICCAI 2008 conference has a mean lesion load of
+204 ($\pm$ 752) mm$^3$ per lesion and the resolution is almost twice what is used
+in this study (i.e., 0.5 $\times$ 0.5 $\times$ 0.5).}

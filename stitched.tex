@@ -75,7 +75,7 @@
 \usepackage{booktabs}
 \usepackage[final]{changes}
 \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
-\linespread{1.2}
+\linespread{2}
 \usepackage[compact]{titlesec}
 \usepackage{enumitem}
 \usepackage{tikz}
@@ -153,7 +153,7 @@ spectrum of possible prognoses from death to disability to recovery.}\textsupers
 in patients who are comatose following severe TBI
 the regional distribution of FLAIR lesions within the pons, midbrain, hypothalamus, basal forebrain, parietal, temporal, occipital lobes, and insula along with the observation of grasping or chewing behavior are associated with poor outcome}\textsuperscript{7}.
 
-\textcolor{blue}{Despite the above findings which demonstrate that WMHs have potential prognostic value, they are not routinely employed as a diagnostic measure in clinical practice.  Performing a comprehensive manual counting of number and distribution of lesions in the clinical setting is simply not practical. As such, the development of automated methods for the rapid identification and quantification of WMHs within individual patients may allow for identification of correlative patterns between WMH number, volume, distribution, and disease state. Further, the development of such lesion quantification approaches may allow for the practical inclusion of this type of information within routine radiological practice.  In this work, we present an automated framework for quantification of WMHs in
+\textcolor{blue}{Despite the above findings which demonstrate that WMHs have potential prognostic value, they are not routinely employed as a diagnostic measure in clinical practice.  Performing a comprehensive manual counting of number and distribution of lesions in the clinical setting is simply not practical. The development of such lesion quantification approaches may allow for the practical inclusion of this type of information within routine radiological practice.  In this work, we present an automated framework for quantification of WMHs in
 multi-modal MRI using the random forest machine learning technique.}
 
 \subsection{Random forests for WMH
@@ -475,7 +475,50 @@ The leave-one-out procedure is as follows:
   \end{itemize}
 \end{itemize}
 
+\textcolor{blue}{Several measures have been employed in the literature for evaluating
+automated white matter lesion segmentation involving such quantities as lesion load,
+voxel-based overlap measures (such as the Dice similarity coefficient), and lesion-based measures.}\textsuperscript{37}\textcolor{blue}{.  For this work, due to the relatively small-size distribution}\footnote{\textcolor{blue}{For comparison, the training data set of
+  the MS Lesion Segmentation challenge
+  associated with the international MICCAI 2008 conference has a mean lesion load of
+  204 ($\pm$ 752) mm$^3$ per lesion and the resolution is almost twice what is used
+  in this study (i.e., 0.5 $\times$ 0.5 $\times$ 0.5).}}
+\textcolor{blue}{of the lesion load in our data cohort (see Table 1), we used
+four lesion-based measures:  sensitivity, positive predictive value (i.e., precision), $F_1$ score, and relative volume difference.  The first three quantities are based on the number of false positives ($TN$, false negatives ($FN$), and true positives ($TP$) in terms of identified lesions.  It should be noted that the number of true negatives is not readily
+incorporated into measures of accuracy as the quantity of ``true negatives'' (i.e., correctly identified normal brain tissue) would severely skew accuracy assessments. The $F_1$ score is an assessment of accuracy which takes into account both the sensitivity,}
+
+\[ sensitivity =  \frac{ TP }{TP + FN}, \]
+
+\textcolor{blue}{and the positive predictive value (PPV),}
+
+\[ PPV =  \frac{ TP }{TP + FP}, \]
+
+\textcolor{blue}{such that $F_1$ is given by}
+
+\[ F_1 =  \frac{ 2 \cdot TP }{ 2 \cdot TP + FP + FN}. \]
+
+\textcolor{blue}{The relative volume difference is calculated for each of the true positive lesions using
+the manual and predicted lesion volumes:}
+
+\[ Relative\,\,volume\,\,difference = \frac{V_{manual} - V_{predicted}}{V_{manual}}. \]
+
+\textcolor{blue}{To illustrate how the performance of our framework varies with lesion size, we calculated
+the above measures based on evenly split quantiles of the manual estimates of lesion volumes into 3 groups.  These three size ranges (in terms of the number of voxels) were:  $[3-12)$, $[12-28)$, and $[28-551]$.}
+
 \section{Results}\label{results}
+
+\subsection{White matter hyperintensity segmentation
+evaluation}\label{white-matter-hyperintensity-segmentation-evaluation}
+
+\textcolor{blue}{In Figure 8 we provide the segmentation evaluations derived from the leave-one-out evaluation
+of the previously described TBI data.  These performance measures include sensitivity,
+positive predictive value, $F_1$ score, and relative volume difference.  The three lesion
+size ranges over which these measures are computed to illustrate the variation
+in performance with lesion size.  Smaller lesions ($< 12$ voxels) are more difficult
+to identify which is why the sensitivity is widely varied over the cohort vs. the largest
+set of voxels ($> 28$ voxels).   The first three measures are based on the identification of
+entire lesions.  The relative volume difference provides a direct assessment of how accurate
+the volumetric estimate is when comparing the manually identified lesions versus the
+automatically predicted lesions.}
 
 \subsection{Ranking feature
 importance}\label{ranking-feature-importance}
@@ -528,27 +571,6 @@ white matter, and 3) white matter hyperintensities. Since these tissue
 type can be conflated based on intensity alone it is intuitive that such
 features would be important.
 
-\subsection{White matter hyperintensity segmentation
-evaluation}\label{white-matter-hyperintensity-segmentation-evaluation}
-
-In Figure 8 are the segmentation comparisons derived from manual
-segmentations of the same data. Despite the large variability
-characteristic with manual labelings in related
-fields\textsuperscript{37,39,40}, such labelings are characteristic of
-current clinical practices and the methodology proposed herein is
-readily adapted to refinements in training data.
-
-On the left of Figure 8 are the improvement in Dice
-values\textsuperscript{41}, over all white matter hyperintensities when
-comparing the segmentations between the two stages where the sum is
-taken over all individually labeled manual, \(T_r\), and automated,
-\(S_r\), lesions and \(\cap\) represents the intersection between the
-manual/automated lesion pair. Performing the second round of supervised
-learning improves these Dice values. One can also note from the right
-side of Figure 7 that the total lesion load volume illustrates a few
-subjects that are severe outliers in terms of the number of false
-positives. The second round helps to correct this issue.
-
 \section{Discussion}\label{discussion}
 
 The current communications describes a supervised statistical learning
@@ -573,104 +595,33 @@ latter. As mentioned previously, the work in MS lesion segmentation is
 extensive with a handful of techniques being publicly available.
 
 Two major meta-analyses of WMHs have been published covering the periods
-prior to 2010\textsuperscript{42} and after\textsuperscript{43}. The
-earlier meta-analysis covered 53 longitudinal studies that included
-samples of high-risk populations, i.e., patients selected for a specific
-disease or condition such as hypertension, whereas other studies
-recruited samples of the general population. Longitudinal studies of
-samples representative of the general population are more relevant to
-the focus of the present paper. Debette \& Markus\textsuperscript{42}
-found that the presence of WMHs was related to subsequent cognitive
-decline, a higher risk of developing dementia, stroke, and of mortality.
-Lesion volume at baseline was also predictive of cognitive decline.
-Limitations of this meta-analysis include heterogeneity in the method of
-measuring WMHs; some studies used automated volumetric measurement,
-whereas others used a visual rating scale. The studies analyzed by
-Debette \& Markus were limited to the occurrence of one of the
-aforementioned conditions which they analyzed by hazard ratios.
-
-The more recent meta-analysis by Kloppenborg et al.\textsuperscript{43}
+prior to\textsuperscript{39} and after 2010\textsuperscript{40}. Debette
+\& Markus\textsuperscript{39} found that the presence of WMHs was
+related to subsequent cognitive decline, a higher risk of developing
+dementia, stroke, and of mortality. Lesion volume at baseline was also
+predictive of cognitive decline. Kloppenborg et al.\textsuperscript{40}
 of 23 cross-sectional studies reporting MRI and concurrent
 neuropsychological results in patients with heterogeneous diagnoses but
 without previously diagnosed cognitive impairment, found that WMHs were
 associated with cognitive deficit (effect size of -0.10, 95\% CI: -0.13
-to -0.08) after controlling for age. These studies also differed in the
-metric used to measure the WMHs, including volume, \% of total
-intracranial volume, and a visual rating score. The effect size for the
-association with cognitive deficit in these cross-sectional studies did
-not differ significantly across various cognitive domains or the method
-of measuring lesion volume. Among eight longitudinal studies analyzed by
-Kloppenborg et al that included a follow-up MRI and also controlled for
-age, the effect size for the association of progression in WMHs and
-cognitive impairment was -0.16 (95\% CI:-0.27 to -0.09). This
-association was stronger for attention and executive function than for
-memory and processing speed. Although baseline WMHs were predictive of
-cognitive deficit at follow-up in the seven studies which did not repeat
-MRI, the effect size was smaller {[}-0.10 (95\% CI: 0.13 to -0.05) than
-in the longitudinal studies that calculated progression in WMHs. In
-summary, progression of WMHs seen on repeat MRI has a stronger relation
-to cognitive deficit than concurrent imaging findings. These
-meta-analyses support the rationale for repeating an MRI in patients
-younger than 50 years whose initial scan shows WMHs.
+to -0.08) after controlling for age.
 
-Despite the above-described associations between WMHs, cognitive
-decline, increased risk of developing dementia, and mortality, these
-lesions receive little attention in current clinical workflows. When
-reported in a standard neuroradiologist interpretation, they are
-typically handled as incidental findings and are assigned little
-clinical significance. This likely reflects the impracticality of
-performing a detailed assessment of number, volume, and distribution
-within a qualitative neuroradiologist interpretation as well as the lack
-of correlative information on how the presence and distribution of these
-lesions may inform a diagnosis and prognosis in the appropriate clinical
-setting. To date, automated or semi-automated tools for the detection of
-WMHs have lacked the specificity and efficiency for the mining of
-large-scale datasets to generate highly granular data on whether these
-lesions possess any true diagnostic or prognostic value in the setting
-of a specific disease process. The present communication describes a
+Despite the potential clinical significance of WMHs these lesions
+receive little attention in current clinical workflows. When reported in
+a standard neuroradiologist interpretation, they are typically handled
+as incidental findings and are assigned little clinical significance.
+This likely reflects the impracticality of performing a detailed
+assessment of number, volume, and distribution within a qualitative
+neuroradiologist interpretation as well as the lack of correlative
+information on how the presence and distribution of these lesions may
+inform a diagnosis and prognosis in the appropriate clinical setting. To
+date, automated or semi-automated tools for the detection of WMHs have
+lacked the specificity and efficiency for the mining of large-scale
+datasets to generate highly granular data on whether these lesions
+possess any true diagnostic or prognostic value in the setting of a
+specific disease process. The present communication describes a
 supervised statistical learning tool that is appropriate for the
 application to such large-scale datasets.
-
-The currently described tool is just one example of how ``supervised
-learning'' algorithms might be applied to aid in the diagnosis of TBI
-and other disease processes through the specific identification of
-features predictive of a given disease state. It is an important
-demonstration of the potential power of these analytical approaches in
-the rapid but comprehensive mining of information from neuroimaging
-examinations. Supervised learning algorithms are presently employed
-across a wide variety of settings for the rapid identification of
-predictive imaging features\textsuperscript{44--47}. Automobile
-manufacturers utilize these types of approaches to equip self-driving
-vehicles to recognize and respond to unique external surroundings
-through the identification of visual information sufficiently similar to
-previously assimilated training data\textsuperscript{48,49}. Similarly,
-in the context of the neuroimaging assessments, deep learning approaches
-may allow for the rapid identification of information predictive of
-disease state in an individual patient. These approaches have been
-applied to the segmentation of macroscopically visible
-structures\textsuperscript{44--47}. Additionally, these approaches might
-be applied to the interrogation of imaging data in the individual
-patient with a primary quantitative output metrics to include sequences
-such as diffusion tensor imaging (DTI) and its variants, functional
-connectivity, perfusion weighted imaging, and cortical thickness
-assessments. At present, these advanced neuroimaging sequences are
-confined to cohort-based research studies due to the lack of available
-analytical tools to assess the information in the setting of the
-individual patient\textsuperscript{50}. Application of deep learning
-approaches in the context of data with primary quantitative outputs will
-require large scale normative and disease specific databases. Building
-these large scale imaging libraries is resource intensive and requires a
-multi-center approach with harmonized scanners between sites and
-correlative non-imaging clinical data. Large scale TBI data is becoming
-increasingly available through activities such as the Chronic Effects of
-Neurotrauma Consortium (CENC), Transforming Research and Clinical
-Knowledge in TBI (TRACK-TBI), Collaborative European Neurotrauma
-Effectiveness Research in TBI (CENTER-TBI), Department of Defense
-Alzheimer's Disease Neuroimaging Initiative (DOD-ADNI), and other data
-being consolidated through FITBIR. In concert with any available high
-quality normative neuroimaging data, deep learning algorithms may be
-well positioned to help transform how neuroimaging is interpreted for
-the clinical management of patients with this disease process.
 
 \clearpage
 
@@ -981,66 +932,14 @@ Anal. 2013;17(1):1--18.
 38. Liaw A, Wiener M. Classification and regression by randomForest. R
 News. 2002;2/3:18--22.
 
-\hypertarget{ref-Grimaud:1996aa}{}
-39. Grimaud J, Lai M, Thorpe J, Adeleine P, Wang L, Barker GJ, Plummer
-DL, Tofts PS, McDonald WI, Miller DH. Quantification of mRI lesion load
-in multiple sclerosis: A comparison of three computer-assisted
-techniques. Magn Reson Imaging. 1996;14(5):495--505.
-
-\hypertarget{ref-styner2008}{}
-40. Styner M, Lee J, Chin B, Chin M, Commowick O, Tran H, Markovic-Plese
-S, Jewells V, Warfield S, editors. Special Issue on 2008 MICCAI Workshop
-- MS Lesion Segmentation. MIDAS J; 2008.
-
-\hypertarget{ref-tustison2009}{}
-41. Tustison NJ, Gee JC. Introducing Dice, Jaccard, and other label
-overlap measures to ITK. Insight Journal. 2009.
-
 \hypertarget{ref-Debette:2010aa}{}
-42. Debette S, Markus HS. The clinical importance of white matter
+39. Debette S, Markus HS. The clinical importance of white matter
 hyperintensities on brain magnetic resonance imaging: Systematic review
 and meta-analysis. BMJ. 2010;341:c3666.
 
 \hypertarget{ref-Kloppenborg:2014aa}{}
-43. Kloppenborg RP, Nederkoorn PJ, Geerlings MI, Berg E van den.
+40. Kloppenborg RP, Nederkoorn PJ, Geerlings MI, Berg E van den.
 Presence and progression of white matter hyperintensities and cognition:
 A meta-analysis. Neurology. 2014;82(23):2127--38.
-
-\hypertarget{ref-Plis:2014aa}{}
-44. Plis SM, Hjelm DR, Salakhutdinov R, Allen EA, Bockholt HJ, Long JD,
-Johnson HJ, Paulsen JS, Turner JA, Calhoun VD. Deep learning for
-neuroimaging: A validation study. Front Neurosci. 2014;8:229.
-
-\hypertarget{ref-Suk:2015aa}{}
-45. Suk H-I, Lee S-W, Shen D, Alzheimer's Disease Neuroimaging
-Initiative. Deep sparse multi-task learning for feature selection in
-alzheimer's disease diagnosis. Brain Struct Funct. 2015 May.
-
-\hypertarget{ref-Li:2014aa}{}
-46. Li R, Zhang W, Suk H-I, Wang L, Li J, Shen D, Ji S. Deep learning
-based imaging data completion for improved brain disease diagnosis. Med
-Image Comput Comput Assist Interv. 2014;17(Pt 3):305--12.
-
-\hypertarget{ref-Liu:2015aa}{}
-47. Liu S, Liu S, Cai W, Che H, Pujol S, Kikinis R, Feng D, Fulham MJ,
-ADNI. Multimodal neuroimaging feature learning for multiclass diagnosis
-of alzheimer's disease. IEEE Trans Biomed Eng. 2015;62(4):1132--40.
-
-\hypertarget{ref-HadsellSBESKML09}{}
-48. Hadsell R, Sermanet P, Ben J, Erkan A, Scoffier M, Kavukcuoglu K,
-Muller U, LeCun Y. Learning long-range vision for autonomous off-road
-driving. J. Field Robotics. 2009;26(2):120--144.
-
-\hypertarget{ref-FarabetCNL12}{}
-49. Farabet C, Couprie C, Najman L, LeCun Y. Scene parsing with
-multiscale feature learning, purity trees, and optimal covers. In:
-Proceedings of the 29th international conference on machine learning,
-ICML 2012, edinburgh, scotland, uK, june 26 - july 1, 2012. icml.cc /
-Omnipress; 2012.
-
-\hypertarget{ref-Mayer:2014aa}{}
-50. Mayer AR, Bedrick EJ, Ling JM, Toulouse T, Dodd A. Methods for
-identifying subject-specific abnormalities in neuroimaging data. Hum
-Brain Mapp. 2014;35(11):5457--70.
 
 \end{document}

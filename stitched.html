@@ -61,9 +61,29 @@ img {
 
 
 
+<!--
+   - \setlength{\parskip}{3pt}
+   - \setlength{\topsep}{0pt}
+   - \setlength{\partopsep}{0pt}
+   - \setlength{\itemsep}{0pt}
+   - \setlength{\floatsep}{0pt}
+   - \setlength{\intextsep}{2pt}
+   - \setlength{\abovecaptionskip}{2pt}
+   - \setlength{\belowcaptionskip}{0pt}
+-->
+<style type="text/css">
+body,
+code.bash{
+  font-size: 8px;
+}
+pre {
+  font-size: 8px
+}
+</style>
+<p></p>
 <div id="abstract" class="section level1">
 <h1>Abstract</h1>
-<p>White matter hyperintensities (WMHs) are foci of abnormal signal intensity in white matter regions seen with magnetic resonance imaging (MRI). WMHs are associated with normal aging and have shown prognostic value in neurological conditions such as traumatic brain injury (TBI). The impracticality of manually quantifying these lesions limits their clinical utility and motivates the utilization of machine learning techniques for automated segmentation workflows. Herein, we develop a concatenated random forest framework with tailored features for segmenting WMHs in a TBI cohort. The framework is provided publicly through the Advanced Normalization Tools (ANTs) and ANTsR toolkits. MR (3D FLAIR, T2-, and T1-weighted) images from 24 service members and veterans scanned in the Chronic Effects of Neurotrauma Consortium’s (CENC) observational study were acquired. Manual annotations were employed for both training and evaluation using a leave-one-out strategy. Lesion load and overlap evaluative comparisons are complimented by feature rankings which showcase the utility of the concatenated approach. Our findings suggest supervised learning methods may be applied to quantify WMHs on routine brain imaging. Paired with correlative outcome data, supervised learning methods may allow for identification of imaging features predictive of diagnosis and prognosis in individual TBI patients.</p>
+<p>White matter hyperintensities (WMHs) are foci of abnormal signal intensity in white matter regions seen with magnetic resonance imaging (MRI). WMHs are associated with normal aging and have shown prognostic value in neurological conditions such as traumatic brain injury (TBI). The impracticality of manually quantifying these lesions limits their clinical utility and motivates the utilization of machine learning techniques for automated segmentation workflows. Herein, we develop a concatenated random forest framework with image features for segmenting WMHs in a TBI cohort. The framework is built upon the Advanced Normalization Tools (ANTs) and ANTsR toolkits. MR (3D FLAIR, T2-, and T1-weighted) images from 24 service members and veterans scanned in the Chronic Effects of Neurotrauma Consortium’s (CENC) observational study were acquired. Manual annotations were employed for both training and evaluation using a leave-one-out strategy. Lesion load and overlap evaluative comparisons are complimented by feature rankings which showcase the utility of the concatenated approach. Our findings suggest supervised learning methods may be applied to quantify WMHs on routine brain imaging. Paired with correlative outcome data, supervised learning methods may allow for identification of imaging features predictive of diagnosis and prognosis in individual TBI patients.</p>
 <p><!--
 A couple notes in response to comments:
 
@@ -106,24 +126,47 @@ NT:  As I mentioned to you previously, I think this is a great idea and I would 
 <h1>Introduction</h1>
 <div id="white-matter-hyperintensities-in-tbi" class="section level2">
 <h2>White matter hyperintensities in TBI</h2>
-<p>White matter hyperintensities (WMHs) are foci of abnormally increased signal intensity seen within white matter regions within the cerebrum and brainstem on fluid attenuation inversion recovery (FLAIR) magnetic resonance imaging (MRI) sequences. <del></del></p>
-<p>, the regional distribution and volume of WMHs have been shown to possess prognostic value in the TBI patient <span class="citation">[@Pierallini:2000aa;@Weiss:2008aa;@Smitherman:2016aa;@Levin:1988aa]</span>. Specifically, lesion volume in corpus callosum correlates with functional scores in the acute phase following injury, while lesion volume in frontal lobes correlates with scores at 1 year following injury <span class="citation">[@Pierallini:2000aa]</span>. Further, volume of FLAIR lesions within the corpus callosum, brainstem, and thalamus in patients with severe TBI correlates with Glasgow Outcome-Extended (GOS-E) scores <span class="citation">[@Moen:2014aa]</span>. Additionally, in patients who are comatose following severe TBI the regional distribution of FLAIR lesions within the pons, midbrain, hypothalamus, basal forebrain, parietal, temporal, occipital lobes, and insula along with the observation of grasping or chewing behavior are associated with poor outcome <span class="citation">[@Weiss:2008aa]</span>.</p>
-<p>Despite the above findings, outside of multiple sclerosis, WMHs are not routinely employed as a diagnostic measure in clinical practice. Their presence within asymptomatic patients or in association with a variety of conditions, such as stroke, dementia, neuroinflammatory conditions, and TBI challenge their utility in narrowing a radiological differential diagnosis. Further, performing a comprehensive manual counting of number and distribution of lesions in the clinical setting is simply not practical. Despite the limited inclusion of WMH observations in routine radiological reports, two large meta-analyses demonstrated an association between WMHs, cognitive function, increased risk of stroke, dementia, and death <span class="citation">[@Debette:2010aa;@Kloppenborg:2014aa]</span>. As such, the development of automated methods for the rapid identification and quantification of WMHs within individual patients may allow for identification of correlative patterns between WMH number, volume, distribution, and disease state. Further, the development of such lesion quantification approaches may allow for the practical inclusion of this type of information within routine radiological practice.</p>
+<p><span class="citation"><sup>1,2</sup></span> <span class="citation"><sup>3–6</sup></span> </p>
+<p><span class="citation"><sup>2,6–8</sup></span><span class="citation"><sup>6</sup></span><span class="citation"><sup>4</sup></span><span class="citation"><sup>7</sup></span>.</p>
+<p></p>
 </div>
 <div id="random-forests-for-wmh-segmentation" class="section level2">
 <h2>Random forests for WMH segmentation</h2>
-<p>Machine learning and pattern recognition techniques have seen increased application for various medical image analysis workflows (see, for example, the annual Workshop on Machine Learning in Medical Imaging held in conjunction with the Medical Image Computing and Computer-Aided Intervention (MICCAI) international meeting). Popular techniques such as support vector machines and neural networks have been applied successfully to clinically relevant imaging tasks such as supervised image segmentation (e.g., <span class="citation">[@Bauer:2011aa]</span>) and diagnostic prediction (e.g., <span class="citation">[@Tong:2014aa;@Liu:2013aa]</span>). Facilitating the current employment of such techniques are the number of available imaging data sets <span class="citation">[@Van-Horn:2014aa]</span> and the public availability of data science packages such as SciPy <span class="citation">[@scipy]</span> and the R project for statistical computing <span class="citation">[@R]</span> and their associated extensions.</p>
-<p>The random forests framework <span class="citation">[@breiman2001]</span> is a popular machine learning technique that has demonstrated significant utility for supervised segmentation tasks (e.g., normal human brain segmentation <span class="citation">[@yi2009]</span>) and other computer vision applications (e.g., human gait detection <span class="citation">[@viola2005]</span>). In the context of neuropathology, random forest-based paradigms have been employed in the delineation of multiple sclerosis lesions <span class="citation">[@geremia2011]</span>, stroke lesions <span class="citation">[@Pustina:2016aa]</span>, and brain tumors <span class="citation">[@geremia2012;@bauer2012;@zikic2012;@Tustison:2015aa]</span> for both single and multi-modal acquisition protocols. Of note, these latter random forest approaches for brain tumor segmentation have performed well in recent international competitions established in response to the lack of objective comparisons between segmentation algorithms (i.e., the Multimodal Brain Tumor Segmentation (BRATS) challenge was initiated in 2012 <span class="citation">[@Menze:2015aa]</span>.</p>
-<p>Random forests are conceptually straightforward <span class="citation">[@breiman2001]</span>. They consist of ensembles of decision trees that are built from training data. Once  constructed, data to be classified is “pushed” through each decision tree resulting in a single classification “vote” per tree. These votes are then used for regression or classification of the data. Although decision trees had been extensively studied, the success of employing collections of such weak learners for boosting machine learning performance (e.g., AdaBoost <span class="citation">[@schapire1990;@freund1997]</span>) influenced the similarly sytled conglomeration of decision trees into “forests” with randomized node optimization <span class="citation">[@ho1995;@amit1997]</span>. Finally, Breiman <span class="citation">[@breiman2001]</span> improved accuracy by random sampling of training data (i.e., “bagging”) resulting in the current random forest technique applied here.</p>
-<p>In this work, we develop a concatenated random forest framework with a tailored contextual feature image set (both spatial and intensity-based) for segmenting WMHs in a large TBI cohort. Additionally, the entire framework is provided publicly through the well-known open-source Advanced Normalization Tools (ANTs)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and ANTsR<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> toolkits. Further motivating this research is the availability of several large publicly available imaging data sets that permits testing reproducibility of this automated routine for WMH segmentation and quantification.</p>
+<!--
+Machine learning and pattern recognition techniques have seen increased application
+for various medical image analysis workflows (see, for example, the annual
+Workshop on Machine Learning in Medical Imaging held in conjunction with the Medical
+Image Computing and Computer-Aided Intervention (MICCAI) international meeting).
+Popular techniques such as support vector machines and neural networks have been applied
+successfully to clinically relevant imaging tasks such as supervised image segmentation
+(e.g., [@Bauer:2011aa]) and diagnostic prediction (e.g., [@Tong:2014aa;@Liu:2013aa]).
+Facilitating the current employment of such techniques are the number of available imaging
+data sets [@Van-Horn:2014aa] and the public availability of data science packages such as
+SciPy [@scipy] and the R project for statistical computing [@R] and their associated
+extensions.
+-->
+<p>The random forests framework<span class="citation"><sup>9</sup></span> is a popular machine learning technique that has demonstrated significant utility for supervised segmentation tasks (e.g., normal human brain segmentation<span class="citation"><sup>10</sup></span>) and other computer vision applications (e.g.,<span class="citation"><sup>11</sup></span>). <span class="citation"><sup>12–17</sup></span> </p>
+<!--
+Of note, these
+latter random forest approaches for brain tumor segmentation have performed well in recent
+international competitions established in response to the lack of objective comparisons between segmentation algorithms (i.e.,  the Multimodal Brain Tumor Segmentation (BRATS) challenge was initiated in 2012 [@Menze:2015aa].
+-->
+<p>Random forests are conceptually straightforward<span class="citation"><sup>9</sup></span>.  <span class="citation"><sup>18,19</sup></span> <span class="citation"><sup>20,21</sup></span>. <span class="citation"><sup>9</sup></span>  </p>
+<p>In this work, we develop a concatenated random forest framework with a feature image set (both spatial and intensity-based) for segmenting WMHs in a large TBI cohort. The entire framework is built on the well-known open-source Advanced Normalization Tools (ANTs)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and ANTsR<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> toolkits. Further motivating this research is the availability of several large publicly available imaging data sets that permits testing reproducibility of this automated routine for WMH segmentation and quantification.</p>
 </div>
 </div>
 <div id="materials-and-methods" class="section level1">
 <h1>Materials and Methods</h1>
 <div id="imaging" class="section level2">
 <h2>Imaging</h2>
-<p>MR images utilized for this initial report were acquired from a single scanner involved in the Chronic Effects of Neurotrauma Consortium’s (CENC) observational study (see Walker et al., this issue). Briefly, participants were Operation Iraqi Freedom/Operation Enduring Freedom (OIF/OEF) era Service Members and Veterans between the ages of 18-60 years with prior combat exposure and deployment(s). The feature images  26 subjects aged 39.6 <span class="math inline">\(\pm\)</span> 8.1 years (range 28–58 years). Within this cohort, 24 (92%) were considered positive for TBI based upon the potential concussive events (PCE) interview process described in detail in Walker et al., this issue). Each of the participants that were selected from the larger cohort of participants in this study demonstrated at least one white matter hyperintensity (but as many as 20) on FLAIR imaging.</p>
+<p>MR images utilized for this initial report were acquired from a single scanner involved in the Chronic Effects of Neurotrauma Consortium’s (CENC) observational study (see Walker et al., this issue). Briefly, participants were Operation Iraqi Freedom/Operation Enduring Freedom (OIF/OEF) era Service Members and Veterans between the ages of 18-60 years with prior combat exposure and deployment(s). The feature images  26 subjects aged 39.6 <span class="math inline">\(\pm\)</span> 8.1 years (range 28–58 years). Within this cohort, 24 (92%) were considered positive for TBI based upon the potential concussive events (PCE) interview process described in detail in Walker et al., this issue). </p>
+<!--
+
+\input{trainingData.tex}
+
+-->
 <p>Images were acquired on a Philips 3.0T Ingenia system with an 8-channel SENSE head coil (Philips Medical Systems, Best, Netherlands). 3D FLAIR sequences were acquired with a turbo spin echo inversion recovery sequence with the following parameters: repetition time (TR) = 4800 ms, echo time (TE) = 325 ms, inversion time (TI) = 1650 ms; 170 sagittal slices with a 1.2 mm slice thickness, 256 <span class="math inline">\(\times\)</span> 256 acquisition matrix, and 256 <span class="math inline">\(\times\)</span> 256 mm FOV. 3D T1-weighted sequences were acquired with a fast field echo (FFE) sequence with the following parameters: TR = 6.8 ms, TE = 3.2 ms, echo train length (ETL) = 240; Flip angle = 9<span class="math inline">\(^\circ\)</span>, 170 sagittal slices with a 1.2 mm slice thickness, 256x240 acquisition matrix, and 256 <span class="math inline">\(\times\)</span> 256 mm FOV. In addition, 3D T2-weighted images were acquired with a turbo spin echo sequence with the following parameters: TR = 2500 ms, TE = 245 ms, ET: = 133; 170 sagittal slices with a 1.2 mm slice thickness, 256 <span class="math inline">\(\times\)</span> 256 acquisition matrix, and 256 x 256 mm FOV.</p>
+<p>.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> <span class="citation"><sup>3</sup></span><span class="citation"><sup>22</sup></span> <span class="citation"><sup>23</sup></span> </p>
 </div>
 <div id="quantitative-analysis" class="section level2">
 <h2>Quantitative analysis</h2>
@@ -140,15 +183,27 @@ are constructed once from a set of training data which are processed using the
 same feature-construction pipeline as the single-subject input MRI.}](Figures/wmhPipeline.png)
 
 -->
+<div id="symmetric-multi-modal-templates" class="section level3">
+<h3>Symmetric multi-modal templates</h3>
+<p><span class="citation"><sup>24</sup></span> <span class="citation"><sup>17</sup></span>, <span class="citation"><sup>25</sup></span><span class="citation"><sup>26</sup></span> </p>
+<!--
+![Canonical views of the mutlivariate, bilaterally symmetric template constructed
+from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
+the components relevant for this work).  Template construction is detailed in
+[@Tustison:2015aa].  These images are important for specific asymmetry-based
+features.](Figures/MMRR.png)
+
+-->
+</div>
 <div id="feature-images-for-wmh-segmentation" class="section level3">
 <h3>Feature images for WMH segmentation</h3>
-<p>Crucial to these supervised segmentation approaches are the creation and selection of “features” as input in conjunction with expertly identified structures of interest for model construction. For the targeted application in this work (i.e., WMHs), tissue classification is performed at the voxelwise level. In other words, each voxel within the region of interest is sent through the ensemble of decision trees and receives a set of classification votes from each tree thus permitting a regression or classification solution. Since this procedure is performed at the voxelwise level, intensity information alone is insufficient for good segmentation performance due to the lack of spatial context. For example, as pointed out in <span class="citation">[@Neema:2009aa]</span>, higher intensities can be found at the periventricular caps in normal subjects which often confounds automated lesion detection algorithms. Other potential confounds include MR signal inhomogeneity and noise. Therefore, even though machine learning and pattern recognition techniques are extremely powerful and have significant potential, just as crucial to outcome is the creative construction and deployment of salient feature images which we detail below.</p>
+<p> For the targeted application in this work, tissue classification is performed at the voxelwise level. In other words, each voxel within the region of interest is sent through the ensemble of decision trees and receives a set of classification votes from each tree thus permitting a regression or classification solution. Since this procedure is performed at the voxelwise level, intensity information alone is insufficient for good segmentation performance due to the lack of spatial context. For example, as pointed out in<span class="citation"><sup>27</sup></span>, higher intensities can be found at the periventricular caps in normal subjects which often confounds automated lesion detection algorithms. Other potential confounds include MR signal inhomogeneity and noise. Therefore, even though machine learning and pattern recognition techniques are extremely powerful and have significant potential, just as crucial to outcome is the creative construction and deployment of salient feature images which we detail below.</p>
 <!--
 
 \input{featureImagesTable.tex}
 
 -->
-<p>Supervised methodologies are uniquely characterized, in part, by the feature images that are used to identify the regions of interest. In Table 1, we provide a list and basic categorization of the feature images used for the initial (i.e., Stage 1—more on the use of multiple random forest stages below) segmentation of the WMHs. In addition Figure 1 provides a representation of a set of feature images for a single subject analyzed in this work. Note that in this work we categorize the brain parenchyma with seven labels:</p>
+<p>Supervised methodologies are uniquely characterized, in part, by the feature images that are used to identify the regions of interest. In Table 2, we provide a list and basic categorization of the feature images used for the initial (i.e., Stage 1—more on the use of multiple random forest stages below) segmentation of the WMHs. In addition Figure 3 provides a representation of a set of feature images for a single subject analyzed in this work. Note that in this work we categorize the brain parenchyma with seven labels:</p>
 <ul>
 <li>cerebrospinal fluid (label 1),</li>
 <li>gray matter (label 2),</li>
@@ -162,7 +217,7 @@ same feature-construction pipeline as the single-subject input MRI.}](Figures/wm
 
 ![Representation of Stage 1 feature images for subject 01C1019.  The
 FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
-[@Avants:2014aa] to the space of the T1 image.  The three modality images are then preprocessed
+[@Avants:2014aa] to the space of the FLAIR image.  The three modality images are then preprocessed
 (N4 bias correction [@Tustison:2010ac] and adaptive denoising [@Manjon:2010aa]) followed by
 application of standard ANTs brain extraction and $n$-tissue segmentation protocols using
 the MMRR symmetric template and corresponding priors [@Tustison:2014ab] applied to the T1 image.
@@ -172,7 +227,7 @@ tissue type.  Not shown are the probability and voting images for the brain stem
 cerebellum.](Figures/featureImages.png)
 
 -->
-<p>As mentioned previously, input for each subject comprises FLAIR, T1-, and T2-weighted acquisitions. The FLAIR and T2 images are rigidly registered to the T1 image using the open-source Advanced Normalization Tools (ANTs) <span class="citation">[@Avants:2014aa]</span>. The aligned images are then preprocessed using the denoising algorithm of <span class="citation">[@Manjon:2010aa]</span> followed by N4 bias correction <span class="citation">[@Tustison:2010ac]</span> which are then normalized to the intensity range <span class="math inline">\([0,1]\)</span>. Although we could have used an alternative intensity standardization algorithm (e.g., <span class="citation">[@nyul2000]</span>), we found that a simple linear rescaling produced better results similar to previous work<span class="citation">[@Tustison:2015aa]</span>.</p>
+<p>As mentioned previously, input for each subject comprises FLAIR, T1-, and T2-weighted acquisitions. The T1 and T2 images are rigidly registered to the FLAIR image using the open-source Advanced Normalization Tools (ANTs)<span class="citation"><sup>22</sup></span>. The aligned images are then preprocessed using the denoising algorithm of<span class="citation"><sup>28</sup></span> followed by N4 bias correction<span class="citation"><sup>29</sup></span> which are then normalized to the intensity range <span class="math inline">\([0,1]\)</span>. Although we could have used an alternative intensity standardization algorithm (e.g.,<span class="citation"><sup>30</sup></span>), we found that a simple linear rescaling produced better results similar to previous work<span class="citation"><sup>17</sup></span>.</p>
 <!--
 
 ![Sample FLAIR acquisition image slices showing both manual and random forest
@@ -181,17 +236,8 @@ segmentations were performed by one of the authors and provided the ground
 truth WMH labels for training the random forest models.](Figures/sampleResults.png)
 
 -->
-<p>The T1 image is then processed via the ANTs brain extraction and normal tissue segmentation pipelines <span class="citation">[@Tustison:2014ab]</span>. Any effect of pathology is minimal because WMHs are not commonly seen in T1-weighted MRI. This protocol involves preprocessing using N4 bias correction followed by a template-based strategy for brain extraction. Once the brain has been extracted, we apply a Bayesian-based segmentation algorithm with a template-based prior probability strategy to segment the parenchymal tissue types. The result is a mask delineating the brain parenchyma and probabilistic estimates of the CSF, gray matter, white matter, deep gray matter, brain stem, and cerebellum. These provide the expertly annotated labels for the first six tissue labels given above. The WMHs were manually identified by one of the authors (J. R. S.) using the ITK-SNAP tool <span class="citation">[@Yushkevich:2006aa]</span>. Segmentation is performed using the ANTs Atropos tool <span class="citation">[@Avants:2011aa]</span> and multi-model optimal symmetric shape/intensity templates <span class="citation">[@Tustison:2015aa]</span> created from the public MMRR data set <span class="citation">[@landman2011]</span> (cf Figure 3).</p>
-<!--
-
-![Canonical views of the mutlivariate, bilaterally symmetric template constructed
-from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
-the components relevant for this work).  Template construction is detailed in
-[@Tustison:2015aa].  These images are important for specific intensity-based
-features.](Figures/MMRR.png)
-
--->
-<p>To model the intensity information the first set of images simply includes the preprocessed and normalized intensity FLAIR, T1, and T2 image voxel values. We also calculate a set of neighborhood statistics (mean, standard deviation, and skewness) feature images using a Manhattan radius of one voxel given the typical size of individual WMHs. For each of the normalized images, we calculate the difference in intensities with the corresponding warped template component. Previous success in the international brain tumor segmentation competition <span class="citation">[@Menze:2015aa]</span> was based on an important set of intensity features that were created from multi-modal templates mentioned previously <span class="citation">[@Tustison:2015aa]</span> and listed in Table 1. We employ the same strategy here.</p>
+<p>The T1 image is then processed via the ANTs brain extraction and normal tissue segmentation pipelines<span class="citation"><sup>24</sup></span>. The result is a mask delineating the brain parenchyma and probabilistic estimates of the CSF, gray matter, white matter, deep gray matter, brain stem, and cerebellum<span class="citation"><sup>31</sup></span>. These provide the expertly annotated labels for the first six tissue labels given above. Tissue prior probability maps for segmentation are from multi-model optimal symmetric shape/intensity templates<span class="citation"><sup>17</sup></span> created from the public MMRR data set<span class="citation"><sup>25</sup></span> (cf Figure 2).</p>
+<p>Feature values include the preprocessed FLAIR, T1, and T2 image voxel intensities. We also calculate a set of neighborhood statistics (mean, standard deviation, and skewness) feature images using a Manhattan radius of one voxel given the typical size of individual WMHs. For each of the preprocessed images, we calculate the difference in intensities with the corresponding warped template component. Previous success in the international brain tumor segmentation competition<span class="citation"><sup>32</sup></span> was based on an important set of intensity features that were created from multi-modal templates mentioned previously<span class="citation"><sup>17</sup></span> and listed in Table 2. We employ the same strategy here.</p>
 <!--
 For example, the template
 difference feature image for the FLAIR image, $S_{FLAIR}$ is calculated as:
@@ -206,23 +252,30 @@ is the transform
 which maps from the individual subject space to the
 template space and $T_{FLAIR}$ is the FLAIR template component.
 -->
-<p>To take advantage of the gross bilateral symmetry of the normal brain (in terms of both shape and intensity), and the fact that WMHs do not generally manifest symmetrically across hemispheres, we use the symmetric templates to compute the contralateral intensity differences as an additional intensity feature. For the FLAIR component, this contralateral difference image is calculated from</p>
-<p><span class="math display">\[S_{FLAIR} - S_{FLAIR}\left(\phi_b^{-1}\left(\phi_R\left(\phi_b\right)\right)\right)\]</span></p>
-<p>where <span class="math inline">\(\phi_R\)</span> denotes a horizontal reflection perpendicular to the mid-sagittal plane of the symmetric template.</p>
-<p>The segmentation probability images described above are used as feature images to provide a spatial context for the random forest model prediction step. Additional spatial contextual feature images include the distance maps <span class="citation">[@maurer2003]</span> based on the csf, gray matter, and deep gray matter images. These latter images are intended to help distinguish white matter hyperintensities from false positives induced by the partial voluming at the gray/white matter interface. A third set of images are based on the voxel location within the space of the template. The T1 image of the subject is registered to the T1 template component using a B-spline variant <span class="citation">[@Tustison:2013ac]</span> of the well-known ANTs Symmetric Normalization (SyN) algorithm <span class="citation">[@Avants:2011ab]</span>. Since the inverse transform is also derived as part of the registration process, we can warp the voxel index locations back to the space of the individual subject which motivates similar work by others <span class="citation">[@Anbeek:2004aa]</span>. However, this previous work lacks the normalization to the standard coordinate system provided by the template to dramatically improve spatial specificity across all subjects.</p>
+<p>To take advantage of the gross bilateral symmetry of the normal brain (in terms of both shape and intensity), and the fact that WMHs do not generally manifest symmetrically across hemispheres, we use the symmetric templates to compute the contralateral intensity differences as an additional intensity feature.</p>
+<!--
+For the FLAIR component, this contralateral
+difference image is calculated from
+
+$$S_{FLAIR} - S_{FLAIR}\left(\phi_b^{-1}\left(\phi_R\left(\phi_b\right)\right)\right)$$
+
+where $\phi_R$ denotes a horizontal reflection perpendicular to the mid-sagittal plane of
+the symmetric template.
+-->
+<p>The segmentation probability images described above are used as feature images to provide a spatial context for the random forest model prediction step. Additional spatial contextual feature images include the distance maps<span class="citation"><sup>33</sup></span> based on the csf, gray matter, and deep gray matter images. These latter images are intended to help distinguish white matter hyperintensities from false positives induced by the partial voluming at the gray/white matter interface. A third set of images are based on the voxel location within the space of the template. <span class="citation"><sup>34</sup></span> <span class="citation"><sup>35</sup></span> <span class="citation"><sup>36</sup></span>. </p>
 </div>
 <div id="stacked-concatenated-random-forests-for-improved-segmentation-performance" class="section level3">
 <h3>Stacked (concatenated) random forests for improved segmentation performance</h3>
-<p>In previous brain tumor segmentation work <span class="citation">[@Tustison:2015aa]</span>, it was demonstrated that a concatenated supervised approach, whereby the prediction output from the first random forest model serves as partial input for a second random forest model, can significantly improve segmentation performance. We do the same thing for the work described here where we employ two stacked random forests (or two “stages”). The Stage 1 feature images of the training data (as described previously) are used to construct the Stage 1 model. The training data Stage 1 features are then used to produce the voxelwise “voting maps” (i.e., the classification count of each decision tree for each tissue label) via the Stage 1 random forest model. All the Stage 1 features plus the Stage 1 voting maps are used as input to the Stage 2 model. In addition, we use the Stage 1 voting maps as tissue priors (i.e., probabilistic estimates of the tissue spatial locations) for a second application of the Atropos maximum aposteriori algorithm with an additional Markov Random Field spatial prior (MAP-MRF) <span class="citation">[@Avants:2011aa]</span>. However, for the second stage we use all three aligned preprocessed images for a multivariate segmentation. The resulting seven posterior probability images constitute a third additional feature image set for Stage 2.</p>
+<p>In previous brain tumor segmentation work<span class="citation"><sup>17</sup></span>, it was demonstrated that a concatenated supervised approach, whereby the prediction output from the first random forest model serves as partial input for a second random forest model, can significantly improve segmentation performance. We do the same thing for the work described here where we employ two stacked random forests (or two “stages”). The Stage 1 feature images of the training data (as described previously) are used to construct the Stage 1 model. The training data Stage 1 features are then used to produce the voxelwise “voting maps” (i.e., the classification count of each decision tree for each tissue label) via the Stage 1 random forest model. All the Stage 1 features plus the Stage 1 voting maps are used as input to the Stage 2 model. In addition, we use the Stage 1 voting maps as tissue priors (i.e., probabilistic estimates of the tissue spatial locations) for a second application of the <span class="math inline">\(6\)</span>-tissue segmentation algorithm with an additional Markov Random Field spatial prior (MAP-MRF)<span class="citation"><sup>31</sup></span>.  The resulting seven posterior probability images constitute a third additional feature image set for Stage 2.</p>
 </div>
-<div id="code-and-data-availability" class="section level3">
-<h3>Code and data availability</h3>
-<p>As pointed out in a recent comprehensive multiple sclerosis lesion segmentation review <span class="citation">[@Garcia-Lorenzo:2013aa]</span>, although the number of algorithms reported in the literature is quite extensive, there were only four publicly available segmentation algorithms at the time of writing this article. In contrast to the current work, none are based on supervised learning. As we did for our brain tumor segmentation algorithm <span class="citation">[@Tustison:2015aa]</span>, all of the code described in this work is publicly available through the open-source ANTs/ANTsR toolkits. Through ANTsR (an add-on toolkit which, in part, bridges ANTs and the R statistical project) we use the <em>randomForest</em> package <span class="citation">[@liaw2002]</span> using the default settings with 2000 trees per model and 500 randomly selected samples per label per image. Note that we saw little variation in performance when these parameters were changed (i.e. up to 1000 random samples and as little as 1000 trees) which is consistent with our previous experience.</p>
-<p>In addition, similar to our previous offering <a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>, we plan on creating a self-encapsulated example to showcase the proposed methodology. The fact that the data will also be made available through the Federal Interagency Traumatic Brain Injury Research (FITBIR) repository along with the manual labelings will facilitate reproducibility on the part of the reader as well as any interest in extending the proposed framework to other data sets.</p>
+<div id="implementation" class="section level3">
+<h3>Implementation</h3>
+<p>As pointed out in a recent comprehensive lesion segmentation review<span class="citation"><sup>37</sup></span>, although the number of algorithms reported in the literature is quite extensive, there were only four publicly available segmentation algorithms at the time of writing this article. In contrast to the current work, none are based on supervised learning. As we did for our brain tumor segmentation algorithm<span class="citation"><sup>17</sup></span>, all of the code described in this work is publicly available through the open-source ANTs/ANTsR toolkits. Through ANTsR (an add-on toolkit which, in part, bridges ANTs and the R statistical project) we use the <em>randomForest</em> package<span class="citation"><sup>38</sup></span> using the default settings with 2000 trees per model and 500 randomly selected samples per label per image. Note that we saw little variation in performance when these parameters were changed (i.e. up to 1000 random samples and as little as 1000 trees) which is consistent with our previous experience.</p>
+<p>In addition, similar to our previous offering,<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> we plan on creating a self-encapsulated example to showcase the proposed methodology <a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> The fact that the data will also be made available through the Federal Interagency Traumatic Brain Injury Research (FITBIR) repository along with the manual labelings will facilitate reproducibility on the part of the reader as well as any interest in extending the proposed framework to other data sets.</p>
 </div>
 <div id="evaluation-protocol-overview" class="section level3">
 <h3>Evaluation protocol overview</h3>
-<p>In order to evaluate the protocol described, we performed a leave-one-out evaluation using the data acquired from the 24 subjects described above. Initial processing included the creation of all Stage 1 feature images for all subjects. The initial brain segmentation of each T1 image and the manual white matter hyperintensity tracings were combined to provide the truth labels for the training data. The “truth” labels are the seven anatomical regions given above.</p>
+<p>In order to evaluate the protocol described, we performed a leave-one-out evaluation using the data acquired from the 24 subjects described above. Initial processing included the creation of all Stage 1 feature images for all subjects. The initial brain segmentation of each T1 image and the manual white matter hyperintensity tracings were combined to provide the truth labels for the training data. The ``truth’’ labels are the seven anatomical regions given above.</p>
 <p>The leave-one-out procedure is as follows:</p>
 <ul>
 <li>Create Stage 1 feature images for all 24 subjects.</li>
@@ -238,11 +291,52 @@ template space and $T_{FLAIR}$ is the FLAIR template component.
 <li>compare the final results with the manually-defined white matter hyperintensity regions.</li>
 </ul></li>
 </ul>
+<p><span class="citation"><sup>37</sup></span><a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> </p>
+<p><span class="math display">\[ sensitivity =  \frac{ TP }{TP + FN}, \]</span></p>
+<p></p>
+<p><span class="math display">\[ PPV =  \frac{ TP }{TP + FP}, \]</span></p>
+<p></p>
+<p><span class="math display">\[ F_1 =  \frac{ 2 \cdot TP }{ 2 \cdot TP + FP + FN}. \]</span></p>
+<p></p>
+<p><span class="math display">\[ Relative\,\,volume\,\,difference = \frac{V_{manual} - V_{predicted}}{V_{manual}}. \]</span></p>
+<p></p>
 </div>
 </div>
 </div>
 <div id="results" class="section level1">
 <h1>Results</h1>
+<div id="white-matter-hyperintensity-segmentation-evaluation" class="section level2">
+<h2>White matter hyperintensity segmentation evaluation</h2>
+<p></p>
+<!--
+
+In Figure 8 are the segmentation comparisons derived from manual segmentations of the same
+data.  Despite the large variability characteristic with manual labelings in related fields
+[@Grimaud:1996aa;@styner2008;@Garcia-Lorenzo:2013aa], such labelings are characteristic of
+current clinical practices and the methodology proposed herein is readily adapted to refinements
+in training data.
+
+On the left of Figure 8 are the improvement in Dice values [@tustison2009],
+over all white matter hyperintensities when comparing the segmentations between the two stages
+where the sum is taken over all individually labeled manual, $T_r$, and automated, $S_r$, lesions and $\cap$
+represents the intersection between the manual/automated lesion pair.  Performing
+the second round of supervised learning improves these Dice values.  One can also note from the
+right side of Figure 7 that the total lesion load volume illustrates a few subjects that are
+severe outliers in terms of the number of false positives.  The second round helps to
+correct this issue.
+
+-->
+<!--
+
+![Evaluation measures for the leave-one-out protocol of the described protocol in the Methods
+section:  (a) sensitivity, (b) positive predictive value, (c) $F_1$ score, and (d) relative
+volume difference.   The three quantile ranges include the following lesion volume ranges:
+$[3-12)$, $[12-28)$, and $[28-551]$ based on the manually-derived lesion volumes.  These
+measures are computed for both Stages.  Overall improvement is seen as the
+second Stage RF model is applied for all three quantile ranges.](Figures/evaluationResults.png)
+
+-->
+</div>
 <div id="ranking-feature-importance" class="section level2">
 <h2>Ranking feature importance</h2>
 <p>After performing the leave-one-out evaluation, we calculated the <em>MeanDecreaseAccuracy</em> feature values for each of the 24 subjects <span class="math inline">\(\times\)</span> 2 models per subject <span class="math inline">\(=48\)</span> total models. This measure (per feature, per model) is calculated during the out-of-bag phase of the random forest model construction and quantifies the decrease in prediction accuracy from omitting the specified feature. In other words, this quantity helps determine the importance of a particular feature and, although we save such efforts for future work, this information provides us with guidance for future feature pruning and/or additions.</p>
@@ -270,9 +364,16 @@ We augment the 31 feature images from the first stage by adding an additional
 segmentation for a total of 45 images for the second stage.](Figures/averageLeaveOneOutStage2.png)
 
 -->
-<p>The resulting rankings for both Stages are given in Figures 4 and 5 where the values for the separate stages are averaged over the entire corresponding model set. In addition, we track the variance for each feature over all models to illustrate the stability of the chosen features during the evaluation. This latter information is illustrated as horizontal errors bars providing the <span class="math inline">\(95^{th}\)</span> percentile Note that the reader can cross reference Table 1 for identifying corresponding feature types and names.</p>
-<p>One can also use these measurements as a type of sanity check. For example, from the Stage 1 plot, one can see that the <em>MeanDecreaseAccuracy</em> values for the location indices in the anterior-posterior direction (i.e., <em>TemplateIndicesWarped1</em>) are greater than those for either the inferior-superior (i.e., <em>TemplateIndicesWarped2</em>) or the left-right (i.e., <em>TemplateIndicesWarped0</em>) directions in the space of the symmetric template.</p>
-<p>Additionally, it is interesting to note some of the other top performing features for Stage 1. The contralateral difference FLAIR image is highly discriminative over the set of evaluation random forest models (see Figure 6). This accords with the known clinical relevance of FLAIR images for identifying white matter hyperintensities and the fact that such pathology does not typically manifest symmetrically in both hemispheres. Interestingly, the posterior maps for the deep gray matter are extremely important for accurate white matter hyperintensity segmentation. Perhaps the spatial specification of deep gray matter aids in the removal of false positives. Inspection of the bottom of the plots demonstrates the lack of discriminating features associated with the T1 image which is also well-known in the clinical literature.</p>
+<p>The resulting rankings for both Stages are given in Figures 5 and 6 where the values for the separate stages are averaged over the entire corresponding model set. In addition, we track the variance for each feature over all models to illustrate the stability of the chosen features during the evaluation. This latter information is illustrated as horizontal errors bars providing the <span class="math inline">\(95^{th}\)</span> percentile Note that the reader can cross reference Table 1 for identifying corresponding feature types and names.</p>
+<!--
+One can also use these measurements as a type of sanity check.  For example, from the Stage
+1  plot, one can see that the _MeanDecreaseAccuracy_ values for the location indices in the
+anterior-posterior direction (i.e., _TemplateIndicesWarped1_) are greater than
+those for either the inferior-superior (i.e., _TemplateIndicesWarped2_) or the
+left-right (i.e., _TemplateIndicesWarped0_) directions in the space of the symmetric
+template.
+-->
+<p>Additionally, it is interesting to note some of the other top performing features for Stage 1. The contralateral difference FLAIR image is highly discriminative over the set of evaluation random forest models (see Figure 7). This accords with the known clinical relevance of FLAIR images for identifying white matter hyperintensities and the fact that such pathology does not typically manifest symmetrically in both hemispheres. Interestingly, the posterior maps for the deep gray matter are extremely important for accurate white matter hyperintensity segmentation. Perhaps the spatial specification of deep gray matter aids in the removal of false positives. Inspection of the bottom of the plots demonstrates the lack of discriminating features associated with the T1 image which is also well-known in the clinical literature.</p>
 <!--
 
 ![(a) FLAIR image slice illustrating WMHs which have been manually delineated.
@@ -280,24 +381,7 @@ The region around the WMHs is enlarged (b) in the original FLAIR and the
 (c) contralateral FLAIR difference image.](Figures/FLAIRcontralaleteralWithLesionsAlternate.png)
 
 -->
-<p>As described earlier, for Stage 2, we used the output random forest voting maps from Stage 1 as both features themselves and as priors for input to a Bayesian-based segmentation with an additional MRF spatial prior. In Figure 5, the voting maps are labeled as “<em>RFStage1VotingMaps</em>” where the final numeral is associated with the brain parenchymal labeling given previously. Similarly, the additional RF prior segmentation feature probability maps are labeled as “<em>RFBrainSegmentationPosteriors</em>”. The Stage 2 feature importance plot follows similar trends as that for Stage 1 with the T1 images not contributing much to the identification of white matter hyperintensity voxels. The initial voting maps from Stage 1 are extremely important with the top 3 being the estimated locations of the 1) gray matter, 2) white matter, and 3) white matter hyperintensities. Since these tissue type can be conflated based on intensity alone it is intuitive that such features would be important.</p>
-</div>
-<div id="white-matter-hyperintensity-segmentation-evaluation" class="section level2">
-<h2>White matter hyperintensity segmentation evaluation</h2>
-<p>In Figure 7 are the segmentation comparisons derived from manual segmentations of the same data. Despite the large variability characteristic with manual labelings in related fields <span class="citation">[@Grimaud:1996aa;@styner2008;@Garcia-Lorenzo:2013aa]</span>, such labelings are characteristic of current clinical practices and the methodology proposed herein is readily adapted to refinements in training data. On the left of Figure 7 are the improvement in Dice values <span class="citation">[@tustison2009]</span>, i.e.,</p>
-<p><span class="math display">\[ Dice = 2 \frac{\sum_r|S_r \cap T_r|}{\sum_r|S_r| + |T_r] } \]</span></p>
-<p>over all white matter hyperintensities when comparing the segmentations between the two stages where the sum is taken over all individually labeled manual, <span class="math inline">\(T_r\)</span>, and automated, <span class="math inline">\(S_r\)</span>, lesions and <span class="math inline">\(\cap\)</span> represents the intersection between the manual/automated lesion pair. Performing the second round of supervised learning improves these Dice values. One can also note from the right side of Figure 6 that the total lesion load volume illustrates a few subjects that are severe outliers in terms of the number of false positives. The second round helps to correct this issue.</p>
-<!--
-
-![Voxelwise comparison with manual delineation of white matter hyperintensities.  On the left are the
-calculated Dice values over all white matter hyperintensities.  Note the improvement
-in the Dice metric from the employment of the Stage 2 component of the processing pipeline.
-(Right) Similar results can be seen by comparing the total lesion load volume between manual
-and automated detection strategies.  Although some outliers are found after the Stage 2
-processing in a couple subjects, the number of outliers caused by false positives is
-decreased significantly with the second stage processing.](Figures/llvAndDice.png)
-
--->
+<p>As described earlier, for Stage 2, we used the output random forest voting maps from Stage 1 as both features themselves and as priors for input to a Bayesian-based segmentation with an additional MRF spatial prior. In Figure 6, the voting maps are labeled as “<em>RFStage1VotingMaps</em>” where the final numeral is associated with the brain parenchymal labeling given previously. Similarly, the additional RF prior segmentation feature probability maps are labeled as “<em>RFBrainSegmentationPosteriors</em>”. The Stage 2 feature importance plot follows similar trends as that for Stage 1 with the T1 images not contributing much to the identification of white matter hyperintensity voxels. The initial voting maps from Stage 1 are extremely important with the top 3 being the estimated locations of the 1) gray matter, 2) white matter, and 3) white matter hyperintensities. Since these tissue type can be conflated based on intensity alone it is intuitive that such features would be important.</p>
 </div>
 </div>
 <div id="discussion" class="section level1">
@@ -323,11 +407,61 @@ part of the FITBIR effort.
 
 -->
 <p>The current communications describes a supervised statistical learning methodology for identifying WHMs within multimodal MR brain imaging. This effort utilized information acquired from the manual segmentation of WMHs from FLAIR images to help build two-stage ensembles of decision trees for the automated identification of these lesions. Although only a single expert was used to produce the manual labelings, our intent is to further refine the proposed paradigm by crowdsourcing with feedback from other experts who interact with both the data and methodology. Also, we recognize that only a single site was used for evaluating the proposed framework. However, we are currently processing other site data with the models developed for this work and the results look promising since the developed features are site-agnostic.</p>
-<p>As far as we know, this is the first report utilizing a novel random forest approach to identify WMHs in a cohort of TBI patients. TBI WMHs tend to be more difficult to segment than MS lesions as the former tend to be smaller with an overall smaller lesion load. Also, enhancement protocols with the former tend to be less successful than with the latter. As mentioned previously, the work in MS lesion segmentation is extensive with a handful of techniques being publicly available. Our framework is also available as open-source as part of well-known neuroimaging tools which easily allows for additions/extensions but is also, as far as we know, the first random forest-based technique available for such application.</p>
-<p>Two major meta-analyses of WMHs have been published covering the periods prior to 2010 <span class="citation">[@Debette:2010aa]</span> and after <span class="citation">[@Kloppenborg:2014aa]</span>. The earlier meta-analysis covered 53 longitudinal studies that included samples of high-risk populations, i.e., patients selected for a specific disease or condition such as hypertension, whereas other studies recruited samples of the general population. Longitudinal studies of samples representative of the general population are more relevant to the focus of the present paper. Debette &amp; Markus <span class="citation">[@Debette:2010aa]</span> found that the presence of WMHs was related to subsequent cognitive decline, a higher risk of developing dementia, stroke, and of mortality. Lesion volume at baseline was also predictive of cognitive decline. Limitations of this meta-analysis include heterogeneity in the method of measuring WMHs; some studies used automated volumetric measurement, whereas others used a visual rating scale. The studies analyzed by Debette &amp; Markus were limited to the occurrence of one of the aforementioned conditions which they analyzed by hazard ratios.</p>
-<p>The more recent meta-analysis by Kloppenborg et al. <span class="citation">[@Kloppenborg:2014aa]</span> of 23 cross-sectional studies reporting MRI and concurrent neuropsychological results in patients with heterogeneous diagnoses but without previously diagnosed cognitive impairment, found that WMHs were associated with cognitive deficit (effect size of -0.10, 95% CI: -0.13 to -0.08) after controlling for age. These studies also differed in the metric used to measure the WMHs, including volume, % of total intracranial volume, and a visual rating score. The effect size for the association with cognitive deficit in these cross-sectional studies did not differ significantly across various cognitive domains or the method of measuring lesion volume. Among eight longitudinal studies analyzed by Kloppenborg et al that included a follow-up MRI and also controlled for age, the effect size for the association of progression in WMHs and cognitive impairment was -0.16 (95% CI:-0.27 to -0.09). This association was stronger for attention and executive function than for memory and processing speed. Although baseline WMHs were predictive of cognitive deficit at follow-up in the seven studies which did not repeat MRI, the effect size was smaller [-0.10 (95% CI: 0.13 to -0.05) than in the longitudinal studies that calculated progression in WMHs. In summary, progression of WMHs seen on repeat MRI has a stronger relation to cognitive deficit than concurrent imaging findings. These meta-analyses support the rationale for repeating an MRI in patients younger than 50 years whose initial scan shows WMHs.</p>
-<p>Despite the above-described associations between WMHs, cognitive decline, increased risk of developing dementia, and mortality, these lesions receive little attention in current clinical workflows. When reported in a standard neuroradiologist interpretation, they are typically handled as incidental findings and are assigned little clinical significance. This likely reflects the impracticality of performing a detailed assessment of number, volume, and distribution within a qualitative neuroradiologist interpretation as well as the lack of correlative information on how the presence and distribution of these lesions may inform a diagnosis and prognosis in the appropriate clinical setting. To date, automated or semi-automated tools for the detection of WMHs have lacked the specificity and efficiency for the mining of large-scale datasets to generate highly granular data on whether these lesions possess any true diagnostic or prognostic value in the setting of a specific disease process. The present communication describes a supervised statistical learning tool that is appropriate for the application to such large-scale datasets.</p>
-<p>The currently described tool is just one example of how “supervised learning” algorithms might be applied to aid in the diagnosis of TBI and other disease processes through the specific identification of features predictive of a given disease state. It is an important demonstration of the potential power of these analytical approaches in the rapid but comprehensive mining of information from neuroimaging examinations. Supervised learning algorithms are presently employed across a wide variety of settings for the rapid identification of predictive imaging features <span class="citation">[@Plis:2014aa;@Suk:2015aa;@Li:2014aa;@Liu:2015aa]</span>. Automobile manufacturers utilize these types of approaches to equip self-driving vehicles to recognize and respond to unique external surroundings through the identification of visual information sufficiently similar to previously assimilated training data <span class="citation">[@HadsellSBESKML09;@FarabetCNL12]</span>. Similarly, in the context of the neuroimaging assessments, deep learning approaches may allow for the rapid identification of information predictive of disease state in an individual patient. These approaches have been applied to the segmentation of macroscopically visible structures <span class="citation">[@Plis:2014aa;@Suk:2015aa;@Li:2014aa;@Liu:2015aa]</span>. Additionally, these approaches might be applied to the interrogation of imaging data in the individual patient with a primary quantitative output metrics to include sequences such as diffusion tensor imaging (DTI) and its variants, functional connectivity, perfusion weighted imaging, and cortical thickness assessments. At present, these advanced neuroimaging sequences are confined to cohort-based research studies due to the lack of available analytical tools to assess the information in the setting of the individual patient <span class="citation">[@Mayer:2014aa]</span>. Application of deep learning approaches in the context of data with primary quantitative outputs will require large scale normative and disease specific databases. Building these large scale imaging libraries is resource intensive and requires a multi-center approach with harmonized scanners between sites and correlative non-imaging clinical data. Large scale TBI data is becoming increasingly available through activities such as the Chronic Effects of Neurotrauma Consortium (CENC), Transforming Research and Clinical Knowledge in TBI (TRACK-TBI), Collaborative European Neurotrauma Effectiveness Research in TBI (CENTER-TBI), Department of Defense Alzheimer’s Disease Neuroimaging Initiative (DOD-ADNI), and other data being consolidated through FITBIR. In concert with any available high quality normative neuroimaging data, deep learning algorithms may be well positioned to help transform how neuroimaging is interpreted for the clinical management of patients with this disease process.</p>
+<p>As far as we know, this is the first report utilizing a novel random forest approach to identify WMHs in a cohort of TBI patients. TBI WMHs tend to be more difficult to segment than MS lesions as the former tend to be smaller with an overall smaller lesion load. Also, enhancement protocols with the former tend to be less successful than with the latter. As mentioned previously, the work in MS lesion segmentation is extensive with a handful of techniques being publicly available.</p>
+<!--
+Our
+framework is also available as open-source as part of well-known
+neuroimaging tools which easily allows for additions/extensions but is
+also, as far as we know, the first random forest-based technique
+available for such application.
+-->
+<p>Two major meta-analyses of WMHs have been published covering the periods prior to<span class="citation"><sup>39</sup></span> and after 2010<span class="citation"><sup>40</sup></span>. Debette &amp; Markus<span class="citation"><sup>39</sup></span> found that the presence of WMHs was related to subsequent cognitive decline, a higher risk of developing dementia, stroke, and of mortality. Lesion volume at baseline was also predictive of cognitive decline. Kloppenborg et al.<span class="citation"><sup>40</sup></span> of 23 cross-sectional studies reporting MRI and concurrent neuropsychological results in patients with heterogeneous diagnoses but without previously diagnosed cognitive impairment, found that WMHs were associated with cognitive deficit (effect size of -0.10, 95% CI: -0.13 to -0.08) after controlling for age.</p>
+<p>Despite the potential clinical significance of WMHs these lesions receive little attention in current clinical workflows. When reported in a standard neuroradiologist interpretation, they are typically handled as incidental findings and are assigned little clinical significance. This likely reflects the impracticality of performing a detailed assessment of number, volume, and distribution within a qualitative neuroradiologist interpretation as well as the lack of correlative information on how the presence and distribution of these lesions may inform a diagnosis and prognosis in the appropriate clinical setting. To date, automated or semi-automated tools for the detection of WMHs have lacked the specificity and efficiency for the mining of large-scale datasets to generate highly granular data on whether these lesions possess any true diagnostic or prognostic value in the setting of a specific disease process. The present communication describes a supervised statistical learning tool that is appropriate for the application to such large-scale datasets.</p>
+<!--
+
+The currently described tool is just one example of how "supervised
+learning" algorithms might be applied to aid in the diagnosis of TBI and
+other disease processes through the specific identification of features
+predictive of a given disease state. It is an important demonstration of
+the potential power of these analytical approaches in the rapid but
+comprehensive mining of information from neuroimaging examinations.
+Supervised learning algorithms are presently employed across a wide
+variety of settings for the rapid identification of predictive imaging
+features [@Plis:2014aa;@Suk:2015aa;@Li:2014aa;@Liu:2015aa]. Automobile
+manufacturers utilize these types of approaches to equip self-driving
+vehicles to recognize and respond to unique external surroundings
+through the identification of visual information sufficiently similar to
+previously assimilated training data [@HadsellSBESKML09;@FarabetCNL12].
+Similarly, in the context of the neuroimaging assessments, deep learning
+approaches may allow for the rapid identification of information
+predictive of disease state in an individual patient. These approaches
+have been applied to the segmentation of macroscopically visible
+structures [@Plis:2014aa;@Suk:2015aa;@Li:2014aa;@Liu:2015aa].
+Additionally, these approaches might be applied to the interrogation of
+imaging data in the individual patient with a primary quantitative
+output metrics to include sequences such as diffusion tensor imaging
+(DTI) and its variants, functional connectivity, perfusion weighted
+imaging, and cortical thickness assessments. At present, these advanced
+neuroimaging sequences are confined to cohort-based research studies due
+to the lack of available analytical tools to assess the information in
+the setting of the individual patient [@Mayer:2014aa]. Application of
+deep learning approaches in the context of data with primary
+quantitative outputs will require large scale normative and disease
+specific databases. Building these large scale imaging libraries is
+resource intensive and requires a multi-center approach with harmonized
+scanners between sites and correlative non-imaging clinical data. Large
+scale TBI data is becoming increasingly available through activities
+such as the Chronic Effects of Neurotrauma Consortium (CENC),
+Transforming Research and Clinical Knowledge in TBI (TRACK-TBI),
+Collaborative European Neurotrauma Effectiveness Research in TBI
+(CENTER-TBI), Department of Defense Alzheimer’s Disease Neuroimaging
+Initiative (DOD-ADNI), and other data being consolidated through FITBIR.
+In concert with any available high quality normative neuroimaging data,
+deep learning algorithms may be well positioned to help transform how
+neuroimaging is interpreted for the clinical management of patients with
+this disease process.
+
+-->
 <p></p>
 <div id="acknowledgements" class="section level2">
 <h2>Acknowledgements</h2>
@@ -347,22 +481,147 @@ part of the FITBIR effort.
 </div>
 <div id="figure-captions" class="section level1">
 <h1>Figure Captions</h1>
-<p><strong>Figure X:</strong> </p>
-<p><strong>Figure 1:</strong> Representation of Stage 1 feature images for subject 01C1019. The FLAIR, T1-, and T2-weighted images are rigidly pre-aligned <span class="citation">[@Avants:2014aa]</span> to the space of the T1 image. The three modality images are then preprocessed (N4 bias correction <span class="citation">[@Tustison:2010ac]</span> and adaptive denoising <span class="citation">[@Manjon:2010aa]</span>) followed by application of standard ANTs brain extraction and <span class="math inline">\(n\)</span>-tissue segmentation protocols using the MMRR symmetric template and corresponding priors <span class="citation">[@Tustison:2014ab]</span> applied to the T1 image. The feature images are then generated for voxelwise input to the RF model which results in the voting maps illustrated on the right. This gives a probabilistic classification of tissue type. Not shown are the probability and voting images for the brain stem and cerebellum.</p>
-<p><strong>Figure 2:</strong> Sample FLAIR acquisition image slices showing both manual and random forest segmentations for both stages obtained during the leave-one-out evaluation. Manual segmentations were performed by one of the authors and provided the ground truth WMH labels for training the random forest models.</p>
-<p><strong>Figure 3:</strong> Canonical views of the mutlivariate, bilaterally symmetric template constructed from the MMRR data set <span class="citation">[@landman2011]</span> (only shown are the FLAIR, T1, and T2 modalities— the components relevant for this work). Template construction is detailed in <span class="citation">[@Tustison:2015aa]</span>. These images are important for specific intensity-based features.</p>
-<p><strong>Figure 4:</strong> Average <em>MeanDecreaseAccuracy</em> plots generated from the creation of all 24 random forest models for Stage 1 during the leave-one-out evaluation. These plots are useful in providing a quantitative assessment of the predictive importance of each feature. Features are ranked in descending order of importance. The horizontal error bars provide the <span class="math inline">\(95^{th}\)</span> percentile and illustrate the stability of the feature importance across the leave-one-out models. At this initial stage only 31 feature images are used.</p>
-<p><strong>Figure 5:</strong> Average <em>MeanDecreaseAccuracy</em> plots generated from the creation of all 24 random forest models for Stage 2 during the leave-one-out evaluation. These plots are useful in providing a quantitative assessment of the predictive importance of each feature. Features are ranked in descending order of importance. The horizontal error bars provide the <span class="math inline">\(95^{th}\)</span> percentile and illustrate the stability of the feature importance across the leave-one-out models. We augment the 31 feature images from the first stage by adding an additional seven voting maps and 7 segmentation posteriors from application of the Bayesian-based segmentation for a total of 45 images for the second stage.</p>
-<p><strong>Figure 6:</strong> (a) FLAIR image slice illustrating WMHs which have been manually delineated. The region around the WMHs is enlarged (b) in the original FLAIR and the (c) contralateral FLAIR difference image.</p>
-<p><strong>Figure 7:</strong> Voxelwise comparison with manual delineation of white matter hyperintensities. On the left are the calculated Dice values over all white matter hyperintensities. Note the improvement in the Dice metric from the employment of the Stage 2 component of the processing pipeline. (Right) Similar results can be seen by comparing the total lesion load volume between manual and automated detection strategies. Although some outliers are found after the Stage 2 processing in a couple subjects, the number of outliers caused by false positives is decreased significantly with the second stage processing.</p>
+<p><strong>Figure 1:</strong> </p>
+<p><strong>Figure 2:</strong> Canonical views of the mutlivariate, bilaterally symmetric template constructed from the MMRR data set<span class="citation"><sup>25</sup></span> (only shown are the FLAIR, T1, and T2 modalities— the components relevant for this work). Template construction is detailed in<span class="citation"><sup>17</sup></span>. These images are important for asymmetry-based features.</p>
+<p><strong>Figure 3:</strong> Representation of Stage 1 feature images for subject 01C1019. The FLAIR, T1-, and T2-weighted images are rigidly pre-aligned<span class="citation"><sup>22</sup></span> to the space of the T1 image. The three modality images are then preprocessed (N4 bias correction<span class="citation"><sup>29</sup></span> and adaptive denoising<span class="citation"><sup>28</sup></span>) followed by application of standard ANTs brain extraction and <span class="math inline">\(n\)</span>-tissue segmentation protocols using the MMRR symmetric template and corresponding priors<span class="citation"><sup>24</sup></span> applied to the T1 image. The feature images are then generated for voxelwise input to the RF model which results in the voting maps illustrated on the right. This gives a probabilistic classification of tissue type. Not shown are the probability and voting images for the brain stem and cerebellum.</p>
+<p><strong>Figure 4:</strong> Sample FLAIR acquisition image slices showing both manual and random forest segmentations for both stages obtained during the leave-one-out evaluation. Manual segmentations were performed by one of the authors and provided the ground truth WMH labels for training the random forest models.</p>
+<p><strong>Figure 5:</strong> Average <em>MeanDecreaseAccuracy</em> plots generated from the creation of all 24 random forest models for Stage 1 during the leave-one-out evaluation. These plots are useful in providing a quantitative assessment of the predictive importance of each feature. Features are ranked in descending order of importance. The horizontal error bars provide the <span class="math inline">\(95^{th}\)</span> percentile and illustrate the stability of the feature importance across the leave-one-out models. At this initial stage only 31 feature images are used.</p>
+<p><strong>Figure 6:</strong> Average <em>MeanDecreaseAccuracy</em> plots generated from the creation of all 24 random forest models for Stage 2 during the leave-one-out evaluation. These plots are useful in providing a quantitative assessment of the predictive importance of each feature. Features are ranked in descending order of importance. The horizontal error bars provide the <span class="math inline">\(95^{th}\)</span> percentile and illustrate the stability of the feature importance across the leave-one-out models. We augment the 31 feature images from the first stage by adding an additional seven voting maps and 7 segmentation posteriors from application of the Bayesian-based segmentation for a total of 45 images for the second stage.</p>
+<p><strong>Figure 7:</strong> (a) FLAIR image slice illustrating WMHs which have been manually delineated. The region around the WMHs is enlarged (b) in the original FLAIR and the (c) contralateral FLAIR difference image.</p>
+<p><strong>Figure 8:</strong> Voxelwise comparison with manual delineation of white matter hyperintensities. On the left are the calculated Dice values over all white matter hyperintensities. Note the improvement in the Dice metric from the employment of the Stage 2 component of the processing pipeline. (Right) Similar results can be seen by comparing the total lesion load volume between manual and automated detection strategies. Although some outliers are found after the Stage 2 processing in a couple subjects, the number of outliers caused by false positives is decreased significantly with the second stage processing.</p>
 <p></p>
+<div id="refs" class="references">
+<div id="ref-Bigler:2013aa">
+<p>1. Bigler ED, Abildskov TJ, Petrie J, Farrer TJ, Dennis M, Simic N, Taylor HG, Rubin KH, Vannatta K, Gerhardt CA, et al. Heterogeneity of brain lesions in pediatric traumatic brain injury. Neuropsychology. 2013;27(4):438–51.</p>
+</div>
+<div id="ref-Smitherman:2016aa">
+<p>2. Smitherman E, Hernandez A, Stavinoha PL, Huang R, Kernie SG, Diaz-Arrastia R, Miles DK. Predicting outcome after pediatric traumatic brain injury by early magnetic resonance imaging lesion location and volume. J Neurotrauma. 2016;33(1):35–48.</p>
+</div>
+<div id="ref-Marquez-de-la-Plata:2007aa">
+<p>3. Marquez de la Plata C, Ardelean A, Koovakkattu D, Srinivasan P, Miller A, Phuong V, Harper C, Moore C, Whittemore A, Madden C, et al. Magnetic resonance imaging of diffuse axonal injury: Quantitative assessment of white matter lesion volume. J Neurotrauma. 2007;24(4):591–8.</p>
+</div>
+<div id="ref-Moen:2014aa">
+<p>4. Moen KG, Brezova V, Skandsen T, Håberg AK, Folvik M, Vik A. Traumatic axonal injury: The prognostic value of lesion load in corpus callosum, brain stem, and thalamus in different magnetic resonance imaging sequences. J Neurotrauma. 2014;31(17):1486–96.</p>
+</div>
+<div id="ref-Ding:2008aa">
+<p>5. Ding K, Marquez de la Plata C, Wang JY, Mumphrey M, Moore C, Harper C, Madden CJ, McColl R, Whittemore A, Devous MD, et al. Cerebral atrophy after traumatic white matter injury: Correlation with acute neuroimaging and outcome. J Neurotrauma. 2008;25(12):1433–40.</p>
+</div>
+<div id="ref-Pierallini:2000aa">
+<p>6. Pierallini A, Pantano P, Fantozzi LM, Bonamini M, Vichi R, Zylberman R, Pisarri F, Colonnese C, Bozzao L. Correlation between mRI findings and long-term outcome in patients with severe brain trauma. Neuroradiology. 2000;42(12):860–7.</p>
+</div>
+<div id="ref-Weiss:2008aa">
+<p>7. Weiss N, Galanaud D, Carpentier A, Tezenas de Montcel S, Naccache L, Coriat P, Puybasset L. A combined clinical and mRI approach for outcome assessment of traumatic head injured comatose patients. J Neurol. 2008;255(2):217–23.</p>
+</div>
+<div id="ref-Levin:1988aa">
+<p>8. Levin HS, Williams D, Crofford MJ, High WM Jr, Eisenberg HM, Amparo EG, Guinto FC Jr, Kalisky Z, Handel SF, Goldman AM. Relationship of depth of brain lesions to consciousness and outcome after closed head injury. J Neurosurg. 1988;69(6):861–6.</p>
+</div>
+<div id="ref-breiman2001">
+<p>9. Breiman L. Random forests. In: Machine learning. 2001. pp. 5–32.</p>
+</div>
+<div id="ref-yi2009">
+<p>10. Yi Z, Criminisi A, Shotton J, Blake A. Discriminative, semantic segmentation of brain tissue in MR images. Med Image Comput Comput Assist Interv. 2009;12(Pt 2):558–65.</p>
+</div>
+<div id="ref-viola2005">
+<p>11. Viola P, Jones M, Snow D. Detecting pedestrians using patterns of motion and appearance. International Journal of Computer Vision. 2005;63:153–161.</p>
+</div>
+<div id="ref-geremia2011">
+<p>12. Geremia E, Clatz O, Menze BH, Konukoglu E, Criminisi A, Ayache N. Spatial decision forests for MS lesion segmentation in multi-channel magnetic resonance images. Neuroimage. 2011;57(2):378–90.</p>
+</div>
+<div id="ref-Pustina:2016aa">
+<p>13. Pustina D, Coslett HB, Turkeltaub PE, Tustison N, Schwartz MF, Avants B. Automated segmentation of chronic stroke lesions using lINDA: Lesion identification with neighborhood data analysis. Hum Brain Mapp. 2016 Jan.</p>
+</div>
+<div id="ref-geremia2012">
+<p>14. Geremia E, Menze BH, Ayache N. Spatial decision forests for glioma segmentation in multi-channel MR images. In: Proceedings of MICCAI-BRATS 2012. 2012.</p>
+</div>
+<div id="ref-bauer2012">
+<p>15. Bauer S, Fejes T, Slotboom J, Wiest R, Nolte L-P, Reyes M. Segmentation of brain tumor images based on integrated hierarchical classification and regularization. In: Proceedings of MICCAI-BRATS 2012. 2012. pp. 10–13.</p>
+</div>
+<div id="ref-zikic2012">
+<p>16. Zikic D, Glocker B, Konukoglu E, Shotton J, Criminisi A, Ye DH, Demiralp C, Thomas OM, Das T, Jena R, et al. Context-sensitive classification forests for segmentation of brain tumor tissues. In: Proceedings of MICCAI-BRATS 2012. 2012. pp. 1–9.</p>
+</div>
+<div id="ref-Tustison:2015aa">
+<p>17. Tustison NJ, Shrinidhi KL, Wintermark M, Durst CR, Kandel BM, Gee JC, Grossman MC, Avants BB. Optimal symmetric multimodal templates and concatenated random forests for supervised brain tumor segmentation (simplified) with aNTsR. Neuroinformatics. 2015;13(2):209–25.</p>
+</div>
+<div id="ref-schapire1990">
+<p>18. Schapire R. The strength of weak learnability. Machine Learning. 1990;5:197–227.</p>
+</div>
+<div id="ref-freund1997">
+<p>19. Freund Y, Schapire R. A decision-theoretic generalization of on-line learning and an application to boosting. Journal of Computer and System Sciences. 1997;55:119–139.</p>
+</div>
+<div id="ref-ho1995">
+<p>20. Ho TK. Random decision forests. In: Document analysis and recognition, 1995., proceedings of the third international conference on. Vol. 1. 1995. pp. 278–282 vol.1.</p>
+</div>
+<div id="ref-amit1997">
+<p>21. Amit Y, Geman D. Shape quantization and recognition with randomized trees. Neural Computation. 1997;9:1545–1588.</p>
+</div>
+<div id="ref-Avants:2014aa">
+<p>22. Avants BB, Tustison NJ, Stauffer M, Song G, Wu B, Gee JC. The Insight ToolKit image registration framework. Front Neuroinform. 2014;8:44.</p>
+</div>
+<div id="ref-Yushkevich:2006aa">
+<p>23. Yushkevich PA, Piven J, Hazlett HC, Smith RG, Ho S, Gee JC, Gerig G. User-guided 3D active contour segmentation of anatomical structures: Significantly improved efficiency and reliability. Neuroimage. 2006;31(3):1116–28.</p>
+</div>
+<div id="ref-Tustison:2014ab">
+<p>24. Tustison NJ, Cook PA, Klein A, Song G, Das SR, Duda JT, Kandel BM, Strien N van, Stone JR, Gee JC, et al. Large-scale evaluation of aNTs and freeSurfer cortical thickness measurements. Neuroimage. 2014;99:166–79.</p>
+</div>
+<div id="ref-landman2011">
+<p>25. Landman BA, Huang AJ, Gifford A, Vikram DS, Lim IAL, Farrell JAD, Bogovic JA, Hua J, Chen M, Jarso S, et al. Multi-parametric neuroimaging reproducibility: A 3-T resource study. Neuroimage. 2011;54(4):2854–66.</p>
+</div>
+<div id="ref-Avants:2010aa">
+<p>26. Avants BB, Yushkevich P, Pluta J, Minkoff D, Korczykowski M, Detre J, Gee JC. The optimal template effect in hippocampus studies of diseased populations. Neuroimage. 2010;49(3):2457–66.</p>
+</div>
+<div id="ref-Neema:2009aa">
+<p>27. Neema M, Guss ZD, Stankiewicz JM, Arora A, Healy BC, Bakshi R. Normal findings on brain fluid-attenuated inversion recovery mR images at 3T. AJNR Am J Neuroradiol. 2009;30(5):911–6.</p>
+</div>
+<div id="ref-Manjon:2010aa">
+<p>28. Manjón JV, Coupé P, Martí-Bonmatí L, Collins DL, Robles M. Adaptive non-local means denoising of mR images with spatially varying noise levels. J Magn Reson Imaging. 2010;31(1):192–203.</p>
+</div>
+<div id="ref-Tustison:2010ac">
+<p>29. Tustison NJ, Avants BB, Cook PA, Zheng Y, Egan A, Yushkevich PA, Gee JC. N4ITK: Improved N3 bias correction. IEEE Trans Med Imaging. 2010;29(6):1310–20.</p>
+</div>
+<div id="ref-nyul2000">
+<p>30. Nyúl LG, Udupa JK, Zhang X. New variants of a method of MRI scale standardization. IEEE Trans Med Imaging. 2000;19(2):143–50.</p>
+</div>
+<div id="ref-Avants:2011aa">
+<p>31. Avants BB, Tustison NJ, Wu J, Cook PA, Gee JC. An open source multivariate framework for <span class="math inline">\(n\)</span>-tissue segmentation with evaluation on public data. Neuroinformatics. 2011;9(4):381–400.</p>
+</div>
+<div id="ref-Menze:2015aa">
+<p>32. Menze BH, Jakab A, Bauer S, Kalpathy-Cramer J, Farahani K, Kirby J, Burren Y, Porz N, Slotboom J, Wiest R, et al. The multimodal brain tumor image segmentation benchmark (bRATS). IEEE Trans Med Imaging. 2015;34(10):1993–2024.</p>
+</div>
+<div id="ref-maurer2003">
+<p>33. Maurer CR, Rensheng Q, Raghavan V. A linear time algorithm for computing exact Euclidean distance transforms of binary images in arbitrary dimensions. Pattern Analysis and Machine Intelligence, IEEE Transactions on. 2003;25(2):265–270.</p>
+</div>
+<div id="ref-Anbeek:2004aa">
+<p>34. Anbeek P, Vincken KL, Osch MJP van, Bisschops RHC, Grond J van der. Probabilistic segmentation of white matter lesions in mR imaging. Neuroimage. 2004;21(3):1037–44.</p>
+</div>
+<div id="ref-Tustison:2013ac">
+<p>35. Tustison NJ, Avants BB. Explicit B-spline regularization in diffeomorphic image registration. Front Neuroinform. 2013;7:39.</p>
+</div>
+<div id="ref-Avants:2011ab">
+<p>36. Avants BB, Tustison NJ, Song G, Cook PA, Klein A, Gee JC. A reproducible evaluation of ANTs similarity metric performance in brain image registration. Neuroimage. 2011;54(3):2033–44.</p>
+</div>
+<div id="ref-Garcia-Lorenzo:2013aa">
+<p>37. García-Lorenzo D, Francis S, Narayanan S, Arnold DL, Collins DL. Review of automatic segmentation methods of multiple sclerosis white matter lesions on conventional magnetic resonance imaging. Med Image Anal. 2013;17(1):1–18.</p>
+</div>
+<div id="ref-liaw2002">
+<p>38. Liaw A, Wiener M. Classification and regression by randomForest. R News. 2002;2/3:18–22.</p>
+</div>
+<div id="ref-Debette:2010aa">
+<p>39. Debette S, Markus HS. The clinical importance of white matter hyperintensities on brain magnetic resonance imaging: Systematic review and meta-analysis. BMJ. 2010;341:c3666.</p>
+</div>
+<div id="ref-Kloppenborg:2014aa">
+<p>40. Kloppenborg RP, Nederkoorn PJ, Geerlings MI, Berg E van den. Presence and progression of white matter hyperintensities and cognition: A meta-analysis. Neurology. 2014;82(23):2127–38.</p>
+</div>
+</div>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p><a href="https://github.com/stnava/ANTs" class="uri">https://github.com/stnava/ANTs</a><a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p><a href="https://github.com/stnava/ANTsR" class="uri">https://github.com/stnava/ANTsR</a><a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p><a href="https://github.com/ntustison/ANTsAndArboles" class="uri">https://github.com/ntustison/ANTsAndArboles</a><a href="#fnref3">↩</a></p></li>
+<li id="fn3"><p><a href="http://nifti.nimh.nih.gov/nifti-1" class="uri">http://nifti.nimh.nih.gov/nifti-1</a><a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="https://github.com/ntustison/ANTsAndArboles" class="uri">https://github.com/ntustison/ANTsAndArboles</a><a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p><a href="https://github.com/ntustison/WatchMeHyperventilate" class="uri">https://github.com/ntustison/WatchMeHyperventilate</a><a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p><a href="#fnref6">↩</a></p></li>
 </ol>
 </div>
 

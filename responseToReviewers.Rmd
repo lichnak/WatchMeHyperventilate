@@ -331,7 +331,8 @@ before. Moreover, the authors do not report number, volume, or
 distribution of the lesions, to back up the utility of their method in
 this regard.
 
-> _\textcolor{red}{Here.}_
+> _\textcolor{blue}{We removed the sentence in question.  Also, as mentioned in
+response to item 3, we added Table 1.}_
 
 10. In pg. 4 ln 43, reads that the data is ``constructed.'' I don't think this
 is the right verb.
@@ -412,8 +413,8 @@ wishful and speculative. Given the methodological nature of this paper, a
 more appropriate discussion would perhaps focus on the comparison with
 other methods in terms of accuracy, similarities, differences, etc.
 
-> _\textcolor{red}{Get rid of the paragraphs in question.  Need to redo evaluation
-to discuss.}_
+> _\textcolor{red}{We removed the paragraphs in question and added the following
+comparison discussion:}_
 
 ## Reviewer: 2
 

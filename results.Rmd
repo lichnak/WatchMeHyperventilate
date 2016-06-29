@@ -1,6 +1,52 @@
 
 # Results
 
+
+## White matter hyperintensity segmentation evaluation
+
+\textcolor{blue}{In Figure 8 we provide the segmentation evaluations derived from the leave-one-out evaluation
+of the previously described TBI data.  These performance measures include sensitivity,
+positive predictive value, $F_1$ score, and relative volume difference.  The three lesion
+size ranges over which these measures are computed to illustrate the variation
+in performance with lesion size.  Smaller lesions ($< 12$ voxels) are more difficult
+to identify which is why the sensitivity is widely varied over the cohort vs. the largest
+set of voxels ($> 28$ voxels).   The first three measures are based on the identification of
+entire lesions.  The relative volume difference provides a direct assessment of how accurate
+the volumetric estimate is when comparing the manually identified lesions versus the
+automatically predicted lesions.}
+
+<!--
+
+In Figure 8 are the segmentation comparisons derived from manual segmentations of the same
+data.  Despite the large variability characteristic with manual labelings in related fields
+[@Grimaud:1996aa;@styner2008;@Garcia-Lorenzo:2013aa], such labelings are characteristic of
+current clinical practices and the methodology proposed herein is readily adapted to refinements
+in training data.
+
+On the left of Figure 8 are the improvement in Dice values [@tustison2009],
+over all white matter hyperintensities when comparing the segmentations between the two stages
+where the sum is taken over all individually labeled manual, $T_r$, and automated, $S_r$, lesions and $\cap$
+represents the intersection between the manual/automated lesion pair.  Performing
+the second round of supervised learning improves these Dice values.  One can also note from the
+right side of Figure 7 that the total lesion load volume illustrates a few subjects that are
+severe outliers in terms of the number of false positives.  The second round helps to
+correct this issue.
+
+-->
+
+
+<!--
+
+![Evaluation measures for the leave-one-out protocol of the described protocol in the Methods
+section:  (a) sensitivity, (b) positive predictive value, (c) $F_1$ score, and (d) relative
+volume difference.   The three quantile ranges include the following lesion volume ranges:
+$[3-12)$, $[12-28)$, and $[28-551]$ based on the manually-derived lesion volumes.  These
+measures are computed for both Stages.  Overall improvement is seen as the
+second Stage RF model is applied for all three quantile ranges.](Figures/evaluationResults.png)
+
+-->
+
+
 ## Ranking feature importance
 
 After performing the leave-one-out evaluation,
@@ -85,39 +131,3 @@ of white matter hyperintensity voxels.  The initial voting maps from Stage 1 are
 important with the top 3 being the estimated locations of the 1) gray matter, 2) white matter, and
 3) white matter hyperintensities.  Since these tissue type can be conflated based on intensity
 alone it is intuitive that such features would be important.
-
-## White matter hyperintensity segmentation evaluation
-
-In Figure 8 are the segmentation comparisons derived from manual segmentations of the same
-data.  Despite the large variability characteristic with manual labelings in related fields
-[@Grimaud:1996aa;@styner2008;@Garcia-Lorenzo:2013aa], such labelings are characteristic of
-current clinical practices and the methodology proposed herein is readily adapted to refinements
-in training data.
-
-
-<!--
-i.e.,
-
-$$ Dice = 2 \frac{\sum_r|S_r \cap T_r|}{\sum_r|S_r| + |T_r] } $$
--->
-
-On the left of Figure 8 are the improvement in Dice values [@tustison2009],
-over all white matter hyperintensities when comparing the segmentations between the two stages
-where the sum is taken over all individually labeled manual, $T_r$, and automated, $S_r$, lesions and $\cap$
-represents the intersection between the manual/automated lesion pair.  Performing
-the second round of supervised learning improves these Dice values.  One can also note from the
-right side of Figure 7 that the total lesion load volume illustrates a few subjects that are
-severe outliers in terms of the number of false positives.  The second round helps to
-correct this issue.
-
-<!--
-
-![Voxelwise comparison with manual delineation of white matter hyperintensities.  On the left are the
-calculated Dice values over all white matter hyperintensities.  Note the improvement
-in the Dice metric from the employment of the Stage 2 component of the processing pipeline.
-(Right) Similar results can be seen by comparing the total lesion load volume between manual
-and automated detection strategies.  Although some outliers are found after the Stage 2
-processing in a couple subjects, the number of outliers caused by false positives is
-decreased significantly with the second stage processing.](Figures/llvAndDice.png)
-
--->
