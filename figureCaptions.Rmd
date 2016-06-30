@@ -46,28 +46,27 @@ knitr::opts_chunk$set( cache=TRUE )
 
 # Figure Captions
 
-__Figure 1:__ \textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
+__Figure 1:__ Workflow illustration for the proposed pipeline.  Processing of the multi-modal
 input MRI for a single subject, using the multi-modal symmetric template, results in
 the generation of the feature images.  These feature images are used as input to the
 Stage 1 RF model producing the initial RF probability map estimates.  The Stage 1
 voting maps, the original feature images, and the Stage 2 RF model result in the
 final voting maps which includes the WMH probability estimate.  Note that the RF models
 are constructed once from a set of training data which are processed using the
-same feature-construction pipeline as the single-subject input MRI.}
+same feature-construction pipeline as the single-subject input MRI.
 
 __Figure 2:__  Canonical views of the mutlivariate, bilaterally symmetric template constructed
-from the MMRR data set [@landman2011] (only shown are the FLAIR, T1, and T2 modalities---
-the components relevant for this work).  Template construction is detailed in
-[@Tustison:2015aa].  These images are important for asymmetry-based
+from the MMRR data set (only shown are the FLAIR, T1, and T2 modalities---
+the components relevant for this work).  These images are important for asymmetry-based
 features.
 
 
 __Figure 3:__  Representation of Stage 1 feature images for subject 01C1019.  The
 FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
-[@Avants:2014aa] to the space of the T1 image.  The three modality images are then preprocessed
-(N4 bias correction [@Tustison:2010ac] and adaptive denoising [@Manjon:2010aa]) followed by
+ to the space of the T1 image.  The three modality images are then preprocessed
+(N4 bias correction and adaptive denoising) followed by
 application of standard ANTs brain extraction and $n$-tissue segmentation protocols using
-the MMRR symmetric template and corresponding priors [@Tustison:2014ab] applied to the T1 image.
+the MMRR symmetric template and corresponding priors applied to the T1 image.
 The feature images are then generated for voxelwise input to the RF model which results in
 the voting maps illustrated on the right.  This gives a probabilistic classification of
 tissue type.  Not shown are the probability and voting images for the brain stem and
@@ -78,14 +77,14 @@ segmentations for both stages obtained during the leave-one-out evaluation.  Man
 segmentations were performed by one of the authors and provided the ground
 truth WMH labels for training the random forest models.
 
-__Figure 5:__ \textcolor{blue}{Evaluation measures for both Stages of the leave-one-out protocol of the described protocol in the Methods
+__Figure 5:__ Evaluation measures for both Stages of the leave-one-out protocol of the described protocol in the Methods
 section:  (a) sensitivity, (b) positive predictive value, (c) $F_1$ score, and (d) relative
 volume difference.   These quantitative assessments are given for three quantile ranges
 spanning the range of the manually-derived lesion volumes.    Overall improvement in all
 three whole lesion-based measuers is seen as the
 second Stage RF model is applied for all three quantile ranges.
 The relative volume difference corresponding to the Stage 2 results tend to predict a
-decreased predicted volume over the Stage 1 results.}
+decreased predicted volume over the Stage 1 results.
 
 __Figure 6:__ Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
 forest models for Stage 1 during the leave-one-out evaluation.  These plots

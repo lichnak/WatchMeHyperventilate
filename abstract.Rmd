@@ -15,13 +15,13 @@ Advanced Normalization Tools (ANTs)  and ANTsR toolkits.  MR
 veterans scanned in the Chronic Effects of Neurotrauma Consortium’s
 (CENC) observational study were acquired. Manual annotations were
 employed for both training and evaluation using a leave-one-out
-strategy.  \textcolor{blue}{Performance measures include sensitivity,
+strategy.  Performance measures include sensitivity,
 positive predictive value, $F_1$ score, and relative volume difference.
 Final average results were: sensitivity = 0.68 $\pm$ 0.38, positive
 predictive value = 0.51 $\pm$ 0.40, $F_1$ = 0.52 $\pm$ 0.36,
 relative volume difference} = 43 $\pm$ 26\%.  In addition, three
 lesion size ranges are selected to illustrate the variation in
-performance with lesion size.}  Paired with
+performance with lesion size.  Paired with
 correlative outcome data, supervised learning methods may allow for
 identification of imaging features predictive of diagnosis and prognosis
 in individual TBI patients.

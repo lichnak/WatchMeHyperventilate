@@ -13,7 +13,7 @@ header-includes:
    - \usepackage{booktabs}
    - \usepackage[final]{changes}
    - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
-   - \linespread{1.2}
+   - \linespread{1.5}
    - \usepackage[compact]{titlesec}
    - \usepackage{enumitem}
    - \usepackage{tikz}

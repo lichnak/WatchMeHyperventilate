@@ -102,35 +102,33 @@
 
 \section{Figure Captions}\label{figure-captions}
 
-\textbf{Figure 1:}
-\textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
-input MRI for a single subject, using the multi-modal symmetric template, results in
-the generation of the feature images.  These feature images are used as input to the
-Stage 1 RF model producing the initial RF probability map estimates.  The Stage 1
-voting maps, the original feature images, and the Stage 2 RF model result in the
-final voting maps which includes the WMH probability estimate.  Note that the RF models
-are constructed once from a set of training data which are processed using the
-same feature-construction pipeline as the single-subject input MRI.}
+\textbf{Figure 1:} Workflow illustration for the proposed pipeline.
+Processing of the multi-modal input MRI for a single subject, using the
+multi-modal symmetric template, results in the generation of the feature
+images. These feature images are used as input to the Stage 1 RF model
+producing the initial RF probability map estimates. The Stage 1 voting
+maps, the original feature images, and the Stage 2 RF model result in
+the final voting maps which includes the WMH probability estimate. Note
+that the RF models are constructed once from a set of training data
+which are processed using the same feature-construction pipeline as the
+single-subject input MRI.
 
 \textbf{Figure 2:} Canonical views of the mutlivariate, bilaterally
-symmetric template constructed from the MMRR data set\textsuperscript{1}
-(only shown are the FLAIR, T1, and T2 modalities--- the components
-relevant for this work). Template construction is detailed
-in\textsuperscript{2}. These images are important for asymmetry-based
-features.
+symmetric template constructed from the MMRR data set (only shown are
+the FLAIR, T1, and T2 modalities--- the components relevant for this
+work). These images are important for asymmetry-based features.
 
 \textbf{Figure 3:} Representation of Stage 1 feature images for subject
-01C1019. The FLAIR, T1-, and T2-weighted images are rigidly
-pre-aligned\textsuperscript{3} to the space of the T1 image. The three
-modality images are then preprocessed (N4 bias
-correction\textsuperscript{4} and adaptive denoising\textsuperscript{5})
-followed by application of standard ANTs brain extraction and
-\(n\)-tissue segmentation protocols using the MMRR symmetric template
-and corresponding priors\textsuperscript{6} applied to the T1 image. The
-feature images are then generated for voxelwise input to the RF model
-which results in the voting maps illustrated on the right. This gives a
-probabilistic classification of tissue type. Not shown are the
-probability and voting images for the brain stem and cerebellum.
+01C1019. The FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
+to the space of the T1 image. The three modality images are then
+preprocessed (N4 bias correction and adaptive denoising) followed by
+application of standard ANTs brain extraction and \(n\)-tissue
+segmentation protocols using the MMRR symmetric template and
+corresponding priors applied to the T1 image. The feature images are
+then generated for voxelwise input to the RF model which results in the
+voting maps illustrated on the right. This gives a probabilistic
+classification of tissue type. Not shown are the probability and voting
+images for the brain stem and cerebellum.
 
 \textbf{Figure 4:} Sample FLAIR acquisition image slices showing both
 manual and random forest segmentations for both stages obtained during
@@ -138,15 +136,16 @@ the leave-one-out evaluation. Manual segmentations were performed by one
 of the authors and provided the ground truth WMH labels for training the
 random forest models.
 
-\textbf{Figure 5:}
-\textcolor{blue}{Evaluation measures for both Stages of the leave-one-out protocol of the described protocol in the Methods
-section:  (a) sensitivity, (b) positive predictive value, (c) $F_1$ score, and (d) relative
-volume difference.   These quantitative assessments are given for three quantile ranges
-spanning the range of the manually-derived lesion volumes.    Overall improvement in all
-three whole lesion-based measuers is seen as the
-second Stage RF model is applied for all three quantile ranges.
-The relative volume difference corresponding to the Stage 2 results tend to predict a
-decreased predicted volume over the Stage 1 results.}
+\textbf{Figure 5:} Evaluation measures for both Stages of the
+leave-one-out protocol of the described protocol in the Methods section:
+(a) sensitivity, (b) positive predictive value, (c) \(F_1\) score, and
+(d) relative volume difference. These quantitative assessments are given
+for three quantile ranges spanning the range of the manually-derived
+lesion volumes. Overall improvement in all three whole lesion-based
+measuers is seen as the second Stage RF model is applied for all three
+quantile ranges. The relative volume difference corresponding to the
+Stage 2 results tend to predict a decreased predicted volume over the
+Stage 1 results.
 
 \textbf{Figure 6:} Average \emph{MeanDecreaseAccuracy} plots generated
 from the creation of all 24 random forest models for Stage 1 during the
@@ -176,35 +175,5 @@ the original FLAIR and the (c) contralateral FLAIR difference image.
 \clearpage
 
 \hypertarget{refs}{}
-\hypertarget{ref-landman2011}{}
-1. Landman BA, Huang AJ, Gifford A, Vikram DS, Lim IAL, Farrell JAD,
-Bogovic JA, Hua J, Chen M, Jarso S, et al. Multi-parametric neuroimaging
-reproducibility: A 3-T resource study. Neuroimage. 2011;54(4):2854--66.
-
-\hypertarget{ref-Tustison:2015aa}{}
-2. Tustison NJ, Shrinidhi KL, Wintermark M, Durst CR, Kandel BM, Gee JC,
-Grossman MC, Avants BB. Optimal symmetric multimodal templates and
-concatenated random forests for supervised brain tumor segmentation
-(simplified) with aNTsR. Neuroinformatics. 2015;13(2):209--25.
-
-\hypertarget{ref-Avants:2014aa}{}
-3. Avants BB, Tustison NJ, Stauffer M, Song G, Wu B, Gee JC. The Insight
-ToolKit image registration framework. Front Neuroinform. 2014;8:44.
-
-\hypertarget{ref-Tustison:2010ac}{}
-4. Tustison NJ, Avants BB, Cook PA, Zheng Y, Egan A, Yushkevich PA, Gee
-JC. N4ITK: Improved N3 bias correction. IEEE Trans Med Imaging.
-2010;29(6):1310--20.
-
-\hypertarget{ref-Manjon:2010aa}{}
-5. Manjón JV, Coupé P, Martí-Bonmatí L, Collins DL, Robles M. Adaptive
-non-local means denoising of mR images with spatially varying noise
-levels. J Magn Reson Imaging. 2010;31(1):192--203.
-
-\hypertarget{ref-Tustison:2014ab}{}
-6. Tustison NJ, Cook PA, Klein A, Song G, Das SR, Duda JT, Kandel BM,
-Strien N van, Stone JR, Gee JC, et al. Large-scale evaluation of aNTs
-and freeSurfer cortical thickness measurements. Neuroimage.
-2014;99:166--79.
 
 \end{document}

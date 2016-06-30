@@ -5,24 +5,23 @@
 to other automated or semi automated approaches for WMH detection? -->
 
 
-\textcolor{blue}{
 In evaluating the segmentation results, there are limited methodologies described in the
-literature for automatic segmentation of WMHs despite the numerous clinical studies}
-[@Debette:2010aa;@Kloppenborg:2014aa] \textcolor{blue}{exploring the connections between WMHs and TBI.
+literature for automatic segmentation of WMHs despite the numerous clinical studies
+[@Debette:2010aa;@Kloppenborg:2014aa] exploring the connections between WMHs and TBI.
 However, we can extrapolate from similar application areas where such methodologies have a
 much longer history of development such as white matter lesion segmentation in
-multiple sclerosis )MS).  In a recent review [@Garcia-Lorenzo:2013aa], 47 total papers
+multiple sclerosis (MS).  In a recent review [@Garcia-Lorenzo:2013aa], 47 total papers
 were found during a literature search and evaluated which concern automated segmentation of white
 matter lesions in MS.  The most widely-used data for algorithmic evaluation consists
 of two cohorts from two different sites used in
 the MS Lesion segmentation challenge associated with the international MICCAI 2008
 conference.  For comparison, this challenge training data set
-has a mean lesion load of 204 ($\pm$ 752) mm$^3$ per lesion (compared with
-our mean lesion load of 33.8 ($\pm$ 55.4) voxels $\times$ 1.2 mm$^3$ per voxel =
-40.56 ($\pm$ 66.48) mm$^3$ per lesion) and the resolution is
+has a mean lesion load of 204 ($\pm$ 752) $mm^3$ per lesion (compared with
+our mean lesion load of 33.8 ($\pm$ 55.4) voxels $\times$ 1.2 $mm^3$ per voxel =
+40.56 ($\pm$ 66.48) $mm^3$ per lesion) and the resolution is
 almost twice what is used in this study (i.e., 0.5 $\times$ 0.5 $\times$ 0.5).
 Note that our relative volume difference numbers are comparable to the
-relative volume difference {\em between raters} of 68 percent (cf Figure 5 (d))}
+relative volume difference _between raters_ of 68 percent (cf Figure 5 (d))
 [@vanginneken:2007aa].
 
 
@@ -37,9 +36,13 @@ gray matter aids in the removal of false positives.  Inspection of the bottom of
 plots demonstrates the lack of discriminating features associated with the
 T1 image which is also well-known in the clinical literature.
 
+<!--
+
 ![(a) FLAIR image slice illustrating WMHs which have been manually delineated.
 The region around the WMHs is enlarged (b) in the original FLAIR and the
 (c) contralateral FLAIR difference image.](Figures/FLAIRcontralaleteralWithLesionsAlternate.png)
+
+-->
 
 As described earlier, for Stage 2, we used the output random forest voting maps from Stage
 1 as both features themselves and as priors for input to a Bayesian-based segmentation with

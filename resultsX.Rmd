@@ -1,0 +1,115 @@
+
+# Results
+
+
+## White matter hyperintensity segmentation evaluation
+
+\textcolor{blue}{In Figure 5 we provide the segmentation evaluations derived from the leave-one-out evaluation
+of the previously described TBI data over the three lesion volume ranges.
+These performance measures include sensitivity,
+positive predictive value, $F_1$ score, and relative volume difference.  The three lesion
+size ranges over which these measures are computed are meant to illustrate the variation
+in performance with lesion size.}
+
+\textcolor{blue}{Smaller lesions ($< 12$ voxels) are more difficult
+to identify which is why the sensitivity for this range is more varied compared with the largest
+set of lesions ($> 28$ voxels).   The first three measures are based on the identification of
+entire lesions.  The relative volume difference provides a direct assessment of the accuracy of
+the volumetric estimate when comparing the manually identified lesions versus the
+automatically predicted lesions.}
+
+\textcolor{blue}{
+We averaged these measures over all lesions and all subjects which resulted in the
+following values:}
+
+* \textcolor{blue}{Stage 1}
+
+    * \textcolor{blue}{sensitivity} = 0.70 $\pm$ 0.34
+
+    * \textcolor{blue}{PPV} = 0.42 $\pm$ 0.36
+
+    * \textcolor{blue}{$F_1$} = 0.47 $\pm$ 0.36
+
+    * \textcolor{blue}{relative volume difference} = 43 $\pm$ 38\%
+
+* \textcolor{blue}{Stage 2}
+
+    * \textcolor{blue}{sensitivity} = 0.68 $\pm$ 0.38
+
+    * \textcolor{blue}{PPV} = 0.51 $\pm$ 0.40
+
+    * \textcolor{blue}{$F_1$} = 0.52 $\pm$ 0.36
+
+    * \textcolor{blue}{relative volume difference} = 43 $\pm$ 26\%
+
+
+
+<!--
+
+In Figure 5 are the segmentation comparisons derived from manual segmentations of the same
+data.  Despite the large variability characteristic with manual labelings in related fields
+[@Grimaud:1996aa;@styner2008;@Garcia-Lorenzo:2013aa], such labelings are characteristic of
+current clinical practices and the methodology proposed herein is readily adapted to refinements
+in training data.
+
+On the left of Figure 5 are the improvement in Dice values [@tustison2009],
+over all white matter hyperintensities when comparing the segmentations between the two stages
+where the sum is taken over all individually labeled manual, $T_r$, and automated, $S_r$, lesions and $\cap$
+represents the intersection between the manual/automated lesion pair.  Performing
+the second round of supervised learning improves these Dice values.  One can also note from the
+right side of Figure 4 that the total lesion load volume illustrates a few subjects that are
+severe outliers in terms of the number of false positives.  The second round helps to
+correct this issue.
+
+-->
+
+
+![\textcolor{blue}{Evaluation measures for both Stages of the leave-one-out protocol of the described protocol in the Methods
+section:  (a) sensitivity, (b) positive predictive value, (c) $F_1$ score, and (d) relative
+volume difference.   These quantitative assessments are given for three quantile ranges
+spanning the range of the manually-derived lesion volumes.    Overall improvement in all
+three whole lesion-based measuers is seen as the
+second Stage RF model is applied for all three quantile ranges.
+The relative volume difference corresponding to the Stage 2 results tend to predict a
+decreased predicted volume over the Stage 1 results.}](Figures/evaluationResults.png)
+
+
+## Ranking feature importance
+
+After performing the leave-one-out evaluation,
+we calculated the _MeanDecreaseAccuracy_ feature values for each of the 24 subjects $\times$
+2 models per subject $=48$ total models.  This measure (per feature, per model) is calculated
+during the out-of-bag phase of the random forest model construction and quantifies the decrease
+in prediction accuracy from omitting the specified feature.  In other words, this quantity
+helps determine the importance of a particular feature and, although we save such
+efforts for future work, this information provides us with guidance for future feature
+pruning and/or additions.
+
+![Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
+forest models for Stage 1 during the leave-one-out evaluation.  These plots
+are useful in providing a quantitative assessment of the predictive importance of each feature.
+Features are ranked in descending order of importance.
+The horizontal error bars provide the $95^{th}$ percentile
+ and illustrate the
+stability of the feature importance across the leave-one-out models.
+At this initial stage only 31 features images are used.](Figures/averageLeaveOneOutStage1.png)
+
+
+
+![Average _MeanDecreaseAccuracy_ plots generated from the creation of all 24 random
+forest models for Stage 2 during the leave-one-out evaluation.  These plots
+are useful in providing a quantitative assessment of the predictive importance of each feature.
+Features are ranked in descending order of importance.
+The horizontal error bars provide the $95^{th}$ percentile and illustrate the
+stability of the feature importance across the leave-one-out models.
+We augment the 31 feature images from the first stage by adding an additional
+7 voting maps and 7 segmentation posteriors from application of the Bayesian-based
+segmentation for a total of 45 images for the second stage.](Figures/averageLeaveOneOutStage2.png)
+
+The resulting rankings for both Stages are given in Figures 6 and 7 where the values for the
+separate stages are averaged over the entire corresponding model set.  In addition, we
+track the variance for each feature over all models to illustrate the stability of
+the chosen features during the evaluation.  This latter information is illustrated as
+horizontal errors bars providing the $95^{th}$ percentile
+Note that the reader can cross reference Table 1 for identifying corresponding feature types
+and names.
