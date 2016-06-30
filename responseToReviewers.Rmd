@@ -343,7 +343,7 @@ is the right verb.
 > _\textcolor{blue}{We agree that the sentence in question could be read this way.
 We have, therefore, clarified the sentence in question to read
 ``Once the ensemble of decision trees is constructed, data to be classified is ``pushed''
-through each decision tree resulting in a single classification ``vote'' per tree.``}_
+through each decision tree resulting in a single classification ``vote'' per tree.''}_
 
 > A similar issue is in pg 5 ln 52 where it is stated that ``feature images
 > consisted of 26 subjects.'' It is not ethical to consider participants as feature
