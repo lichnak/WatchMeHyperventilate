@@ -112,7 +112,7 @@ with seven labels:
 
 <!--
 
-![Representation of Stage 1 feature images for subject 01C1019.  The
+![Representation of Stage 1 feature images for subject 9.  The
 FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
 [@Avants:2014aa] to the space of the FLAIR image.  The three modality images are then preprocessed
 (N4 bias correction [@Tustison:2010ac] and adaptive denoising [@Manjon:2010aa]) followed by

@@ -61,7 +61,7 @@ the components relevant for this work).  These images are important for asymmetr
 features.
 
 
-__Figure 3:__  Representation of Stage 1 feature images for subject 01C1019.  The
+__Figure 3:__  Representation of Stage 1 feature images for subject 9.  The
 FLAIR, T1-, and T2-weighted images are rigidly pre-aligned
  to the space of the T1 image.  The three modality images are then preprocessed
 (N4 bias correction and adaptive denoising) followed by
