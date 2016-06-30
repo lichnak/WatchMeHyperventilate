@@ -122,7 +122,9 @@ manuscript, it is equally important to give some results in the abstract.
 The abstract must be self-sufficient in reporting all the major points of
 the paper.
 
-> _\textcolor{red}{Nick}_
+> _\textcolor{blue}{We completely reorganized the results and discussion
+section to reflect the new evaluation.  In addition, we added a synopsis
+of these results to the abstract.}_
 
 3. Third, there is no information about the manual lesion tracing procedure.
 Were lesion drawn on FLAIR or were other modalities used as well? If
@@ -131,7 +133,7 @@ one of the top predictive modalities.
 
 > _\textcolor{blue}{We added the following to the Methods section:}_
 
-> \textcolor{blue}{The first author (J. R. S.) performed the manual WMH tracings for all 26  subjects.  J. R. S. is a radiologist certified by the American Board of Radiology, with a certificate of advanced qualification in vascular and interventional radiology, over 18 years of research experience in TBI, and 6 years of clinical imaging experience.  All multi-modal MR dicom image slices were converted to the nifti file format. Given the utility of the FLAIR sequence in detecting white matter lesions in TBI}  [@Marquez-de-la-Plata:2007aa]\textcolor{blue}{, all nifti image volumes for each subject were rigidly aligned to the FLAIR image of that subject using the ANTs software} [@Avants:2014aa] \textcolor{blue}{.  The normalized MRI volumes were then provided to J. R. S. who traced each lesion using the ITK-SNAP tool} [@Yushkevich:2006aa]
+> \textcolor{blue}{The first author (J. R. S.) performed the manual WMH tracings for all 26  subjects.  J. R. S. is a radiologist certified by the American Board of Radiology, with a certificate of advanced qualification in vascular and interventional radiology, over 18 years of research experience in TBI, and 6 years of clinical imaging experience.  All multi-modal MR dicom image slices were converted to the nifti file format. All nifti image volumes for each subject were rigidly aligned to the T1 image of that subject using the ANTs software} [@Avants:2014aa] \textcolor{blue}{.  The normalized MRI volumes were then provided to J. R. S. who traced each lesion using the ITK-SNAP tool} [@Yushkevich:2006aa]
 > \textcolor{blue}{ which has multi-image overlay capabilities for visualizing all modalities in all three canonical views.}
 
 > Descriptive statistics on the lesions are also necessary: how big were the
@@ -163,7 +165,8 @@ with these publications in public forums, such as github.  However, permission t
 publicly release the data for this data has not yet been obtained and so we removed
 the mention of public availability.  However, when we do get permission, it will
 be posted to the github repository associated with this manuscript
-(https://github.com/ntustison/WatchMeHyperventilate) for future readers.
+(https://github.com/ntustison/WatchMeHyperventilate), which we mention in the text,
+for future readers.
 }_
 
 Minor comments:
@@ -220,7 +223,7 @@ probability estimates) of the first RF model application,
 which we denote as ``Stage1 '', is used as input (along with the original set of
 feature images) to a refinement RF model segmentation which we denote as ``Stage 2''.
 Once these offline steps
-are performed, a new, unsegmented subject can then be processed using the proposed pipeline.}
+are performed, a new (i.e., unsegmented) subject can then be processed using the proposed pipeline.}
 >
 > _\textcolor{blue}{We also added a subsection explaining the symmetric multimodal template:}_
 >
@@ -413,8 +416,8 @@ wishful and speculative. Given the methodological nature of this paper, a
 more appropriate discussion would perhaps focus on the comparison with
 other methods in terms of accuracy, similarities, differences, etc.
 
-> _\textcolor{red}{We removed the paragraphs in question and added the following
-comparison discussion:}_
+> _\textcolor{blue}{We removed the paragraphs in question and added a
+comparison discussion.}_
 
 ## Reviewer: 2
 

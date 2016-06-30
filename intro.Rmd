@@ -1,47 +1,3 @@
-<!--
-A couple notes in response to comments:
-
-[David Tate, Comment 15]:  Stupid question, but why not show the same subject and slice for both for a better comparison?
-
-NT:  I see what he is saying and probably agree.
-
-[David Tate, Comment 28]:  Maybe this could go in a Figure as a flow chart??
-
-NT:  Flow charts are great and I included a couple as Figure 5 in my tumor paper.  However, they take a long time to make correctly and I do not want to commit to producing one unless it is absolutely necessary.
-
-[Andy Mayer, Comment 30]: It will be difficult to see this font for labeling on Y axis at current size/resolution. You may also consider alerting your reader directly that the magnitudes of the scales are very different for stage 1 versus stage 2 in the legend or scale them to be similar.
-
-NT:  Comparing these two plots in Figure 4 in terms of their absolute MeanDecreaseAccuracy
-is meaningless so coordinating the scales is not important.
-
-[Andy Mayer, Comment 34]:  A reviewer is likely to ask for some sort of reliability rating on the labeling of the lesions.
-
-NT:  I agree with this but unless somebody else is willing to manually segment the WMHs,
-then there is not really much we can do other than point to other papers which have looked
-at reliability.
-
-[David Tate, Comment 37]:  Seems like we are missing a picture.  That is the football player in me, but it seems like we need a picture that shows the manual compared to the automated at each stage if possible.
-
-NT:  We could do this but I do not think that such images in publications are that meaningful as they typically result from heavy selection bias.  I did do something similar
-for my brain segmentation paper where I showed multiple slices (skipped every 10, or something like that) for each subject in the challenge cohort but tumors are obviously much bigger and can be displayed in this manner.
-
-[David Tate, Comment 39]:  I would would move these comments down to a limitation like paragraph, otherwise it minimizes the cool findings.
-
-NT:  I have no opinion on this.  Do what you think is best.
-
-[Andy Mayer, Comment 40]:  I do not know if you can include any of this data (even one subject). It would be great to demonstrate that your algorithm worked on data collected on another scanner since the intensities are likely to be very different.
-
-NT:  As I mentioned to you previously, I think this is a great idea and I would be happy to include it but how do we showcase this unless somebody is willing to annotate data from these other sites.  We could include a picture of a single subject but how persuasive that is will be reviewer-dependent.  Personally, I would not be persuaded as the showing the results of a single subject is very prone to selection bias.
-
-
--->
-
-
-
-
-
-
-
 
 # Introduction
 
@@ -55,7 +11,7 @@ Further, volume of FLAIR lesions within the corpus
 callosum, brainstem, and thalamus in patients with severe TBI correlates
 with Glasgow Outcome-Extended (GOS-E) scores---a numeric groupwise assessment used to
 classify ``outcome'' in TBI patients where ``outcome'' refers to the
-spectrum of possible prognoses from death to disability to recovery.} [@Moen:2014aa]\textcolor{blue}{. Additionally,
+spectrum of possible prognoses from death to disability to recovery} [@Moen:2014aa]\textcolor{blue}{. Additionally,
 in patients who are comatose following severe TBI
 the regional distribution of FLAIR lesions within the pons, midbrain, hypothalamus, basal forebrain, parietal, temporal, occipital lobes, and insula along with the observation of grasping or chewing behavior are associated with poor outcome} [@Weiss:2008aa].
 

@@ -12,8 +12,7 @@ rmdFiles <- c( formatFile,
                "methods.Rmd",
                "results.Rmd",
                "discussion.Rmd",
-               "acknowledgementsDisclaimers.Rmd",
-               "figureCaptions.Rmd"
+               "acknowledgementsDisclaimers.Rmd"
    )
 
 for( i in 1:length( rmdFiles ) )
@@ -32,7 +31,8 @@ render( stitchedFile, output_format = "all" )
 
 
 singleRmdFiles <- c(
-               "responseToReviewers.Rmd"
+               "responseToReviewers.Rmd",
+               "figureCaptions.Rmd"
    )
 
 for( i in 1:length( singleRmdFiles ) )

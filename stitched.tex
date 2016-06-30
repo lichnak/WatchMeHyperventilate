@@ -42,6 +42,15 @@
             linkcolor=magenta,
             pdfborder={0 0 0}}
 \urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
@@ -75,7 +84,7 @@
 \usepackage{booktabs}
 \usepackage[final]{changes}
 \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
-\linespread{2}
+\linespread{1.2}
 \usepackage[compact]{titlesec}
 \usepackage{enumitem}
 \usepackage{tikz}
@@ -124,11 +133,14 @@ Normalization Tools (ANTs) and ANTsR toolkits. MR (3D FLAIR, T2-, and
 T1-weighted) images from 24 service members and veterans scanned in the
 Chronic Effects of Neurotrauma Consortium's (CENC) observational study
 were acquired. Manual annotations were employed for both training and
-evaluation using a leave-one-out strategy. Lesion load and overlap
-evaluative comparisons are complimented by feature rankings which
-showcase the utility of the concatenated approach. Our findings suggest
-supervised learning methods may be applied to quantify WMHs on routine
-brain imaging. Paired with correlative outcome data, supervised learning
+evaluation using a leave-one-out strategy.
+\textcolor{blue}{Performance measures include sensitivity,
+positive predictive value, $F_1$ score, and relative volume difference.
+Final average results were: sensitivity = 0.68 $\pm$ 0.38, positive
+predictive value = 0.51 $\pm$ 0.40, $F_1$ = 0.52 $\pm$ 0.36,
+relative volume difference} = 43 \(\pm\) 26\%. In addition, three lesion
+size ranges are selected to illustrate the variation in performance with
+lesion size.\} Paired with correlative outcome data, supervised learning
 methods may allow for identification of imaging features predictive of
 diagnosis and prognosis in individual TBI patients.
 
@@ -149,7 +161,7 @@ Further, volume of FLAIR lesions within the corpus
 callosum, brainstem, and thalamus in patients with severe TBI correlates
 with Glasgow Outcome-Extended (GOS-E) scores---a numeric groupwise assessment used to
 classify ``outcome'' in TBI patients where ``outcome'' refers to the
-spectrum of possible prognoses from death to disability to recovery.}\textsuperscript{4}\textcolor{blue}{. Additionally,
+spectrum of possible prognoses from death to disability to recovery}\textsuperscript{4}\textcolor{blue}{. Additionally,
 in patients who are comatose following severe TBI
 the regional distribution of FLAIR lesions within the pons, midbrain, hypothalamus, basal forebrain, parietal, temporal, occipital lobes, and insula along with the observation of grasping or chewing behavior are associated with poor outcome}\textsuperscript{7}.
 
@@ -213,6 +225,8 @@ et al., this issue).
 \textcolor{blue}{All lesions were isolated in the white matter of the cerebrum.  Table 1 provides a descriptive statistical summary of the variation in lesion
 load across the selected cohort.}
 
+\input{trainingData.tex}
+
 Images were acquired on a Philips 3.0T Ingenia system with an 8-channel
 SENSE head coil (Philips Medical Systems, Best, Netherlands). 3D FLAIR
 sequences were acquired with a turbo spin echo inversion recovery
@@ -232,8 +246,7 @@ sequence with the following parameters: TR = 2500 ms, TE = 245 ms, ET: =
 \textcolor{blue}{The first author (J. R. S.) performed the manual WMH tracings for all 26
 subjects.  J. R. S. is a radiologist certified by the American Board of Radiology, with a certificate of advanced qualification in vascular and interventional radiology, over 18 years of research experience in TBI, and 6 years of clinical imaging experience.  All
 multi-modal MR dicom image slices were converted to the nifti file format}.\footnote{\url{http://nifti.nimh.nih.gov/nifti-1}}
-\textcolor{blue}{Given the
-utility of the FLAIR sequence in detecting white matter lesions in TBI}\textsuperscript{3}\textcolor{blue}{, all nifti image volumes for each subject were rigidly aligned to the FLAIR image of that subject using the ANTs software}\textsuperscript{22}
+\textcolor{blue}{All nifti image volumes for each subject were rigidly aligned to the T1 image of that subject using the ANTs software}\textsuperscript{22}
 \textcolor{blue}{.  The normalized MRI volumes were then provided to
 J. R. S. who traced each lesion using the ITK-SNAP tool}\textsuperscript{23}
 \textcolor{blue}{
@@ -248,10 +261,23 @@ feature images from the training data which are then employed for statistical
 prediction using a concatenated random forest framework.  This framework involves
 the use of two random forest models where the outcome (i.e., the tissue
 probability estimates) of the first RF model application,
-which we denote as ``Stage1 '', is used as input (along with the original set of
+which we denote as ``Stage1'', is used as input (along with the original set of
 feature images) to a refinement RF model segmentation which we denote as ``Stage 2''.
 Once these offline steps
-are performed, a new, unsegmented subject can then be processed using the proposed pipeline.}
+are performed, a new (i.e., unsegmented) subject can then be processed using the proposed pipeline.}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{Figures/wmhPipeline.png}
+\caption{\textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
+input MRI for a single subject, using the multi-modal symmetric template, results in
+the generation of the feature images.  These feature images are used as input to the
+Stage 1 RF model producing the initial RF probability map estimates.  The Stage 1
+voting maps, the original feature images, and the Stage 2 RF model result in the
+final voting maps which includes the WMH probability estimate.  Note that the RF models
+are constructed once from a set of training data which are processed using the
+same feature-construction pipeline as the single-subject input MRI.}}
+\end{figure}
 
 \subsubsection{Symmetric multi-modal
 templates}\label{symmetric-multi-modal-templates}
@@ -263,6 +289,17 @@ serve for both brain tissue segmentation (for the derivation of tissue prior pro
 For this work we use the multi-modal data available from the public MMRR data set}\textsuperscript{25}\textcolor{blue}{.  We used all 46 multi-modal acquisitions of that study to produce a multi-modal template according to the procedure described in}\textsuperscript{26}
 \textcolor{blue}{which
 results in a mean (in terms of both shape and intensity) multivariate template representing the entire cohort.  Mid-canonical slices of the FLAIR, T1, and T2 components are illustrated in Figure 2.}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{Figures/MMRR.png}
+\caption{Canonical views of the mutlivariate, bilaterally symmetric
+template constructed from the MMRR data set\textsuperscript{25} (only
+shown are the FLAIR, T1, and T2 modalities--- the components relevant
+for this work). Template construction is detailed
+in\textsuperscript{17}. These images are important for specific
+asymmetry-based features.}
+\end{figure}
 
 \subsubsection{Feature images for WMH
 segmentation}\label{feature-images-for-wmh-segmentation}
@@ -287,6 +324,8 @@ pattern recognition techniques are extremely powerful and have
 significant potential, just as crucial to outcome is the creative
 construction and deployment of salient feature images which we detail
 below.
+
+\input{featureImagesTable.tex}
 
 Supervised methodologies are uniquely characterized, in part, by the
 feature images that are used to identify the regions of interest. In
@@ -315,16 +354,44 @@ brain parenchyma with seven labels:
   white matter hyperintensities (label 7).
 \end{itemize}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics{Figures/featureImages.png}
+\caption{Representation of Stage 1 feature images for subject 01C1019.
+The FLAIR, T1-, and T2-weighted images are rigidly
+pre-aligned\textsuperscript{22} to the space of the FLAIR image. The
+three modality images are then preprocessed (N4 bias
+correction\textsuperscript{28} and adaptive
+denoising\textsuperscript{29}) followed by application of standard ANTs
+brain extraction and \(n\)-tissue segmentation protocols using the MMRR
+symmetric template and corresponding priors\textsuperscript{24} applied
+to the T1 image. The feature images are then generated for voxelwise
+input to the RF model which results in the voting maps illustrated on
+the right. This gives a probabilistic classification of tissue type. Not
+shown are the probability and voting images for the brain stem and
+cerebellum.}
+\end{figure}
+
 As mentioned previously, input for each subject comprises FLAIR, T1-,
 and T2-weighted acquisitions. The T1 and T2 images are rigidly
 registered to the FLAIR image using the open-source Advanced
 Normalization Tools (ANTs)\textsuperscript{22}. The aligned images are
-then preprocessed using the denoising algorithm of\textsuperscript{28}
-followed by N4 bias correction\textsuperscript{29} which are then
+then preprocessed using the denoising algorithm of\textsuperscript{29}
+followed by N4 bias correction\textsuperscript{28} which are then
 normalized to the intensity range \([0,1]\). Although we could have used
 an alternative intensity standardization algorithm
 (e.g.,\textsuperscript{30}), we found that a simple linear rescaling
 produced better results similar to previous work\textsuperscript{17}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{Figures/sampleResults.png}
+\caption{Sample FLAIR acquisition image slices showing both manual and
+random forest segmentations for both stages obtained during the
+leave-one-out evaluation. Manual segmentations were performed by one of
+the authors and provided the ground truth WMH labels for training the
+random forest models.}
+\end{figure}
 
 The T1 image is then processed via the ANTs brain extraction and normal
 tissue segmentation pipelines\textsuperscript{24}. The result is a mask
@@ -477,11 +544,7 @@ The leave-one-out procedure is as follows:
 
 \textcolor{blue}{Several measures have been employed in the literature for evaluating
 automated white matter lesion segmentation involving such quantities as lesion load,
-voxel-based overlap measures (such as the Dice similarity coefficient), and lesion-based measures.}\textsuperscript{37}\textcolor{blue}{.  For this work, due to the relatively small-size distribution}\footnote{\textcolor{blue}{For comparison, the training data set of
-  the MS Lesion Segmentation challenge
-  associated with the international MICCAI 2008 conference has a mean lesion load of
-  204 ($\pm$ 752) mm$^3$ per lesion and the resolution is almost twice what is used
-  in this study (i.e., 0.5 $\times$ 0.5 $\times$ 0.5).}}
+voxel-based overlap measures (such as the Dice similarity coefficient), and lesion-based measures.}\textsuperscript{37}\textcolor{blue}{.  For this work, due to the relatively small-size distribution}
 \textcolor{blue}{of the lesion load in our data cohort (see Table 1), we used
 four lesion-based measures:  sensitivity, positive predictive value (i.e., precision), $F_1$ score, and relative volume difference.  The first three quantities are based on the number of false positives ($TN$, false negatives ($FN$), and true positives ($TP$) in terms of identified lesions.  It should be noted that the number of true negatives is not readily
 incorporated into measures of accuracy as the quantity of ``true negatives'' (i.e., correctly identified normal brain tissue) would severely skew accuracy assessments. The $F_1$ score is an assessment of accuracy which takes into account both the sensitivity,}
@@ -502,23 +565,83 @@ the manual and predicted lesion volumes:}
 \[ Relative\,\,volume\,\,difference = \frac{V_{manual} - V_{predicted}}{V_{manual}}. \]
 
 \textcolor{blue}{To illustrate how the performance of our framework varies with lesion size, we calculated
-the above measures based on evenly split quantiles of the manual estimates of lesion volumes into 3 groups.  These three size ranges (in terms of the number of voxels) were:  $[3-12)$, $[12-28)$, and $[28-551]$.}
+the above measures based on evenly split quantiles of the manual estimates of lesion volumes into 3 groups.  These three size ranges (in terms of the number of voxels) are:}
+
+\begin{itemize}
+\item
+  \textcolor{blue}{Quantile 1: $[1-12)$,}
+\item
+  \textcolor{blue}{Quantile 2: $[12-28)$, and}
+\item
+  \textcolor{blue}{Quantile 3: $[28-551]$}.
+\end{itemize}
+
+\textcolor{blue}{These quantiles are used to showcase the performance (cf Figure 5).}
 
 \section{Results}\label{results}
 
 \subsection{White matter hyperintensity segmentation
 evaluation}\label{white-matter-hyperintensity-segmentation-evaluation}
 
-\textcolor{blue}{In Figure 8 we provide the segmentation evaluations derived from the leave-one-out evaluation
-of the previously described TBI data.  These performance measures include sensitivity,
+\textcolor{blue}{In Figure 5 we provide the segmentation evaluations derived from the leave-one-out evaluation
+of the previously described TBI data over the three lesion volume ranges.
+These performance measures include sensitivity,
 positive predictive value, $F_1$ score, and relative volume difference.  The three lesion
-size ranges over which these measures are computed to illustrate the variation
-in performance with lesion size.  Smaller lesions ($< 12$ voxels) are more difficult
-to identify which is why the sensitivity is widely varied over the cohort vs. the largest
-set of voxels ($> 28$ voxels).   The first three measures are based on the identification of
-entire lesions.  The relative volume difference provides a direct assessment of how accurate
-the volumetric estimate is when comparing the manually identified lesions versus the
+size ranges over which these measures are computed are meant to illustrate the variation
+in performance with lesion size.}
+
+\textcolor{blue}{Smaller lesions ($< 12$ voxels) are more difficult
+to identify which is why the sensitivity for this range is more varied compared with the largest
+set of lesions ($> 28$ voxels).   The first three measures are based on the identification of
+entire lesions.  The relative volume difference provides a direct assessment of the accuracy of
+the volumetric estimate when comparing the manually identified lesions versus the
 automatically predicted lesions.}
+
+\textcolor{blue}{
+We averaged these measures over all lesions and all subjects which resulted in the
+following values:}
+
+\begin{itemize}
+\item
+  \textcolor{blue}{Stage 1}
+
+  \begin{itemize}
+  \item
+    \textcolor{blue}{sensitivity} = 0.70 \(\pm\) 0.34
+  \item
+    \textcolor{blue}{PPV} = 0.42 \(\pm\) 0.36
+  \item
+    \textcolor{blue}{$F_1$} = 0.47 \(\pm\) 0.36
+  \item
+    \textcolor{blue}{relative volume difference} = 43 \(\pm\) 38\%
+  \end{itemize}
+\item
+  \textcolor{blue}{Stage 1}
+
+  \begin{itemize}
+  \item
+    \textcolor{blue}{sensitivity} = 0.68 \(\pm\) 0.38
+  \item
+    \textcolor{blue}{PPV} = 0.51 \(\pm\) 0.40
+  \item
+    \textcolor{blue}{$F_1$} = 0.52 \(\pm\) 0.36
+  \item
+    \textcolor{blue}{relative volume difference} = 43 \(\pm\) 26\%
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{Figures/evaluationResults.png}
+\caption{\textcolor{blue}{Evaluation measures for both Stages of the leave-one-out protocol of the described protocol in the Methods
+section:  (a) sensitivity, (b) positive predictive value, (c) $F_1$ score, and (d) relative
+volume difference.   These quantitative assessments are given for three quantile ranges
+spanning the range of the manually-derived lesion volumes.    Overall improvement in all
+three whole lesion-based measuers is seen as the
+second Stage RF model is applied for all three quantile ranges.
+The relative volume difference corresponding to the Stage 2 results tend to predict a
+decreased predicted volume over the Stage 1 results.}}
+\end{figure}
 
 \subsection{Ranking feature
 importance}\label{ranking-feature-importance}
@@ -533,7 +656,36 @@ this quantity helps determine the importance of a particular feature
 and, although we save such efforts for future work, this information
 provides us with guidance for future feature pruning and/or additions.
 
-The resulting rankings for both Stages are given in Figures 5 and 6
+\begin{figure}[htbp]
+\centering
+\includegraphics{Figures/averageLeaveOneOutStage1.png}
+\caption{Average \emph{MeanDecreaseAccuracy} plots generated from the
+creation of all 24 random forest models for Stage 1 during the
+leave-one-out evaluation. These plots are useful in providing a
+quantitative assessment of the predictive importance of each feature.
+Features are ranked in descending order of importance. The horizontal
+error bars provide the \(95^{th}\) percentile and illustrate the
+stability of the feature importance across the leave-one-out models. At
+this initial stage only 31 features images are used.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{Figures/averageLeaveOneOutStage2.png}
+\caption{Average \emph{MeanDecreaseAccuracy} plots generated from the
+creation of all 24 random forest models for Stage 2 during the
+leave-one-out evaluation. These plots are useful in providing a
+quantitative assessment of the predictive importance of each feature.
+Features are ranked in descending order of importance. The horizontal
+error bars provide the \(95^{th}\) percentile and illustrate the
+stability of the feature importance across the leave-one-out models. We
+augment the 31 feature images from the first stage by adding an
+additional 7 voting maps and 7 segmentation posteriors from application
+of the Bayesian-based segmentation for a total of 45 images for the
+second stage.}
+\end{figure}
+
+The resulting rankings for both Stages are given in Figures 6 and 7
 where the values for the separate stages are averaged over the entire
 corresponding model set. In addition, we track the variance for each
 feature over all models to illustrate the stability of the chosen
@@ -542,23 +694,53 @@ as horizontal errors bars providing the \(95^{th}\) percentile Note that
 the reader can cross reference Table 1 for identifying corresponding
 feature types and names.
 
-Additionally, it is interesting to note some of the other top performing
-features for Stage 1. The contralateral difference FLAIR image is highly
-discriminative over the set of evaluation random forest models (see
-Figure 7). This accords with the known clinical relevance of FLAIR
-images for identifying white matter hyperintensities and the fact that
-such pathology does not typically manifest symmetrically in both
-hemispheres. Interestingly, the posterior maps for the deep gray matter
-are extremely important for accurate white matter hyperintensity
-segmentation. Perhaps the spatial specification of deep gray matter aids
-in the removal of false positives. Inspection of the bottom of the plots
-demonstrates the lack of discriminating features associated with the T1
-image which is also well-known in the clinical literature.
+\section{Discussion}\label{discussion}
+
+\textcolor{blue}{
+In evaluating the segmentation results, there are limited methodologies described in the
+literature for automatic segmentation of WMHs despite the numerous clinical studies}\textsuperscript{39,40}
+\textcolor{blue}{exploring the connections between WMHs and TBI.
+However, we can extrapolate from similar application areas where such methodologies have a
+much longer history of development such as white matter lesion segmentation in
+multiple sclerosis )MS).  In a recent review [@Garcia-Lorenzo:2013aa], 47 total papers
+were found during a literature search and evaluated which concern automated segmentation of white
+matter lesions in MS.  The most widely-used data for algorithmic evaluation consists
+of two cohorts from two different sites used in
+the MS Lesion segmentation challenge associated with the international MICCAI 2008
+conference.  For comparison, this challenge training data set
+has a mean lesion load of 204 ($\pm$ 752) mm$^3$ per lesion (compared with
+our mean lesion load of 33.8 ($\pm$ 55.4) voxels $\times$ 1.2 mm$^3$ per voxel =
+40.56 ($\pm$ 66.48) mm$^3$ per lesion) and the resolution is
+almost twice what is used in this study (i.e., 0.5 $\times$ 0.5 $\times$ 0.5).
+Note that our relative volume difference numbers are comparable to the
+relative volume difference {\em between raters} of 68 percent (cf Figure 5 (d))}\textsuperscript{41}.
+
+Regarding the feature rankings, it is interesting to note some of the
+other top performing features for Stage 1. The contralateral difference
+FLAIR image is highly discriminative over the set of evaluation random
+forest models (see Figure 8). This accords with the known clinical
+relevance of FLAIR images for identifying white matter hyperintensities
+and the fact that such pathology does not typically manifest
+symmetrically in both hemispheres. Interestingly, the posterior maps for
+the deep gray matter are extremely important for accurate white matter
+hyperintensity segmentation. Perhaps the spatial specification of deep
+gray matter aids in the removal of false positives. Inspection of the
+bottom of the plots demonstrates the lack of discriminating features
+associated with the T1 image which is also well-known in the clinical
+literature.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{Figures/FLAIRcontralaleteralWithLesionsAlternate.png}
+\caption{(a) FLAIR image slice illustrating WMHs which have been
+manually delineated. The region around the WMHs is enlarged (b) in the
+original FLAIR and the (c) contralateral FLAIR difference image.}
+\end{figure}
 
 As described earlier, for Stage 2, we used the output random forest
 voting maps from Stage 1 as both features themselves and as priors for
 input to a Bayesian-based segmentation with an additional MRF spatial
-prior. In Figure 6, the voting maps are labeled as
+prior. In Figure 7, the voting maps are labeled as
 ``\emph{RFStage1VotingMaps}'' where the final numeral is associated with
 the brain parenchymal labeling given previously. Similarly, the
 additional RF prior segmentation feature probability maps are labeled as
@@ -571,7 +753,7 @@ white matter, and 3) white matter hyperintensities. Since these tissue
 type can be conflated based on intensity alone it is intuitive that such
 features would be important.
 
-\section{Discussion}\label{discussion}
+\section{Conclusions}\label{conclusions}
 
 The current communications describes a supervised statistical learning
 methodology for identifying WHMs within multimodal MR brain imaging.
@@ -652,83 +834,8 @@ as part of that person's official duties.
 
 \clearpage
 
-\section{References}\label{references}
-
-\section{Figure Captions}\label{figure-captions}
-
-\textbf{Figure 1:}
-\textcolor{blue}{Workflow illustration for the proposed pipeline.  Processing of the multi-modal
-input MRI for a single subject, using the multi-modal symmetric template, results in
-the generation of the feature images.  These feature images are used as input to the
-Stage 1 RF model producing the initial RF probability map estimates.  The Stage 1
-voting maps, the original feature images, and the Stage 2 RF model result in the
-final voting maps which includes the WMH probability estimate.  Note that the RF models
-are constructed once from a set of training data which are processed using the
-same feature-construction pipeline as the single-subject input MRI.}
-
-\textbf{Figure 2:} Canonical views of the mutlivariate, bilaterally
-symmetric template constructed from the MMRR data
-set\textsuperscript{25} (only shown are the FLAIR, T1, and T2
-modalities--- the components relevant for this work). Template
-construction is detailed in\textsuperscript{17}. These images are
-important for asymmetry-based features.
-
-\textbf{Figure 3:} Representation of Stage 1 feature images for subject
-01C1019. The FLAIR, T1-, and T2-weighted images are rigidly
-pre-aligned\textsuperscript{22} to the space of the T1 image. The three
-modality images are then preprocessed (N4 bias
-correction\textsuperscript{29} and adaptive
-denoising\textsuperscript{28}) followed by application of standard ANTs
-brain extraction and \(n\)-tissue segmentation protocols using the MMRR
-symmetric template and corresponding priors\textsuperscript{24} applied
-to the T1 image. The feature images are then generated for voxelwise
-input to the RF model which results in the voting maps illustrated on
-the right. This gives a probabilistic classification of tissue type. Not
-shown are the probability and voting images for the brain stem and
-cerebellum.
-
-\textbf{Figure 4:} Sample FLAIR acquisition image slices showing both
-manual and random forest segmentations for both stages obtained during
-the leave-one-out evaluation. Manual segmentations were performed by one
-of the authors and provided the ground truth WMH labels for training the
-random forest models.
-
-\textbf{Figure 5:} Average \emph{MeanDecreaseAccuracy} plots generated
-from the creation of all 24 random forest models for Stage 1 during the
-leave-one-out evaluation. These plots are useful in providing a
-quantitative assessment of the predictive importance of each feature.
-Features are ranked in descending order of importance. The horizontal
-error bars provide the \(95^{th}\) percentile and illustrate the
-stability of the feature importance across the leave-one-out models. At
-this initial stage only 31 feature images are used.
-
-\textbf{Figure 6:} Average \emph{MeanDecreaseAccuracy} plots generated
-from the creation of all 24 random forest models for Stage 2 during the
-leave-one-out evaluation. These plots are useful in providing a
-quantitative assessment of the predictive importance of each feature.
-Features are ranked in descending order of importance. The horizontal
-error bars provide the \(95^{th}\) percentile and illustrate the
-stability of the feature importance across the leave-one-out models. We
-augment the 31 feature images from the first stage by adding an
-additional seven voting maps and 7 segmentation posteriors from
-application of the Bayesian-based segmentation for a total of 45 images
-for the second stage.
-
-\textbf{Figure 7:} (a) FLAIR image slice illustrating WMHs which have
-been manually delineated. The region around the WMHs is enlarged (b) in
-the original FLAIR and the (c) contralateral FLAIR difference image.
-
-\textbf{Figure 8:} Voxelwise comparison with manual delineation of white
-matter hyperintensities. On the left are the calculated Dice values over
-all white matter hyperintensities. Note the improvement in the Dice
-metric from the employment of the Stage 2 component of the processing
-pipeline. (Right) Similar results can be seen by comparing the total
-lesion load volume between manual and automated detection strategies.
-Although some outliers are found after the Stage 2 processing in a
-couple subjects, the number of outliers caused by false positives is
-decreased significantly with the second stage processing.
-
-\clearpage
+\section*{References}\label{references}
+\addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
 \hypertarget{ref-Bigler:2013aa}{}
@@ -877,15 +984,15 @@ diseased populations. Neuroimage. 2010;49(3):2457--66.
 Normal findings on brain fluid-attenuated inversion recovery mR images
 at 3T. AJNR Am J Neuroradiol. 2009;30(5):911--6.
 
-\hypertarget{ref-Manjon:2010aa}{}
-28. Manjón JV, Coupé P, Martí-Bonmatí L, Collins DL, Robles M. Adaptive
-non-local means denoising of mR images with spatially varying noise
-levels. J Magn Reson Imaging. 2010;31(1):192--203.
-
 \hypertarget{ref-Tustison:2010ac}{}
-29. Tustison NJ, Avants BB, Cook PA, Zheng Y, Egan A, Yushkevich PA, Gee
+28. Tustison NJ, Avants BB, Cook PA, Zheng Y, Egan A, Yushkevich PA, Gee
 JC. N4ITK: Improved N3 bias correction. IEEE Trans Med Imaging.
 2010;29(6):1310--20.
+
+\hypertarget{ref-Manjon:2010aa}{}
+29. Manjón JV, Coupé P, Martí-Bonmatí L, Collins DL, Robles M. Adaptive
+non-local means denoising of mR images with spatially varying noise
+levels. J Magn Reson Imaging. 2010;31(1):192--203.
 
 \hypertarget{ref-nyul2000}{}
 30. Nyúl LG, Udupa JK, Zhang X. New variants of a method of MRI scale
@@ -941,5 +1048,10 @@ and meta-analysis. BMJ. 2010;341:c3666.
 40. Kloppenborg RP, Nederkoorn PJ, Geerlings MI, Berg E van den.
 Presence and progression of white matter hyperintensities and cognition:
 A meta-analysis. Neurology. 2014;82(23):2127--38.
+
+\hypertarget{ref-vanginneken:2007aa}{}
+41. Ginneken BV, Heimann T, Styner M. 3D segmentation in the clinic: A
+grand challenge. In: 3D segmentation in the clinic: A grand challenge.
+2007. pp. 7--15.
 
 \end{document}

@@ -112,4 +112,21 @@ ggsave( filename = paste( 'Evaluation/', whichEval, '/RelativeVolumeDifference.p
 
 
 
+for( stage in 1:2 )
+  {
+  meanF1 <- mean( boxPlotDataFrame$Value[which( boxPlotDataFrame$MeasureType == "F1" & boxPlotDataFrame$Stage == stage )], na.rm = TRUE )
+  meanSensitivity <- mean( boxPlotDataFrame$Value[which( boxPlotDataFrame$MeasureType == "Sensitivity" & boxPlotDataFrame$Stage == stage )], na.rm = TRUE )
+  meanPPV <- mean( boxPlotDataFrame$Value[which( boxPlotDataFrame$MeasureType == "PPV" & boxPlotDataFrame$Stage == stage )], na.rm = TRUE )
+  meanRVD <- mean( abs( boxPlotDataFrame$Value[which( boxPlotDataFrame$MeasureType == "RelativeVolumeDifference" & boxPlotDataFrame$Stage == stage )] ), na.rm = TRUE )
 
+  cat( "Stage ", stage, ": mean F1 = ", meanF1, ", mean Sens. = ", meanSensitivity, ", mean PPV = ", meanPPV, ", mean RVD = ", meanRVD, "\n", sep = '' )
+
+  sdF1 <- sd( boxPlotDataFrame$Value[which( boxPlotDataFrame$MeasureType == "F1" & boxPlotDataFrame$Stage == stage )], na.rm = TRUE )
+  sdSensitivity <- sd( boxPlotDataFrame$Value[which( boxPlotDataFrame$MeasureType == "Sensitivity" & boxPlotDataFrame$Stage == stage )], na.rm = TRUE )
+  sdPPV <- sd( boxPlotDataFrame$Value[which( boxPlotDataFrame$MeasureType == "PPV" & boxPlotDataFrame$Stage == stage )], na.rm = TRUE )
+  sdRVD <- sd( abs( boxPlotDataFrame$Value[which( boxPlotDataFrame$MeasureType == "RelativeVolumeDifference" & boxPlotDataFrame$Stage == stage )] ), na.rm = TRUE )
+
+  cat( "Stage ", stage, ": sd F1 = ", sdF1, ", sd Sens. = ", sdSensitivity, ", sd PPV = ", sdPPV, ", sd RVD = ", sdRVD, "\n", sep = '' )
+
+
+  }
