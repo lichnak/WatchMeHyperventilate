@@ -19,7 +19,7 @@ strategy.  Performance measures include sensitivity,
 positive predictive value, $F_1$ score, and relative volume difference.
 Final average results were: sensitivity = 0.68 $\pm$ 0.38, positive
 predictive value = 0.51 $\pm$ 0.40, $F_1$ = 0.52 $\pm$ 0.36,
-relative volume difference} = 43 $\pm$ 26\%.  In addition, three
+relative volume difference = 43 $\pm$ 26\%.  In addition, three
 lesion size ranges are selected to illustrate the variation in
 performance with lesion size.  Paired with
 correlative outcome data, supervised learning methods may allow for

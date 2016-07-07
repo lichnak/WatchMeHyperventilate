@@ -22,7 +22,7 @@ header-includes:
    - \setlength{\parskip}{3pt}
    - \setremarkmarkup{(#2)}
 bibliography: references.bib
-csl: council-of-science-editors.csl
+csl: national-science-foundation-grant-proposals.csl
 fontsize: 12pt
 mainfont: Georgia
 ---
@@ -220,7 +220,7 @@ feature images from the training data which are then employed for statistical
 prediction using a concatenated random forest framework.  This framework involves
 the use of two random forest models where the outcome (i.e., the tissue
 probability estimates) of the first RF model application,
-which we denote as ``Stage1 '', is used as input (along with the original set of
+which we denote as ``Stage 1'', is used as input (along with the original set of
 feature images) to a refinement RF model segmentation which we denote as ``Stage 2''.
 Once these offline steps
 are performed, a new (i.e., unsegmented) subject can then be processed using the proposed pipeline.}
@@ -289,7 +289,7 @@ We revised the explanation of random forests as follows:}_
 
 > \textcolor{blue}{The basic component of
 the random forest paradigm is the ``decision tree'' often represented by a flowchart or
-graph where internal nodes represent ``tests'', or decisions, and the edges represent the outcome of those tests.  The final, or end, nodes represent the various classsifications produced by traversal through the decision tree.  For the proposed application, individual
+graph where internal nodes represent ``tests'', or decisions, and the edges represent the outcome of those tests.  The final, or end, nodes represent the various classifications produced by traversal through the decision tree.  For the proposed application, individual
 voxels (and their corresponding feature values) are introduced at the root of a particular
 decision tree and traverse the edges and internal nodes ultimately ending up at one of
 the classification nodes according to the tests at each internal node.  A single random
@@ -432,7 +432,7 @@ algorithm.
 > _\textcolor{blue}{We appreciate
 > the opportunity to clarify the precise nature of our contribution which is methodological
 > (vs. clinical).  We have shortened the introduction to focus specifically on previous TBI
-clinical research involving WMHs and then pointing to the need for automated
+clinical research involving WMHs and then point to the need for automated
 techniques to minimize the variability and time requirements of manual
 segmentation of WMHs.  This would allow for large-scale studies and potentially more accurate
 and reproducible quantitation.

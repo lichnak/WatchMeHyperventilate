@@ -11,8 +11,8 @@ literature for automatic segmentation of WMHs despite the numerous clinical stud
 [@Debette:2010aa;@Kloppenborg:2014aa] \textcolor{blue}{exploring the connections between WMHs and TBI.
 However, we can extrapolate from similar application areas where such methodologies have a
 much longer history of development such as white matter lesion segmentation in
-multiple sclerosis (MS).  In a recent review [@Garcia-Lorenzo:2013aa], 47 total papers
-were found during a literature search and evaluated which concern automated segmentation of white
+multiple sclerosis (MS).  In a recent literature review [@Garcia-Lorenzo:2013aa], 47 papers
+involving automated segmentation of white
 matter lesions in MS.  The most widely-used data for algorithmic evaluation consists
 of two cohorts from two different sites used in
 the MS Lesion segmentation challenge associated with the international MICCAI 2008
@@ -81,7 +81,7 @@ part of the FITBIR effort.
 # Conclusions
 
 The current communications describes a supervised statistical learning
-methodology for identifying WHMs within multimodal MR brain imaging.
+methodology for identifying WMHs within multimodal MR brain imaging.
 This effort utilized information acquired from the manual segmentation
 of WMHs from FLAIR images to help build two-stage ensembles of decision
 trees for the automated identification of these lesions. Although only a
@@ -115,9 +115,9 @@ Debette & Markus [@Debette:2010aa] found that the presence of
 WMHs was related to subsequent cognitive decline, a higher risk of
 developing dementia, stroke, and of mortality. Lesion volume at baseline
 was also predictive of cognitive decline. Kloppenborg et al.
-[@Kloppenborg:2014aa] of 23 cross-sectional studies reporting MRI and
+[@Kloppenborg:2014aa] reviewed 23 cross-sectional studies reporting MRI and
 concurrent neuropsychological results in patients with heterogeneous
-diagnoses but without previously diagnosed cognitive impairment, found
+diagnoses but without previously diagnosed cognitive impairment.  This review found
 that WMHs were associated with cognitive deficit (effect size of -0.10,
 95% CI: -0.13 to -0.08) after controlling for age.
 

@@ -32,7 +32,7 @@ header-includes:
    - \definechangesauthor[name={Brian Taylor}, color=purple]{bt}
    - \definechangesauthor[name={David Tate}, color=orange]{dt}
 bibliography: references.bib
-csl: council-of-science-editors.csl
+csl: national-science-foundation-grant-proposals.csl
 fontsize: 11pt
 mainfont: Georgia
 geometry: margin=1.0in
@@ -66,4 +66,8 @@ pre {
 knitr::opts_chunk$set( cache=TRUE )
 ```
 
+<!--
+
 \pagenumbering{gobble}
+
+-->

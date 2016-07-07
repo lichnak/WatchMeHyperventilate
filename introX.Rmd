@@ -37,7 +37,7 @@ extensions.
 
 The random forests framework [@breiman2001] is a popular machine learning technique that has demonstrated significant utility for supervised segmentation tasks (e.g.,
 normal human brain segmentation [@yi2009]) and other computer vision applications
-(e.g., [@viola2005]).
+[@viola2005].
 \textcolor{blue}{Random forest-based paradigms have been successfully employed in the
 delineation of other neuropathologies} [@geremia2011;@Pustina:2016aa;@geremia2012;@bauer2012;@zikic2012;@Tustison:2015aa]
 \textcolor{blue}{for both single and multi-modal acquisition protocols.}
@@ -51,14 +51,14 @@ international competitions established in response to the lack of objective comp
 Random forests are conceptually straightforward [@breiman2001].
 \textcolor{blue}{The basic component of
 the random forest paradigm is the ``decision tree'' often represented by a flowchart or
-graph where internal nodes represent ``tests'', or decisions, and the edges represent the outcome of those tests.  The final, or end, nodes represent the various classsifications produced by traversal through the decision tree.  For the proposed application, individual
+graph where internal nodes represent ``tests'', or decisions, and the edges represent the outcome of those tests.  The final, or end, nodes represent the various classifications produced by traversal through the decision tree.  For the proposed application, individual
 voxels (and their corresponding feature values) are introduced at the root of a particular
 decision tree and traverse the edges and internal nodes ultimately ending up at one of
 the classification nodes according to the tests at each internal node.  A single random
 forest model will consist of many such trees (often refered to as an ``ensemble'').}
 \textcolor{blue}{Although decision trees had been extensively studied, the success of employing collections of such weak learners for boosting machine learning performance
 (e.g., AdaBoost)} [@schapire1990;@freund1997]
-\textcolor{blue}{influenced the similarly sytled conglomeration of decision trees into ``forests'' with randomized node optimization} [@ho1995;@amit1997].
+\textcolor{blue}{influenced the similarly styled conglomeration of decision trees into ``forests'' with randomized node optimization} [@ho1995;@amit1997].
 \textcolor{blue}{Finally, Breiman} [@breiman2001]
 \textcolor{blue}{improved accuracy by random sampling of training data (i.e., ``bagging'') resulting
 in the current random forest technique applied here.}
