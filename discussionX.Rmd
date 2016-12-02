@@ -5,10 +5,10 @@
 to other automated or semi automated approaches for WMH detection? -->
 
 
-\textcolor{blue}{
+\textcolor{black}{
 In evaluating the segmentation results, there are limited methodologies described in the
 literature for automatic segmentation of WMHs despite the numerous clinical studies}
-[@Debette:2010aa;@Kloppenborg:2014aa] \textcolor{blue}{exploring the connections between WMHs and TBI.
+[@Debette:2010aa;@Kloppenborg:2014aa] \textcolor{black}{exploring the connections between WMHs and TBI.
 However, we can extrapolate from similar application areas where such methodologies have a
 much longer history of development such as white matter lesion segmentation in
 multiple sclerosis (MS).  In a recent literature review [@Garcia-Lorenzo:2013aa], 47 papers

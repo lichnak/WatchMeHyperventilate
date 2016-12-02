@@ -4,43 +4,43 @@
 
 ## White matter hyperintensity segmentation evaluation
 
-\textcolor{blue}{In Figure 5 we provide the segmentation evaluations derived from the leave-one-out evaluation
+\textcolor{black}{In Figure 5 we provide the segmentation evaluations derived from the leave-one-out evaluation
 of the previously described TBI data over the three lesion volume ranges.
 These performance measures include sensitivity,
 positive predictive value, $F_1$ score, and relative volume difference.  The three lesion
 size ranges over which these measures are computed are meant to illustrate the variation
 in performance with lesion size.}
 
-\textcolor{blue}{Smaller lesions ($< 12$ voxels) are more difficult
+\textcolor{black}{Smaller lesions ($< 12$ voxels) are more difficult
 to identify which is why the sensitivity for this range is more varied compared with the largest
 set of lesions ($> 28$ voxels).   The first three measures are based on the identification of
 entire lesions.  The relative volume difference provides a direct assessment of the accuracy of
 the volumetric estimate when comparing the manually identified lesions versus the
 automatically predicted lesions.}
 
-\textcolor{blue}{
+\textcolor{black}{
 We averaged these measures over all lesions and all subjects which resulted in the
 following values:}
 
-* \textcolor{blue}{Stage 1}
+* \textcolor{black}{Stage 1}
 
-    * \textcolor{blue}{sensitivity} = 0.70 $\pm$ 0.34
+    * \textcolor{black}{sensitivity} = 0.70 $\pm$ 0.34
 
-    * \textcolor{blue}{PPV} = 0.42 $\pm$ 0.36
+    * \textcolor{black}{PPV} = 0.42 $\pm$ 0.36
 
-    * \textcolor{blue}{$F_1$} = 0.47 $\pm$ 0.36
+    * \textcolor{black}{$F_1$} = 0.47 $\pm$ 0.36
 
-    * \textcolor{blue}{relative volume difference} = 43 $\pm$ 38\%
+    * \textcolor{black}{relative volume difference} = 43 $\pm$ 38\%
 
-* \textcolor{blue}{Stage 2}
+* \textcolor{black}{Stage 2}
 
-    * \textcolor{blue}{sensitivity} = 0.68 $\pm$ 0.38
+    * \textcolor{black}{sensitivity} = 0.68 $\pm$ 0.38
 
-    * \textcolor{blue}{PPV} = 0.51 $\pm$ 0.40
+    * \textcolor{black}{PPV} = 0.51 $\pm$ 0.40
 
-    * \textcolor{blue}{$F_1$} = 0.52 $\pm$ 0.36
+    * \textcolor{black}{$F_1$} = 0.52 $\pm$ 0.36
 
-    * \textcolor{blue}{relative volume difference} = 43 $\pm$ 26\%
+    * \textcolor{black}{relative volume difference} = 43 $\pm$ 26\%
 
 
 
@@ -64,7 +64,7 @@ correct this issue.
 -->
 
 
-![\textcolor{blue}{Evaluation measures for both Stages of the leave-one-out protocol of the described protocol in the Methods
+![\textcolor{black}{Evaluation measures for both Stages of the leave-one-out protocol of the described protocol in the Methods
 section:  (a) sensitivity, (b) positive predictive value, (c) $F_1$ score, and (d) relative
 volume difference.   These quantitative assessments are given for three quantile ranges
 spanning the range of the manually-derived lesion volumes.    Overall improvement in all

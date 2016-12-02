@@ -15,7 +15,7 @@ Advanced Normalization Tools (ANTs)  and ANTsR toolkits.  MR
 veterans scanned in the Chronic Effects of Neurotrauma Consortium’s
 (CENC) observational study were acquired. Manual annotations were
 employed for both training and evaluation using a leave-one-out
-strategy.  \textcolor{blue}{Performance measures include sensitivity,
+strategy.  \textcolor{black}{Performance measures include sensitivity,
 positive predictive value, $F_1$ score, and relative volume difference.
 Final average results were: sensitivity = 0.68 $\pm$ 0.38, positive
 predictive value = 0.51 $\pm$ 0.40, $F_1$ = 0.52 $\pm$ 0.36,

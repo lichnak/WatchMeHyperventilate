@@ -33,7 +33,7 @@ feature images from the training data which are then employed for statistical
 prediction using a concatenated random forest framework.  This framework involves
 the use of two random forest models where the outcome (i.e., the tissue
 probability estimates) of the first RF model application,
-which we denote as "Stage1", is used as input (along with the original set of
+which we denote as "Stage 1", is used as input (along with the original set of
 feature images) to a refinement RF model segmentation which we denote as "Stage 2".
 Once these offline steps
 are performed, a new (i.e., unsegmented) subject can then be processed using the proposed pipeline.
@@ -274,7 +274,8 @@ The leave-one-out procedure is as follows:
 Several measures have been employed in the literature for evaluating
 automated white matter lesion segmentation involving such quantities as lesion load,
 voxel-based overlap measures (such as the Dice similarity coefficient), and lesion-based measures.[@Garcia-Lorenzo:2013aa].  For this work, due to the relatively small-size distribution of the lesion load in our data cohort (see Table 1), we used
-four lesion-based measures:  sensitivity, positive predictive value (i.e., precision), $F_1$ score, and relative volume difference.  The first three quantities are based on the number of false positives ($TN$, false negatives ($FN$), and true positives ($TP$) in terms of identified lesions.  It should be noted that the number of true negatives is not readily
+four lesion-based measures:  sensitivity, positive predictive value (i.e., precision), $F_1$ score, and relative volume difference.  The first three quantities are based on the number of false positives \textcolor{blue}{($FP$), true negatives ($TN$)},
+false negatives ($FN$), and true positives ($TP$) in terms of identified lesions.  It should be noted that the number of true negatives is not readily
 incorporated into measures of accuracy as the quantity of "true negatives" (i.e., correctly identified normal brain tissue) would severely skew accuracy assessments. The $F_1$ score is an assessment of accuracy which takes into account both the sensitivity,
 
 $$ sensitivity =  \frac{ TP }{TP + FN}, $$

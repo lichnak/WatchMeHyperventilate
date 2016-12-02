@@ -1,0 +1,101 @@
+---
+output:
+  word_document:
+    fig_caption: true
+  pdf_document:
+    fig_caption: true
+    latex_engine: xelatex
+    keep_tex: yes
+header-includes:
+   - \usepackage{booktabs}
+   - \usepackage[final]{changes}
+   - \usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
+   - \linespread{1.2}
+   - \usepackage[compact]{titlesec}
+   - \usepackage{enumitem}
+   - \usepackage{tikz}
+   - \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+   - \setlist{nolistsep}
+   - \titlespacing{\section}{2pt}{*0}{*0}
+   - \titlespacing{\subsection}{2pt}{*0}{*0}
+   - \titlespacing{\subsubsection}{2pt}{*0}{*0}
+   - \setlength{\parskip}{3pt}
+   - \setremarkmarkup{(#2)}
+bibliography: references.bib
+csl: national-science-foundation-grant-proposals.csl
+fontsize: 12pt
+mainfont: Georgia
+---
+
+<style type="text/css">
+body,
+code.bash{
+  font-size: 8px;
+}
+pre {
+  font-size: 8px
+}
+</style>
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set( cache=TRUE )
+```
+
+# Response to reviewers (Round 2)
+
+_\textcolor{blue}{We appreciate the additional time spent by the editors and
+reviewers in evaluating the revised version of our manuscript.
+Please see below for a point-by-point response to the minor issues raised
+during this round.}_
+
+## Reviewer 1
+
+The revised manuscript is significantly improved and much clearer. The
+authors have addressed all my comments.
+
+A couple of minor notes, Figures 7 and 8 seem to have the descriptions swapped.
+
+> _\textcolor{blue}{The figure captions had been incorrectly assigned during the
+manuscript upload process which has since been corrected.}_
+
+Also, Table 1 shows Subject 2 with 0 lesions. Was there a
+specific reason for including this subject in the study?
+
+> _\textcolor{blue}{Yes.  We included all usable data from the source study including
+the subject with 0 lesions.  In future work, we imagine using this tool in a typical
+workflow which would include subjects without lesions and believed that an evaluation would
+best be conducted if we included as much representative data as possible.
+}_
+
+## Reviewer: 2
+
+After reviewing the revised manuscript I believe it can now be accepted.  Two minor issues:
+pp20-21:  The formulas have errors i.e. false positive (FP) versus true negative (TN).
+
+> _\textcolor{blue}{We assume that the reviewer is referring to the definitions for
+sensitivity and PPV on pp. 20--21.  We consulted a number of sources and do not believe
+the given equations are incorrect.  Perhaps the reviewer is referring to the previously
+incomplete text given previous to the definition of sensitivity. This has since been
+repaired in the revised manuscript.}_
+
+Also, the legends for figures 7 and 8 are swapped.
+
+> _\textcolor{blue}{The figure captions had been incorrectly assigned during the
+manuscript upload process which has since been corrected.}_
+
+## Reviewer: 3
+
+Regarding the “imaging" methodology, 3rd para, authors need to remove
+the information about JRS, and instead just indicate ‘how’ the work was
+performed, since authorship already implies these people did the work.
+For example, instead of "The first author (J. R. S.) performed the
+manual WMH tracings…” it probably should read something like “Manual WMH
+tracings were performed….”.
+
+> _\textcolor{blue}{We believe the current text provides important precision in specifying
+how the manual tracings were performed, specifically in terms of qualifications and experience
+of the person(s) involved.    Additionally, authorship does not necessarily imply performance of the manual tracings as
+there are numerous labeled image data sets which have been made publicly available and used
+by third-parties in the development of methodologies.}_

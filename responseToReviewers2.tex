@@ -1,0 +1,175 @@
+\documentclass[12pt,]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+    \setmainfont{Georgia}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{}
+  \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+\usepackage{booktabs}
+\usepackage[final]{changes}
+\usepackage[font={small},labelfont=bf,labelsep=colon]{caption}
+\linespread{1.2}
+\usepackage[compact]{titlesec}
+\usepackage{enumitem}
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+\setlist{nolistsep}
+\titlespacing{\section}{2pt}{*0}{*0}
+\titlespacing{\subsection}{2pt}{*0}{*0}
+\titlespacing{\subsubsection}{2pt}{*0}{*0}
+\setlength{\parskip}{3pt}
+\setremarkmarkup{(#2)}
+
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\begin{document}
+\maketitle
+
+\section{Response to reviewers (Round
+2)}\label{response-to-reviewers-round-2}
+
+\emph{\textcolor{blue}{We appreciate the additional time spent by the editors and
+reviewers in evaluating the revised version of our manuscript.
+Please see below for a point-by-point response to the minor issues raised
+during this round.}}
+
+\subsection{Reviewer 1}\label{reviewer-1}
+
+The revised manuscript is significantly improved and much clearer. The
+authors have addressed all my comments.
+
+A couple of minor notes, Figures 7 and 8 seem to have the descriptions
+swapped.
+
+\begin{quote}
+\emph{\textcolor{blue}{The figure captions had been incorrectly assigned during the
+manuscript upload process which has since been corrected.}}
+\end{quote}
+
+Also, Table 1 shows Subject 2 with 0 lesions. Was there a specific
+reason for including this subject in the study?
+
+\begin{quote}
+\emph{\textcolor{blue}{Yes.  We included all usable data from the source study including
+the subject with 0 lesions.  In future work, we imagine using this tool in a typical
+workflow which would include subjects without lesions and believed that an evaluation would
+best be conducted if we included as much representative data as possible.
+}}
+\end{quote}
+
+\subsection{Reviewer: 2}\label{reviewer-2}
+
+After reviewing the revised manuscript I believe it can now be accepted.
+Two minor issues: pp20-21: The formulas have errors i.e.~false positive
+(FP) versus true negative (TN).
+
+\begin{quote}
+\emph{\textcolor{blue}{We assume that the reviewer is referring to the definitions for
+sensitivity and PPV on pp. 20--21.  We consulted a number of sources and do not believe
+the given equations are incorrect.  Perhaps the reviewer is referring to the previously
+incomplete text given previous to the definition of sensitivity. This has since been
+repaired in the revised manuscript.}}
+\end{quote}
+
+Also, the legends for figures 7 and 8 are swapped.
+
+\begin{quote}
+\emph{\textcolor{blue}{The figure captions had been incorrectly assigned during the
+manuscript upload process which has since been corrected.}}
+\end{quote}
+
+\subsection{Reviewer: 3}\label{reviewer-3}
+
+Regarding the ``imaging'' methodology, 3rd para, authors need to remove
+the information about JRS, and instead just indicate `how' the work was
+performed, since authorship already implies these people did the work.
+For example, instead of ``The first author (J. R. S.) performed the
+manual WMH tracings\ldots{}'' it probably should read something like
+``Manual WMH tracings were performed\ldots{}.''.
+
+\begin{quote}
+\emph{\textcolor{blue}{We believe the current text provides important precision in specifying
+how the manual tracings were performed, specifically in terms of qualifications and experience
+of the person(s) involved.    Additionally, authorship does not necessarily imply performance of the manual tracings as
+there are numerous labeled image data sets which have been made publicly available and used
+by third-parties in the development of methodologies.}}
+\end{quote}
+
+\hypertarget{refs}{}
+
+\end{document}

@@ -64,7 +64,7 @@ render( stitchedFile, output_format = "pdf_document" )
 
 
 singleRmdFiles <- c(
-               "responseToReviewers.Rmd",
+               "responseToReviewers2.Rmd",
                "figureCaptions.Rmd"
    )
 
