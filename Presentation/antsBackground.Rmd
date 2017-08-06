@@ -3,7 +3,9 @@
 
 <BR><BR>
 
-![](./Figures/highresdiffeos.jpg)
+\begin{center}
+\includegraphics[width=5.25cm]{./Figures/highresdiffeos.jpg}
+\end{center}
 
 ##  ANTs tools
 

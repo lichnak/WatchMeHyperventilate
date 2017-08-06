@@ -1,6 +1,12 @@
 ---
-title: ANTs and WMHs
-author: James Stone and Nick Tustison
+title: 'Automated segmentation of WMHs'
+subtitle:  Current status and future directions
+author: |
+  | James Stone and Nick Tustison
+institute: |  
+  | Department of Radiology and Medical Imaging
+  | University of Virginia
+date: "August 11, 2017"
 bibliography:
 logo:
 output:
@@ -9,30 +15,8 @@ output:
     fonttheme:  structurebold
     highlight: tango
     incremental: false
-    theme:  AnnArbor
-    includes:
-      in_header: mystyle.tex
+    theme:  Singapore
     toc: no
-  pdf_document:
-    toc: true
-    highlight: zenburn
-  html_document:
-    toc: true
-    theme: readable
-  revealjs_presentation:
-    pandoc_args: [ "--slide-level", "2" ]
-    incremental: true
-    widescreen: true
-    smaller: false
-    theme: night
-    transition: fade
-    highlight: zenburn
-    center: true
-    self_contained: false
-  ioslides_presentation:
-    css: atk.css
-    incremental: false
-    widescreen: true
-    smaller: false
-    fig_width: 5
+header-includes:
+   - \usepackage{booktabs}
 ---
